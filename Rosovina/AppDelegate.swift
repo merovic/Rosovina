@@ -6,15 +6,41 @@
 //
 
 import UIKit
+import MOLH
+import Firebase
+import IQKeyboardManagerSwift
+import SDWebImageSVGCoder
+import GooglePlaces
+import GoogleMaps
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        FirebaseApp.configure()
+        
+        GMSPlacesClient.provideAPIKey("AIzaSyCCiAbMIfF_IpdCxFKB7CZTgqbJrlOc09o")
+        GMSServices.provideAPIKey("AIzaSyCCiAbMIfF_IpdCxFKB7CZTgqbJrlOc09o")
+        
+        let SVGCoder = SDImageSVGCoder.shared
+        SDImageCodersManager.shared.addCoder(SVGCoder)
+        
+        fontApply()
+        
+        MOLH.shared.activate(true)
+        IQKeyboardManager.shared.enable = true
+        
+        MOLH.setLanguageTo("en")
+        
         return true
+    }
+    
+    func fontApply(){
+        UILabel.appearance().substituteFontName = "Poppins"
+        UITextView.appearance().substituteFontName = "Poppins"
+        UITextField.appearance().substituteFontName = "Poppins"
     }
 
     // MARK: UISceneSession Lifecycle
@@ -30,7 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
 
 }
 

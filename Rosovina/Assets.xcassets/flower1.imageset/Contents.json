@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "PLACE YOUR DESIGN HERE.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "PLACE YOUR DESIGN HERE@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "PLACE YOUR DESIGN HERE@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShoppingCartView" customModule="Rosovina" customModuleProvider="target">
+            <connections>
+                <outlet property="backButton" destination="SMI-GA-vwC" id="DS7-Bc-Kgy"/>
+                <outlet property="checkOutButton" destination="vD1-Tu-Dre" id="cfj-ly-Q5R"/>
+                <outlet property="container" destination="8Hn-Pb-tND" id="o3R-xf-u0n"/>
+                <outlet property="placeholderView" destination="ah7-JS-Mgm" id="bHu-12-gv2"/>
+                <outlet property="startAddingButton" destination="UeR-Cs-BJc" id="4uX-l6-eNs"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6kg-iF-aNs">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="116"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SMI-GA-vwC">
+                            <rect key="frame" x="8" y="61.666666666666657" width="35" height="35"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="35" id="bEL-Ed-h4f"/>
+                                <constraint firstAttribute="width" constant="35" id="rCb-At-5E7"/>
+                            </constraints>
+                            <color key="tintColor" red="0.043137254899999998" green="0.66666666669999997" blue="0.6705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <state key="normal" image="arrow"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="invertedLoc" value="YES"/>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cart" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTq-uE-b1k">
+                            <rect key="frame" x="96.666666666666686" y="67" width="200" height="24"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="200" id="rv9-gA-BBP"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                            <color key="textColor" red="0.1764705882" green="0.19215686269999999" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="SMI-GA-vwC" firstAttribute="centerY" secondItem="RTq-uE-b1k" secondAttribute="centerY" id="1ZV-pE-zg1"/>
+                        <constraint firstItem="RTq-uE-b1k" firstAttribute="top" secondItem="6kg-iF-aNs" secondAttribute="top" constant="67" id="73H-JM-IcE"/>
+                        <constraint firstItem="RTq-uE-b1k" firstAttribute="centerX" secondItem="6kg-iF-aNs" secondAttribute="centerX" id="UPL-Hy-DNb"/>
+                        <constraint firstAttribute="height" constant="116" id="gor-Wx-281"/>
+                        <constraint firstItem="SMI-GA-vwC" firstAttribute="leading" secondItem="6kg-iF-aNs" secondAttribute="leading" constant="8" id="nP2-rS-C64"/>
+                    </constraints>
+                </view>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Hn-Pb-tND">
+                    <rect key="frame" x="16" y="124" width="361" height="614"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vD1-Tu-Dre">
+                    <rect key="frame" x="24" y="746" width="345" height="56"/>
+                    <color key="backgroundColor" red="0.1764705882" green="0.19215686269999999" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="fhC-E5-bk7"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Check out">
+                        <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </buttonConfiguration>
+                </button>
+                <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="ah7-JS-Mgm">
+                    <rect key="frame" x="16" y="225.66666666666663" width="361" height="401"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Group 58" translatesAutoresizingMaskIntoConstraints="NO" id="1Fr-gg-JoL">
+                            <rect key="frame" x="84.666666666666686" y="0.0" width="192" height="188"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="188" id="An6-JJ-ffi"/>
+                                <constraint firstAttribute="width" constant="192" id="xtY-Gn-GQj"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your cart is empty" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SQK-DK-GqQ">
+                            <rect key="frame" x="0.0" y="218.00000000000003" width="361" height="28.666666666666657"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                            <color key="textColor" red="0.28235294117647058" green="0.39215686274509803" blue="0.47843137254901957" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Why don’t you go and fill it with wonderful beauty items?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j2j-At-zRN">
+                            <rect key="frame" x="26.333333333333343" y="276.66666666666663" width="308.33333333333326" height="38.333333333333314"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" red="0.28235294119999998" green="0.3921568627" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UeR-Cs-BJc">
+                            <rect key="frame" x="0.0" y="345" width="361" height="56"/>
+                            <color key="backgroundColor" red="0.1764705882" green="0.19215686269999999" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="56" id="glY-55-UmK"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                            <state key="normal" title="Start adding">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="SQK-DK-GqQ" secondAttribute="trailing" id="1gt-fg-GgE"/>
+                        <constraint firstAttribute="trailing" secondItem="UeR-Cs-BJc" secondAttribute="trailing" id="ikh-wg-Sv5"/>
+                        <constraint firstItem="SQK-DK-GqQ" firstAttribute="leading" secondItem="ah7-JS-Mgm" secondAttribute="leading" id="lxs-ef-2OT"/>
+                        <constraint firstItem="UeR-Cs-BJc" firstAttribute="leading" secondItem="ah7-JS-Mgm" secondAttribute="leading" id="rzj-f2-dcp"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="ah7-JS-Mgm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="25K-BU-0xY"/>
+                <constraint firstItem="vD1-Tu-Dre" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="24" id="6su-H8-T4c"/>
+                <constraint firstItem="8Hn-Pb-tND" firstAttribute="top" secondItem="6kg-iF-aNs" secondAttribute="bottom" constant="8" symbolic="YES" id="AIp-BM-0N2"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="8Hn-Pb-tND" secondAttribute="trailing" constant="16" id="Bt6-0u-RWx"/>
+                <constraint firstItem="ah7-JS-Mgm" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="UdH-aP-ao6"/>
+                <constraint firstItem="6kg-iF-aNs" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="hc4-pG-9Q1"/>
+                <constraint firstAttribute="trailing" secondItem="ah7-JS-Mgm" secondAttribute="trailing" constant="16" id="iJs-x1-jex"/>
+                <constraint firstItem="6kg-iF-aNs" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="kPN-yG-oFx"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="vD1-Tu-Dre" secondAttribute="trailing" constant="24" id="pWS-1b-wuF"/>
+                <constraint firstItem="vD1-Tu-Dre" firstAttribute="top" secondItem="8Hn-Pb-tND" secondAttribute="bottom" constant="8" symbolic="YES" id="qAn-ZU-Q2D"/>
+                <constraint firstItem="6kg-iF-aNs" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="qGa-qv-cgo"/>
+                <constraint firstItem="ah7-JS-Mgm" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="san-Yk-VLN"/>
+                <constraint firstItem="8Hn-Pb-tND" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="tP0-Jw-X5P"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="vD1-Tu-Dre" secondAttribute="bottom" constant="16" id="td9-qu-09i"/>
+            </constraints>
+            <point key="canvasLocation" x="90.839694656488547" y="19.718309859154932"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Group 58" width="192" height="188"/>
+        <image name="arrow" width="24" height="21.666666030883789"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
