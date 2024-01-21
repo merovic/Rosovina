@@ -130,6 +130,8 @@ class CheckoutView: UIViewController {
             .sink { _ in
                 let newViewController = SelectAddressView()
                 newViewController.delegate = self
+                newViewController.modalPresentationStyle = .overCurrentContext
+                newViewController.modalTransitionStyle = .crossDissolve
                 self.present(newViewController, animated: true)
             }
             .store(in: &bindings)
@@ -166,9 +168,10 @@ class CheckoutView: UIViewController {
             
         }.store(in: &bindings)
         
-        viewModel!.$orderCreated.sink { response in
-            if response {
+        viewModel!.$orderCreatedID.sink { response in
+            if response != 0 {
                 let newViewController = CheckoutSucessView()
+                newViewController.orderID = response
                 self.navigationController?.pushViewController(newViewController, animated: true)
             }
         }.store(in: &bindings)

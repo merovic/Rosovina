@@ -19,9 +19,11 @@ class CheckoutViewModel: ObservableObject {
     
     @Published var selectedLocation: UserAddress?
     
-    @Published var orderCreated = false
+    @Published var orderCreatedID = 0
                                         
     @Published var isAnimating = false
+    
+    let token = UIDevice.current.identifierForVendor!.uuidString
                 
     //---------------------
         
@@ -38,7 +40,7 @@ class CheckoutViewModel: ObservableObject {
         
         self.isAnimating = true
 
-        dataService.createOrder(request: CreateOrderAPIRequest(mobileToken: "", promoCode: "55sdssad"))
+        dataService.createOrder(request: CreateOrderAPIRequest(mobileToken: token))
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in
@@ -51,7 +53,7 @@ class CheckoutViewModel: ObservableObject {
                 },
                 receiveValue: { response in
                     self.isAnimating = false
-                    self.orderCreated = response.success
+                    self.orderCreatedID = response.data ?? 0
                 }
             )
             .store(in: &cancellables)

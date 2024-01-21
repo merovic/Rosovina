@@ -284,8 +284,17 @@ class ProductDetailsView: UIViewController {
                 self.imageThree.isHidden = !(product!.images.count == 3)
                 
                 self.imageOne.sd_setImage(with: URL(string: product!.imageURL), placeholderImage: UIImage(named: "placeholder.png"))
-                self.imageTwo.sd_setImage(with: URL(string: product!.images[0]), placeholderImage: UIImage(named: "placeholder.png"))
-                self.imageThree.sd_setImage(with: URL(string: product!.images[1]), placeholderImage: UIImage(named: "placeholder.png"))
+                if !product!.images.isEmpty{
+                    self.imageTwo.sd_setImage(with: URL(string: product!.images[0]), placeholderImage: UIImage(named: "placeholder.png"))
+                    if product!.images.count > 1 {
+                        self.imageThree.sd_setImage(with: URL(string: product!.images[1]), placeholderImage: UIImage(named: "placeholder.png"))
+                    } else{
+                        self.imageTwo.isHidden = true
+                    }
+                } else{
+                    self.imageOne.isHidden = true
+                    self.imageTwo.isHidden = true
+                }
                 
                 self.titleLabel.text = product!.title
                 self.priceLabel.text = "$" + String(product!.price)

@@ -18,7 +18,8 @@ struct MyOrder: Codable, Identifiable {
     let isGuest: Bool
     let paymentMethodID: Int
     let paymentMethodName: String
-    let subTotal, discountPercentage, discountAmount, total: Int
+    let subTotal, discountAmount, total: Int
+    let discountPercentage: Double
     let createdAt: String
     let items: [MyOrderItem]
     let activities: [Activity]

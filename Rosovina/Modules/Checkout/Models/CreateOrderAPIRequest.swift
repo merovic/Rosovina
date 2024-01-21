@@ -9,11 +9,10 @@ import Foundation
 
 // MARK: - CreateOrderAPIRequest
 struct CreateOrderAPIRequest: Codable {
-    let mobileToken, promoCode: String
+    let mobileToken: String
 
     enum CodingKeys: String, CodingKey {
         case mobileToken = "mobile_token"
-        case promoCode = "promo_code"
     }
 }
 

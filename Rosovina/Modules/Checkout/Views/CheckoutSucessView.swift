@@ -21,6 +21,8 @@ class CheckoutSucessView: UIViewController {
         }
     }
     
+    var orderID: Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -31,6 +33,8 @@ class CheckoutSucessView: UIViewController {
     }
     
     @IBAction func trackClicked(_ sender: Any) {
-        
+        let newViewController = OrderTrackingView()
+        newViewController.viewModel = MyOrderDetailsViewModel(orderID: String(orderID))
+        self.navigationController?.pushViewController(newViewController, animated: true)
     }
 }
