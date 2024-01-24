@@ -15,9 +15,13 @@ class PhoneNumberView: UIViewController {
     
     var viewModel: PhoneNumberViewModel!
     
+    var countryPickerViewModel: CountryPickerViewModel = CountryPickerViewModel()
+    
     private let loadingView = LoadingAnimation()
 
     @IBOutlet weak var backButton: UIButton!
+    
+    @IBOutlet weak var countryPickerView: UIView!
     
     @IBOutlet weak var phoneView: UIView! {
         didSet {
@@ -36,6 +40,11 @@ class PhoneNumberView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         BindView()
+        AttachViews()
+    }
+    
+    func AttachViews() {
+        self.countryPickerView.EmbedSwiftUIView(view: CountryPicker(viewModel: countryPickerViewModel), parent: self)
     }
     
     func BindView(){
@@ -56,19 +65,29 @@ class PhoneNumberView: UIViewController {
             }
             .store(in: &bindings)
         
+        countryPickerViewModel.$phoneCode.sink { code in
+            self.viewModel.phoneCode = code
+        }.store(in: &bindings)
+        
         doneButton.tapPublisher
             .sink { _ in
-                self.viewModel.sendOTP()
+                if !self.viewModel.phoneText.isEmpty && self.viewModel.phoneText.isValidPhone() {
+                    self.viewModel.otpSentStatus = .success
+                }else{
+                    self.viewModel.otpSentStatus = .failed
+                }
+                
+                //self.viewModel.sendOTP()
             }
             .store(in: &bindings)
         
         viewModel.$otpSentStatus.sink { v in
             if v == .success{
-//                let newViewController = MainTabView(nibName: "MainTabView", bundle: nil)
-//                newViewController.modalPresentationStyle = .fullScreen
-//                self.present(newViewController, animated: true, completion: nil)
+                let newViewController = VerificationViewController()
+                newViewController.viewModel = VerificationViewModel(phoneText: self.viewModel.phoneText, isResetPassword: true)
+                self.navigationController?.pushViewController(newViewController, animated: true)
             }else if v == .failed{
-                //Alert.sawaShow(imageName: "warning", title: "Login Failed", subtitle: "Password is Incorrect", buttonTitle: "Ok", context: self)
+                Alert.show("Reset Failed", message: "Please Try Again", context: self)
             }
         }.store(in: &bindings)
         

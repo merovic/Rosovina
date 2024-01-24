@@ -28,6 +28,7 @@ class MyOrdersViewModel: ObservableObject {
     
     init(dataService: MyOrdersService = AppMyOrdersService()) {
         self.dataService = dataService
+        self.getMyOrders()
     }
         
     func getMyOrders() {

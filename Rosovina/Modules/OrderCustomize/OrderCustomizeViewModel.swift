@@ -27,6 +27,8 @@ class OrderCustomizeViewModel: ObservableObject {
     
     @Published var cartUpdated = false
     
+    @Published var errorMessage = ""
+    
     @Published var isAnimating = false
                 
     //---------------------
@@ -64,25 +66,30 @@ class OrderCustomizeViewModel: ObservableObject {
     }
     
     func updateCartForCustomize() {
-                
-        dataService.updateCart(request: UpdateCartAPIRequest(customize: Customize(cardID: selectedGiftCardID, to: toText, message: messageText, feelingLink: shareLink)))
-            .receive(on: DispatchQueue.main)
-            .sink(
-                receiveCompletion: { (completion) in
-                    switch completion {
-                    case .finished:
-                        print("Publisher stopped observing")
-                    case .failure(_):
+        
+        if selectedGiftCardID != 0 && !toText.isEmpty && !messageText.isEmpty {
+            dataService.updateCart(request: UpdateCartAPIRequest(customize: Customize(cardID: selectedGiftCardID, to: toText, message: messageText, feelingLink: shareLink)))
+                .receive(on: DispatchQueue.main)
+                .sink(
+                    receiveCompletion: { (completion) in
+                        switch completion {
+                        case .finished:
+                            print("Publisher stopped observing")
+                        case .failure(_):
+                            self.isAnimating = false
+                        }
+                    },
+                    receiveValue: { response in
                         self.isAnimating = false
+                        self.cartResponse = response.data!
+                        self.cartUpdated = response.success
                     }
-                },
-                receiveValue: { response in
-                    self.isAnimating = false
-                    self.cartResponse = response.data!
-                    self.cartUpdated = response.success
-                }
-            )
-            .store(in: &cancellables)
+                )
+                .store(in: &cancellables)
+        } else{
+            errorMessage = "Complete Your Inputs First"
+        }
+        
     }
             
 }

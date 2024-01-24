@@ -57,13 +57,27 @@ class VerificationViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             }
             .store(in: &bindings)
+                
+        viewModel.$forgetPasswordStatus.sink { v in
+            if v == .success{
+                let newViewController = ForgetPasswordView()
+                newViewController.viewModel = CreatePasswordViewModel(phoneText: self.viewModel.phoneText)
+                self.navigationController?.pushViewController(newViewController, animated: true)
+            }else if v == .failed{
+                Alert.show("Forget Password Error", message: self.viewModel.errorMessage, context: self)
+            }
+        }.store(in: &bindings)
         
         viewModel.$registrationStatus.sink { v in
             if v == .success{
-                let newViewController = DashboardTabBarController()
-                self.navigationController?.pushViewController(newViewController, animated: true)
+                let nav1 = UINavigationController()
+                let vc = DashboardTabBarController()
+                nav1.isNavigationBarHidden = true
+                nav1.viewControllers = [vc]
+                nav1.modalPresentationStyle = .fullScreen
+                self.present(nav1, animated: true)
             }else if v == .failed{
-                Alert.show("Registration Error", message: self.viewModel.errorMessage, context: self)
+                Alert.show("OTP Error", message: self.viewModel.errorMessage, context: self)
             }
         }.store(in: &bindings)
     }

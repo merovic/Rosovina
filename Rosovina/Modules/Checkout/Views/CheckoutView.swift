@@ -95,11 +95,8 @@ class CheckoutView: UIViewController {
         addAddressButton.tapPublisher
             .sink { _ in
                 let newViewController = LocationPickerView()
-                
-                // Create a new navigation controller for the second view controller
                 let navigationController = UINavigationController(rootViewController: newViewController)
-                
-                // Present the new navigation controller modally
+                navigationController.modalPresentationStyle = .fullScreen
                 self.present(navigationController, animated: true, completion: nil)
             }
             .store(in: &bindings)
@@ -107,14 +104,8 @@ class CheckoutView: UIViewController {
         addAddressInitButton.tapPublisher
             .sink { _ in
                 let newViewController = LocationPickerView()
-                
-                // Create a new navigation controller for the second view controller
                 let navigationController = UINavigationController(rootViewController: newViewController)
-                
-                // Present it in fullscreen
                 navigationController.modalPresentationStyle = .fullScreen
-                
-                // Present the new navigation controller modally
                 self.present(navigationController, animated: true, completion: nil)
                 
                 navigationController.setNavigationBarHidden(true, animated: false)

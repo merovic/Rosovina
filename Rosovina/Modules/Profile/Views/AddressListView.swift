@@ -85,9 +85,17 @@ struct AddressitemSwiftUIView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10){
             HStack{
-                Text(address.name)
-                    .font(.poppinsFont(size: 16, weight: .bold))
-                    .foregroundColor(Color.black)
+                HStack{
+                    Text(address.name)
+                        .font(.poppinsFont(size: 16, weight: .bold))
+                        .foregroundColor(Color.black)
+                    if address.isDefault {
+                        Text(" (default)")
+                            .font(.poppinsFont(size: 16, weight: .bold))
+                            .foregroundColor(Color.gray)
+                    }
+                }
+                
                 Spacer()
                 Image("Edit")
                     .resizable()

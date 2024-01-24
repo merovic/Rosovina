@@ -28,8 +28,12 @@ class CheckoutSucessView: UIViewController {
     }
     
     @IBAction func continueClicked(_ sender: Any) {
-        let newViewController = DashboardTabBarController()
-        self.navigationController?.pushViewController(newViewController, animated: true)
+        let nav1 = UINavigationController()
+        let vc = DashboardTabBarController()
+        nav1.isNavigationBarHidden = true
+        nav1.viewControllers = [vc]
+        nav1.modalPresentationStyle = .fullScreen
+        self.present(nav1, animated: true)
     }
     
     @IBAction func trackClicked(_ sender: Any) {

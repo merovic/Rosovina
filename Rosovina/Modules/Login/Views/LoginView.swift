@@ -15,9 +15,13 @@ class LoginView: UIViewController {
     
     var viewModel: LoginViewModel = LoginViewModel()
     
+    var countryPickerViewModel: CountryPickerViewModel = CountryPickerViewModel()
+    
     private let loadingView = LoadingAnimation()
 
     @IBOutlet weak var signupStack: UIStackView!
+    
+    @IBOutlet weak var countryPickerView: UIView!
     
     @IBOutlet weak var emailView: UIView! {
         didSet {
@@ -65,6 +69,11 @@ class LoginView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         BindView()
+        AttachViews()
+    }
+    
+    func AttachViews() {
+        self.countryPickerView.EmbedSwiftUIView(view: CountryPicker(viewModel: countryPickerViewModel), parent: self)
     }
     
     func BindView(){
@@ -102,13 +111,23 @@ class LoginView: UIViewController {
 //            }
 //            .store(in: &bindings)
         
+        countryPickerViewModel.$phoneCode.sink { code in
+            self.viewModel.phoneCode = code
+        }.store(in: &bindings)
+        
         viewModel.$loginStatus.sink { v in
             if v == .success{
                 self.passwordIncorrectLabel.isHidden = true
-                let newViewController = DashboardTabBarController()
-                self.navigationController?.pushViewController(newViewController, animated: true)
+                let nav1 = UINavigationController()
+                let vc = DashboardTabBarController()
+                nav1.isNavigationBarHidden = true
+                nav1.viewControllers = [vc]
+                nav1.modalPresentationStyle = .fullScreen
+                self.present(nav1, animated: true)
             }else if v == .failed{
                 self.passwordIncorrectLabel.isHidden = false
+            }else if v == .error{
+                Alert.show("Login Failed", message: "Check your Inputs First", context: self)
             }
         }.store(in: &bindings)
         
@@ -127,6 +146,15 @@ class LoginView: UIViewController {
         
     }
     
+    @IBAction func skipClicked(_ sender: Any) {
+        let nav1 = UINavigationController()
+        let vc = DashboardTabBarController()
+        nav1.isNavigationBarHidden = true
+        nav1.viewControllers = [vc]
+        nav1.modalPresentationStyle = .fullScreen
+        self.present(nav1, animated: true)
+    }
+    
     @IBAction func signUpClicked(_ sender: Any) {
         let newViewController = RegistrationView()
         self.navigationController?.pushViewController(newViewController, animated: true)
@@ -134,6 +162,7 @@ class LoginView: UIViewController {
     
     @IBAction func forgetPasswordClicked(_ sender: Any) {
         let newViewController = PhoneNumberView()
+        newViewController.viewModel = PhoneNumberViewModel()
         self.navigationController?.pushViewController(newViewController, animated: true)
     }
     

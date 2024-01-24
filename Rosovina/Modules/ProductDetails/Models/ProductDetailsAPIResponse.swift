@@ -19,7 +19,7 @@ struct ProductDetailsAPIResponse: Codable {
     let rate: String?
     let imageURL: String
     let title, description, additionalInfo: String
-    let price, discountAmount: Int
+    let price, discountAmount: Double
     let discountPercentage: String
     let isActive: Bool
     let variants: [Variant]

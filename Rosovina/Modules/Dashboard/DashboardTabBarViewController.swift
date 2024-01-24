@@ -13,6 +13,7 @@ class DashboardTabBarController: UITabBarController, UITabBarControllerDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
         delegate = self
     }
     

@@ -30,6 +30,8 @@ class VerificationViewModel: ObservableObject {
     
     @Published var registrationStatus: PhoneStatus = .idle
     
+    @Published var forgetPasswordStatus: PhoneStatus = .idle
+    
     @Published var canVerify = false
     
     @Published var errorMessage =  ""
@@ -40,11 +42,11 @@ class VerificationViewModel: ObservableObject {
     
     let dataService: RegistrationService
     
-    init(phoneText:String, nameText:String, emailText:String, passwordText:String, isResetPassword:Bool = false,dataService: RegistrationService = AppRegistrationService()) {
+    init(phoneText:String, nameText:String? = nil, emailText:String? = nil, passwordText:String? = nil, isResetPassword:Bool = false, dataService: RegistrationService = AppRegistrationService()) {
         self.phoneText = phoneText
-        self.nameText = nameText
-        self.emailText = emailText
-        self.passwordText = passwordText
+        self.nameText = nameText ?? ""
+        self.emailText = emailText ?? ""
+        self.passwordText = passwordText ?? ""
         
         self.isResetPassword = isResetPassword
         self.dataService = dataService
@@ -67,31 +69,44 @@ class VerificationViewModel: ObservableObject {
     
     
     func otpCheck() {
-                
-        self.isAnimating = true
-        
-        dataService.otp_check(request: OTPCheckAPIRequest(phone: checkForPhone(phone: phoneText), otp: codeText))
-            .receive(on: DispatchQueue.main)
-            .sink(
-                receiveCompletion: { (completion) in
-                    switch completion {
-                    case .finished:
-                        print("Publisher stopped observing")
-                    case .failure(_):
+             
+        if !codeText.isEmpty {
+            self.isAnimating = true
+            dataService.otp_check(request: OTPCheckAPIRequest(phone: checkForPhone(phone: phoneText), otp: codeText))
+                .receive(on: DispatchQueue.main)
+                .sink(
+                    receiveCompletion: { (completion) in
+                        switch completion {
+                        case .finished:
+                            print("Publisher stopped observing")
+                        case .failure(_):
+                            self.isAnimating = false
+                        }
+                    },
+                    receiveValue: { response in
                         self.isAnimating = false
+                        if response.success {
+                            if self.isResetPassword {
+                                self.forgetPasswordStatus = .success
+                            }else{
+                                self.register()
+                            }
+                        }else{
+                            self.errorMessage = response.message
+                            if self.isResetPassword {
+                                self.forgetPasswordStatus = .failed
+                            }else{
+                                self.registrationStatus = .failed
+                            }
+                        }
                     }
-                },
-                receiveValue: { response in
-                    self.isAnimating = false
-                    if response.success {
-                        self.register()
-                    }else{
-                        self.errorMessage = response.message
-                        self.registrationStatus = .failed
-                    }
-                }
-            )
-            .store(in: &cancellables)
+                )
+                .store(in: &cancellables)
+        }else{
+            self.errorMessage = "Check Your Inputs First"
+            self.registrationStatus = .failed
+        }
+        
     }
     
     func register() {

@@ -88,29 +88,33 @@ class CreatePasswordViewModel: ObservableObject {
     
     func resetPassword() {
             
-        self.isAnimating = true
-        
-        dataService.resetPassword(request: ResetPasswordAPIRequest(phone: checkForPhone(phone: self.phoneText), newPassword: passwordText), token: token)
-            .receive(on: DispatchQueue.main)
-            .sink(
-                receiveCompletion: { (completion) in
-                    switch completion {
-                    case .finished:
-                        print("Publisher stopped observing")
-                    case .failure(_):
+        if canRegister{
+            self.isAnimating = true
+            dataService.resetPassword(request: ResetPasswordAPIRequest(phone: checkForPhone(phone: self.phoneText), newPassword: passwordText), token: token)
+                .receive(on: DispatchQueue.main)
+                .sink(
+                    receiveCompletion: { (completion) in
+                        switch completion {
+                        case .finished:
+                            print("Publisher stopped observing")
+                        case .failure(_):
+                            self.isAnimating = false
+                        }
+                    },
+                    receiveValue: { response in
                         self.isAnimating = false
+                        if response.success{
+                            self.resetStatus = .success
+                        }else{
+                            self.resetStatus = .failed
+                        }
                     }
-                },
-                receiveValue: { response in
-                    self.isAnimating = false
-                    if response.success{
-                        self.resetStatus = .success
-                    }else{
-                        self.resetStatus = .failed
-                    }
-                }
-            )
-            .store(in: &cancellables)
+                )
+                .store(in: &cancellables)
+        } else{
+            self.resetStatus = .failed
+        }
+        
     }
     
     func login() {

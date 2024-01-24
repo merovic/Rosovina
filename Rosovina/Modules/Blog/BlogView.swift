@@ -39,7 +39,7 @@ struct BlogsItemSwiftUIView: View {
     var body: some View {
         VStack(alignment: .leading){
             WebImage(url: URL(string: ""))
-                .placeholder(Image("flower5").resizable())
+                //.placeholder(Image("flower5").resizable())
                 .resizable()
                 .indicator(.activity)
                 .scaledToFit()

@@ -43,17 +43,17 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flower3" translatesAutoresizingMaskIntoConstraints="NO" id="LhS-dV-hox">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LhS-dV-hox">
                     <rect key="frame" x="0.0" y="0.0" width="393" height="330"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="330" id="d8a-Z6-WAK"/>
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MYo-EM-qMW" customClass="CardView" customModule="Rosovina" customModuleProvider="target">
-                    <rect key="frame" x="62.666666666666657" y="280" width="268" height="100"/>
+                    <rect key="frame" x="30" y="280" width="333" height="100"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Fz2-Ud-9RA">
-                            <rect key="frame" x="8.0000000000000071" y="16" width="106.66666666666669" height="68"/>
+                            <rect key="frame" x="8" y="16" width="106.66666666666667" height="68"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pink Love" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rgh-aY-5H4">
                                     <rect key="frame" x="0.0" y="0.0" width="106.66666666666667" height="28.666666666666668"/>
@@ -70,7 +70,7 @@
                             </subviews>
                         </stackView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$32.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rkh-ZM-rh4">
-                            <rect key="frame" x="137.66666666666669" y="49" width="122.33333333333331" height="43"/>
+                            <rect key="frame" x="202.66666666666666" y="49" width="122.33333333333334" height="43"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="36"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -79,7 +79,6 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstItem="Fz2-Ud-9RA" firstAttribute="centerY" secondItem="MYo-EM-qMW" secondAttribute="centerY" id="IOf-Os-50H"/>
-                        <constraint firstAttribute="width" constant="268" id="PG4-FT-4cf"/>
                         <constraint firstItem="Fz2-Ud-9RA" firstAttribute="leading" secondItem="MYo-EM-qMW" secondAttribute="leading" constant="8" id="PjY-5B-ssv"/>
                         <constraint firstAttribute="trailing" secondItem="Rkh-ZM-rh4" secondAttribute="trailing" constant="8" id="Uio-Sm-hpu"/>
                         <constraint firstAttribute="bottom" secondItem="Rkh-ZM-rh4" secondAttribute="bottom" constant="8" id="VBi-tp-ZZ1"/>
@@ -297,7 +296,7 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="80I-z5-Kz9">
                                     <rect key="frame" x="0.0" y="0.0" width="56" height="73"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Rectangle 32" translatesAutoresizingMaskIntoConstraints="NO" id="fDD-Ky-773">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fDD-Ky-773">
                                             <rect key="frame" x="0.0" y="0.0" width="56" height="67"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="56" id="xOO-Mb-I3d"/>
@@ -317,7 +316,7 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="MsK-Ng-8Dv">
                                     <rect key="frame" x="66" y="0.0" width="56" height="73"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Rectangle 32" translatesAutoresizingMaskIntoConstraints="NO" id="CEf-NI-3h2">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CEf-NI-3h2">
                                             <rect key="frame" x="0.0" y="0.0" width="56" height="73"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="56" id="VXe-W7-nvA"/>
@@ -337,7 +336,7 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="pHV-N7-gCw">
                                     <rect key="frame" x="132" y="0.0" width="56" height="73"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Rectangle 32" translatesAutoresizingMaskIntoConstraints="NO" id="fid-aV-N3I">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fid-aV-N3I">
                                             <rect key="frame" x="0.0" y="0.0" width="56" height="73"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="56" id="BUL-4J-xzR"/>
@@ -372,6 +371,7 @@
                 <constraint firstAttribute="trailing" secondItem="7uN-Am-wNr" secondAttribute="trailing" constant="16" id="0RV-0C-1do"/>
                 <constraint firstItem="LhS-dV-hox" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="4nN-aZ-qg2"/>
                 <constraint firstItem="MYo-EM-qMW" firstAttribute="top" secondItem="LhS-dV-hox" secondAttribute="bottom" constant="-50" id="782-BH-bDq"/>
+                <constraint firstItem="MYo-EM-qMW" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="30" id="CmK-jQ-tAz"/>
                 <constraint firstItem="BZA-ig-1ZZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="DBa-2a-Og4"/>
                 <constraint firstItem="LhS-dV-hox" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="EC5-3f-fNa"/>
                 <constraint firstItem="mF7-Fl-2E1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="H2q-hh-6jM"/>
@@ -385,6 +385,7 @@
                 <constraint firstItem="xLh-tK-tGf" firstAttribute="top" secondItem="MYo-EM-qMW" secondAttribute="bottom" constant="8" symbolic="YES" id="Z3T-iB-JAp"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="BZA-ig-1ZZ" secondAttribute="trailing" constant="16" id="aAE-Y9-xS8"/>
                 <constraint firstItem="BOv-zc-kZK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="24" id="fVK-Hk-Nz6"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="MYo-EM-qMW" secondAttribute="trailing" constant="30" id="l2I-Bb-ob9"/>
                 <constraint firstItem="BOv-zc-kZK" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="lDv-4h-wD0"/>
                 <constraint firstItem="MYo-EM-qMW" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="zVZ-wS-Mg3"/>
                 <constraint firstItem="LhS-dV-hox" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="zvu-4t-bbF"/>
@@ -397,11 +398,9 @@
         <image name="Ellipse 12" width="4" height="4"/>
         <image name="Frame" width="19" height="16"/>
         <image name="Minus" width="32" height="32"/>
-        <image name="Rectangle 32" width="67" height="67"/>
         <image name="StarBig" width="33" height="30"/>
         <image name="arrow" width="24" height="21.666666030883789"/>
         <image name="cart" width="14.333333015441895" height="15.666666984558105"/>
-        <image name="flower3" width="375" height="462"/>
         <namedColor name="AccentColor">
             <color red="0.17599999904632568" green="0.19200000166893005" blue="0.25900000333786011" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

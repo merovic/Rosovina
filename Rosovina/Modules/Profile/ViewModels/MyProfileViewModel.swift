@@ -19,7 +19,7 @@ class MyProfileViewModel: ObservableObject {
     
     @Published var userFirstName = String(LoginDataService.shared.getFullName().split(separator: " ")[0])
     
-    @Published var userLastName = String(LoginDataService.shared.getFullName().split(separator: " ")[1])
+    @Published var userLastName = LoginDataService.shared.getFullName().split(separator: " ").count > 2 ? String(LoginDataService.shared.getFullName().split(separator: " ")[1]) : ""
         
     @Published var userEmail = LoginDataService.shared.getEmail()
     

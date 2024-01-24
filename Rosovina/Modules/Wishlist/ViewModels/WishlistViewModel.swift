@@ -67,14 +67,15 @@ class WishlistViewModel: ObservableObject {
                 },
                 receiveValue: { response in
                     self.isAnimating = false
-                    self.wishlistItems = response.data?.items ?? []
                 }
             )
             .store(in: &cancellables)
     }
     
     func removeItemFromWishlist(productID: Int) {
-                
+        
+        self.isAnimating = true
+        
         dataService.removeFromWishlist(request: WishlistAPIRequest(deviceToken: token, productID: productID))
             .receive(on: DispatchQueue.main)
             .sink(
@@ -88,7 +89,6 @@ class WishlistViewModel: ObservableObject {
                 },
                 receiveValue: { response in
                     self.isAnimating = false
-                    self.wishlistItems = response.data?.items ?? []
                 }
             )
             .store(in: &cancellables)

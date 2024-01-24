@@ -183,7 +183,13 @@ class ProductDetailsView: UIViewController {
         
         addToCartGest.tapPublisher
             .sink { _ in
-                self.viewModel?.updateCart()
+                if LoginDataService.shared.isLogedIn() {
+                    self.viewModel?.updateCart()
+                }else{
+                    let newViewController = NeedLoginView()
+                    newViewController.showBackButton = true
+                    self.navigationController?.pushViewController(newViewController, animated: true)
+                }
             }
             .store(in: &bindings)
         
@@ -284,6 +290,7 @@ class ProductDetailsView: UIViewController {
                 self.imageThree.isHidden = !(product!.images.count == 3)
                 
                 self.imageOne.sd_setImage(with: URL(string: product!.imageURL), placeholderImage: UIImage(named: "placeholder.png"))
+                
                 if !product!.images.isEmpty{
                     self.imageTwo.sd_setImage(with: URL(string: product!.images[0]), placeholderImage: UIImage(named: "placeholder.png"))
                     if product!.images.count > 1 {
@@ -292,12 +299,12 @@ class ProductDetailsView: UIViewController {
                         self.imageTwo.isHidden = true
                     }
                 } else{
-                    self.imageOne.isHidden = true
                     self.imageTwo.isHidden = true
+                    self.imageThree.isHidden = true
                 }
                 
                 self.titleLabel.text = product!.title
-                self.priceLabel.text = "$" + String(product!.price)
+                self.priceLabel.text = "EGP " + String(product!.price.rounded())
                 
                 self.informationTextView.text = product!.description
                 

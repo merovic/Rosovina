@@ -45,7 +45,7 @@ struct OccasionsSwiftUIView: View {
                                 }
                                 
                                 WebImage(url: URL(string: occasions[index].thumbURL ?? ""))
-                                    .placeholder(Image("jacket").resizable())
+                                    //.placeholder(Image("jacket").resizable())
                                     .resizable()
                                     .indicator(.activity)
                                     .scaledToFit()

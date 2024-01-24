@@ -15,9 +15,13 @@ class RegistrationView: UIViewController {
     
     var viewModel: RegistrationViewModel = RegistrationViewModel()
     
+    var countryPickerViewModel: CountryPickerViewModel = CountryPickerViewModel()
+    
     private let loadingView = LoadingAnimation()
 
     @IBOutlet weak var backButton: UIButton!
+    
+    @IBOutlet weak var countryPickerView: UIView!
 
     @IBOutlet weak var emailView: UIView! {
         didSet {
@@ -81,6 +85,11 @@ class RegistrationView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         BindViews()
+        AttachViews()
+    }
+    
+    func AttachViews() {
+        self.countryPickerView.EmbedSwiftUIView(view: CountryPicker(viewModel: countryPickerViewModel), parent: self)
     }
 
     func BindViews(){
@@ -95,6 +104,10 @@ class RegistrationView: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             }
             .store(in: &bindings)
+        
+        countryPickerViewModel.$phoneCode.sink { code in
+            self.viewModel.phoneCode = code
+        }.store(in: &bindings)
         
         firstNameTextField.textPublisher
             .receive(on: DispatchQueue.main)
@@ -124,7 +137,12 @@ class RegistrationView: UIViewController {
         createButton.tapPublisher
             .sink { _ in
                 //self.viewModel.sendOTP()
-                self.viewModel.otpSentStatus = .success
+                if self.viewModel.canContinue {
+                    self.viewModel.otpSentStatus = .success
+                }else{
+                    self.viewModel.otpSentStatus = .failed
+                }
+                
             }
             .store(in: &bindings)
         

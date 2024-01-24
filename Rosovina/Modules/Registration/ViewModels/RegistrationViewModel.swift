@@ -20,6 +20,8 @@ class RegistrationViewModel: ObservableObject {
     
     @Published var lastNameText = ""
     
+    @Published var phoneCode = "+20"
+    
     @Published var phoneText = ""
         
     @Published var emailText = ""
@@ -29,7 +31,7 @@ class RegistrationViewModel: ObservableObject {
     @Published var canContinue = false
     
     @Published var otpSentStatus: PhoneStatus = .idle
-                
+                    
     @Published var isAnimating = false
         
     //---------------------
@@ -40,47 +42,52 @@ class RegistrationViewModel: ObservableObject {
         self.dataService = dataService
         
         Publishers.CombineLatest($firstNameText, $lastNameText)
-            .map { fullNameText, emailText in
-                return (!fullNameText.isEmpty && (emailText.isValidEmail() || emailText.isEmpty))
+            .map { firstNameText, lastNameText in
+                return (!firstNameText.isEmpty && !lastNameText.isEmpty)
             }
             .assign(to: \.canContinue, on: self)
             .store(in: &cancellables)
         
         Publishers.CombineLatest3($phoneText, $emailText, $passwordText)
-            .map { fullNameText, birthDateText, emailText in
-                return (!fullNameText.isEmpty && !birthDateText.isEmpty && (emailText.isValidEmail() || emailText.isEmpty))
+            .map { phoneText, emailText, passwordText in
+                return (phoneText.isValidPhone() && !passwordText.isEmpty && (emailText.isValidEmail() || !emailText.isEmpty))
             }
             .assign(to: \.canContinue, on: self)
             .store(in: &cancellables)
     }
     
-    func checkForPhone(phone: String) -> String{
+    func checkForPhone(phone: String, code: String) -> String{
+        let fCode = code.replacingOccurrences(of: "+", with: "")
         if !phone.starts(with: "0"){
-            return "20" + phone
+            return fCode + phone
         }else{
-            return "2" + phone
+            return fCode.dropLast() + phone
         }
     }
     
     func sendOTP() {
-        dataService.otp_send(request: OTPSendAPIRequest(phone: checkForPhone(phone: phoneText)))
-            .receive(on: DispatchQueue.main)
-            .sink(
-                receiveCompletion: { (completion) in
-                    switch completion {
-                    case .finished:
-                        print("Publisher stopped observing")
-                    case .failure(_):
-                        self.isAnimating = false
+        if phoneText.isValidPhone() && !phoneText.isEmpty {
+            dataService.otp_send(request: OTPSendAPIRequest(phone: checkForPhone(phone: phoneText, code: phoneCode)))
+                .receive(on: DispatchQueue.main)
+                .sink(
+                    receiveCompletion: { (completion) in
+                        switch completion {
+                        case .finished:
+                            print("Publisher stopped observing")
+                        case .failure(_):
+                            self.isAnimating = false
+                        }
+                    },
+                    receiveValue: { response in
+                        if response.success {
+                            self.otpSentStatus = .success
+                        }
                     }
-                },
-                receiveValue: { response in
-                    if response.success {
-                        self.otpSentStatus = .success
-                    }
-                }
-            )
-            .store(in: &cancellables)
+                )
+                .store(in: &cancellables)
+        }else{
+            otpSentStatus = .error
+        }
     }
       
 }

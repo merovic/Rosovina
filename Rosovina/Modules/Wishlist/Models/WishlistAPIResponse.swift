@@ -26,7 +26,8 @@ struct WishlistItem: Codable, Identifiable {
     var id = UUID().uuidString
     let productID: Int
     let productName, productDescription, unitCode: String
-    let isInStock, price: Int
+    let isInStock: Int
+    let price: Double
     let productImage: String
 
     enum CodingKeys: String, CodingKey {

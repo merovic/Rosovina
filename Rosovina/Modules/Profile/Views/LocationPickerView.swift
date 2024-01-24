@@ -61,7 +61,7 @@ class LocationPickerView: UIViewController, GMSMapViewDelegate {
 
         searchController?.searchBar.placeholder = MOLHLanguage.isRTLLanguage() ? "بحث" : "Search"
 
-        navigationItem.titleView = searchController?.searchBar
+        //navigationItem.titleView = searchController?.searchBar
 
 
         // Prevent the navigation bar from being hidden when searching.

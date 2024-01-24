@@ -17,7 +17,20 @@ class ForgetPasswordView: UIViewController {
     
     private let loadingView = LoadingAnimation()
 
+    @IBOutlet weak var newPasswordView: UIView! {
+        didSet {
+            newPasswordView.roundedGrayHareefView()
+        }
+    }
+    
     @IBOutlet weak var passwordTextField: UITextField!
+    
+    
+    @IBOutlet weak var retypeView: UIView! {
+        didSet {
+            retypeView.roundedGrayHareefView()
+        }
+    }
     
     var passwordGest: UITapGestureRecognizer = {
         let gest = UITapGestureRecognizer()
@@ -47,7 +60,11 @@ class ForgetPasswordView: UIViewController {
         }
     }
     
-    @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var doneButton: UIButton! {
+        didSet {
+            doneButton.prettyHareefButton(radius: 16)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,17 +122,20 @@ class ForgetPasswordView: UIViewController {
             if v == .success{
                 self.viewModel.login()
             }else if v == .failed{
-                print("Reset Failed")
+                Alert.show("Forget Password Error", message: "Please Try Again", context: self)
             }
         }.store(in: &bindings)
         
         viewModel.$loginStatus.sink { v in
             if v == .success{
-//                let newViewController = MainTabView(nibName: "MainTabView", bundle: nil)
-//                newViewController.modalPresentationStyle = .fullScreen
-//                self.present(newViewController, animated: true, completion: nil)
+                let nav1 = UINavigationController()
+                let vc = DashboardTabBarController()
+                nav1.isNavigationBarHidden = true
+                nav1.viewControllers = [vc]
+                nav1.modalPresentationStyle = .fullScreen
+                self.present(nav1, animated: true)
             }else if v == .failed{
-                //Alert.sawaShow(imageName: "warning", title: "Login Failed", subtitle: "Password is Incorrect", buttonTitle: "Ok", context: self)
+                Alert.show("Forget Password Error", message: "Please Try Again", context: self)
             }
         }.store(in: &bindings)
     }

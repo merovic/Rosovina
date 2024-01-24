@@ -66,7 +66,7 @@ struct CommentItemSwiftUIView: View {
             HStack{
                 HStack{
                     WebImage(url: URL(string: review.userImage))
-                        .placeholder(Image("Rectangle 32").resizable())
+                        //.placeholder(Image("Rectangle 32").resizable())
                         .resizable()
                         .indicator(.activity)
                         .scaledToFill()

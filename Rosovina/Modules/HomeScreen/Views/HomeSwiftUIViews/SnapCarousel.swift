@@ -38,7 +38,7 @@ struct SnapCarousel: View {
                     ) {
                         VStack {
                             WebImage(url: URL(string: item.imagePath ?? ""))
-                                .placeholder(Image("Banner").resizable())
+                                //.placeholder(Image("Banner").resizable())
                                 .resizable()
                                 .indicator(.activity)
                                 .scaledToFit()

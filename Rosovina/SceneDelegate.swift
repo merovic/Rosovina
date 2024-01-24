@@ -20,8 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if LoginDataService.shared.setFirstLaunchFromTermination(){
             let mainView = OnboardingViewController()
-            nav1.viewControllers = [mainView]
-            window?.rootViewController = nav1
+            //nav1.viewControllers = [mainView]
+            window?.rootViewController = mainView
             window?.makeKeyAndVisible()
         }else{
             let mainView = DashboardTabBarController()

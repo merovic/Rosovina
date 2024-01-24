@@ -98,6 +98,12 @@ class OrderCustomizeView: UIViewController {
             }
         }.store(in: &bindings)
         
+        viewModel!.$errorMessage.sink { response in
+            if response != "" {
+                Alert.show("Customization Error", message: response, context: self)
+            }
+        }.store(in: &bindings)
+                
         skipButton.tapPublisher
             .sink { _ in
                 let newViewController = CheckoutView()
@@ -194,7 +200,7 @@ struct GiftCardItemSwiftUIView: View {
     
     var body: some View {
         WebImage(url: URL(string: giftCard.imagePath))
-            .placeholder(Image("flower5").resizable())
+            //.placeholder(Image("flower5").resizable())
             .resizable()
             .indicator(.activity)
             .scaledToFit()

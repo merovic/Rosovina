@@ -176,7 +176,7 @@ struct OrderTrackingItemSwiftUIView: View {
     var body: some View {
         HStack {
             WebImage(url: URL(string: orderItem.imageURL))
-                .placeholder(Image("flower5").resizable())
+                .placeholder(Image("logo").resizable())
                 .resizable()
                 .indicator(.activity)
                 .scaledToFit()

@@ -54,7 +54,7 @@ struct ProductItem: View {
     var body: some View {
         VStack {
             WebImage(url: URL(string: product.imagePath ?? ""))
-                .placeholder(Image("flower5").resizable())
+                .placeholder(Image("logo").resizable())
                 .resizable()
                 .indicator(.activity)
                 .scaledToFit()
@@ -70,10 +70,10 @@ struct ProductItem: View {
                     .foregroundColor(Color.black)
                 HStack{
                     HStack{
-                        Text("$" + String(product.price ?? 0))
+                        Text("EGP " + String(product.price?.rounded() ?? 0))
                             .font(.poppinsFont(size: 16, weight: .bold))
                             .foregroundColor(Color.black)
-                        Text("$" + (product.discountAmount ?? ""))
+                        Text("EGP " + (product.discountAmount ?? ""))
                             .font(.poppinsFont(size: 10, weight: .medium))
                             .foregroundColor(Color.gray)
                             .strikethrough()

@@ -18,6 +18,8 @@ class PhoneNumberViewModel: ObservableObject {
             
     @Published var backPressed = false
     
+    @Published var phoneCode = "+20"
+    
     @Published var phoneText: String = ""
     
     @Published var checkedStatus: PhoneStatus = .idle
@@ -43,20 +45,21 @@ class PhoneNumberViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func checkForPhone(phone: String) -> String{
+    func checkForPhone(phone: String, code: String) -> String{
+        let fCode = code.replacingOccurrences(of: "+", with: "")
         if !phone.starts(with: "0"){
-            return "20" + phone
+            return fCode + phone
         }else{
-            return "2" + phone
+            return fCode.dropLast() + phone
         }
     }
     
     func checkPhone() {
                 
-        if canCheck{
+        if canCheck {
             self.isAnimating = true
             
-            dataService.check_phone(request: PhoneAPIRequest(phone: checkForPhone(phone: self.phoneText)))
+            dataService.check_phone(request: PhoneAPIRequest(phone: checkForPhone(phone: phoneText, code: phoneCode)))
                 .receive(on: DispatchQueue.main)
                 .sink(
                     receiveCompletion: { (completion) in
@@ -85,7 +88,7 @@ class PhoneNumberViewModel: ObservableObject {
     }
     
     func sendOTP() {
-        dataService.otp_send(request: OTPSendAPIRequest(phone: checkForPhone(phone: phoneText)))
+        dataService.otp_send(request: OTPSendAPIRequest(phone: checkForPhone(phone: phoneText, code: phoneCode)))
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in

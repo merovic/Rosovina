@@ -97,10 +97,13 @@ class MyProfileView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         BindView()
-        intiatimagePicker()
         AttachViews()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.intiatimagePicker()
         // Add observer for the custom notification
-        NotificationCenter.default.addObserver(self, selector: #selector(handleDidUpdateValue(_:)), name: .didUpdateValue, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleDidUpdateValue(_:)), name: .didUpdateValue, object: nil)
     }
     
     deinit {
@@ -158,14 +161,8 @@ class MyProfileView: UIViewController {
         addNewAddressButton.tapPublisher
             .sink { _ in
                 let newViewController = LocationPickerView()
-                
-                // Create a new navigation controller for the second view controller
                 let navigationController = UINavigationController(rootViewController: newViewController)
-                
-                // Present it in fullscreen
                 navigationController.modalPresentationStyle = .fullScreen
-                
-                // Present the new navigation controller modally
                 self.present(navigationController, animated: true, completion: nil)
                 
                 navigationController.setNavigationBarHidden(true, animated: false)

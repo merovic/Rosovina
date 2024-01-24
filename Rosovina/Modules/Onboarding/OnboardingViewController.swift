@@ -18,7 +18,7 @@ class OnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
         AttachViews()
     }
     
@@ -27,13 +27,21 @@ class OnboardingViewController: UIViewController {
     }
 
     @IBAction func getStartedClicked(_ sender: Any) {
+        let nav1 = UINavigationController()
         let vc = LoginView()
-        self.navigationController?.pushViewController(vc, animated: true)
+        nav1.isNavigationBarHidden = true
+        nav1.viewControllers = [vc]
+        nav1.modalPresentationStyle = .fullScreen
+        self.present(nav1, animated: true)
     }
     
     @IBAction func skipClicked(_ sender: Any) {
+        let nav1 = UINavigationController()
         let vc = DashboardTabBarController()
-        self.navigationController?.pushViewController(vc, animated: true)
+        nav1.isNavigationBarHidden = true
+        nav1.viewControllers = [vc]
+        nav1.modalPresentationStyle = .fullScreen
+        self.present(nav1, animated: true)
     }
 }
 

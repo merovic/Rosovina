@@ -34,10 +34,6 @@ class MyOrdersView: UIViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.viewModel.getMyOrders()
-    }
-    
     func AttachViews() {
         self.container.EmbedSwiftUIView(view: MyOrdersSwiftUIView(viewModel: self.viewModel), parent: self)
     }
@@ -130,8 +126,8 @@ struct MyOrdersItemSwiftUIView: View {
     
     var body: some View {
         HStack(alignment: .top, spacing: 20) {
-            WebImage(url: URL(string: myOrder.items[0].imageURL))
-                .placeholder(Image("flower5").resizable())
+            WebImage(url: URL(string: myOrder.items.count > 0 ? myOrder.items[0].imageURL : ""))
+                .placeholder(Image("logo").resizable())
                 .resizable()
                 .indicator(.activity)
                 .scaledToFit()
@@ -199,7 +195,7 @@ struct MyOrdersItemSwiftUIView: View {
                         .contentShape(Rectangle())
                         
                     }.frame(maxWidth: .infinity)
-                    .padding(5)
+                        .padding(5)
                 }
                 
             }

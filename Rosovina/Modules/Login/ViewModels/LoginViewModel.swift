@@ -20,6 +20,8 @@ class LoginViewModel: ObservableObject {
     
     @Published var loginStatus: LoginStatus = .idle
     
+    @Published var phoneCode = "+20"
+    
     @Published var phoneText = ""
     
     @Published var passwordText = ""
@@ -46,51 +48,56 @@ class LoginViewModel: ObservableObject {
     }
     
     func checkForPhone(phone: String) -> String{
+        let fCode = phoneCode.replacingOccurrences(of: "+", with: "")
         if !phone.starts(with: "0"){
-            return "20" + phone
+            return fCode + phone
         }else{
-            return "2" + phone
+            return fCode.dropLast() + phone
         }
     }
     
     func login() {
         
-        self.isAnimating = true
-
-        dataService.login(request: LoginAPIRequest(phone: checkForPhone(phone: phoneText), password: passwordText, mobileToken: "token"))
-            .receive(on: DispatchQueue.main)
-            .sink(
-                receiveCompletion: { (completion) in
-                    switch completion {
-                    case .finished:
-                        print("Publisher stopped observing")
-                    case .failure(_):
-                        self.isAnimating = false
-                    }
-                },
-                receiveValue: { response in
-                    self.isAnimating = false
-                    if response.success {
-                        LoginDataService.shared.setAuthToken(token: response.data!.token)
-                        LoginDataService.shared.setID(id: (response.data?.userInfo.id)!)
-                        LoginDataService.shared.setFullName(name: response.data?.userInfo.name ?? "")
-                        LoginDataService.shared.setImageURL(url: response.data?.userInfo.imageURL ?? "")
-                        LoginDataService.shared.setMobileNumber(number: response.data?.userInfo.phone ?? "")
-                        LoginDataService.shared.setDateOfBirth(date: response.data?.userInfo.dateOfBirth ?? "")
-                        LoginDataService.shared.setPassword(password: self.passwordText)
-                        LoginDataService.shared.setEmail(email: response.data?.userInfo.email ?? "")
-                        
-                        LoginDataService.shared.setLogin()
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                            self.loginStatus = .success
+        if phoneText.isValidPhone() && !passwordText.isEmpty && !phoneText.isEmpty {
+            self.isAnimating = true
+            dataService.login(request: LoginAPIRequest(phone: checkForPhone(phone: phoneText), password: passwordText, mobileToken: "token"))
+                .receive(on: DispatchQueue.main)
+                .sink(
+                    receiveCompletion: { (completion) in
+                        switch completion {
+                        case .finished:
+                            print("Publisher stopped observing")
+                        case .failure(_):
+                            self.isAnimating = false
                         }
-                    }else{
-                        self.loginStatus = .failed
+                    },
+                    receiveValue: { response in
+                        self.isAnimating = false
+                        if response.success {
+                            LoginDataService.shared.setAuthToken(token: response.data!.token)
+                            LoginDataService.shared.setID(id: (response.data?.userInfo.id)!)
+                            LoginDataService.shared.setFullName(name: response.data?.userInfo.name ?? "")
+                            LoginDataService.shared.setImageURL(url: response.data?.userInfo.imageURL ?? "")
+                            LoginDataService.shared.setMobileNumber(number: response.data?.userInfo.phone ?? "")
+                            LoginDataService.shared.setDateOfBirth(date: response.data?.userInfo.dateOfBirth ?? "")
+                            LoginDataService.shared.setPassword(password: self.passwordText)
+                            LoginDataService.shared.setEmail(email: response.data?.userInfo.email ?? "")
+                            
+                            LoginDataService.shared.setLogin()
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                self.loginStatus = .success
+                            }
+                        }else{
+                            self.loginStatus = .failed
+                        }
                     }
-                }
-            )
-            .store(in: &cancellables)
+                )
+                .store(in: &cancellables)
+        } else {
+            self.loginStatus = .error
+        }
+
     }
     
     func switchPasswordEye(){

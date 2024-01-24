@@ -62,7 +62,12 @@ class ShoppingCartView: UIViewController {
         
         startAddingButton.tapPublisher
             .sink { _ in
-                self.navigationController?.popViewController(animated: true)
+                let nav1 = UINavigationController()
+                let vc = DashboardTabBarController()
+                nav1.isNavigationBarHidden = true
+                nav1.viewControllers = [vc]
+                nav1.modalPresentationStyle = .fullScreen
+                self.present(nav1, animated: true)
             }
             .store(in: &bindings)
         
@@ -193,7 +198,7 @@ struct ShoppingCartItemSwiftUIView: View {
     var body: some View {
         HStack {
             WebImage(url: URL(string: cartItem.productImage))
-                .placeholder(Image("flower5").resizable())
+                .placeholder(Image("logo").resizable())
                 .resizable()
                 .indicator(.activity)
                 .scaledToFit()
