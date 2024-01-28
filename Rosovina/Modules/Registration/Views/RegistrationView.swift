@@ -149,7 +149,7 @@ class RegistrationView: UIViewController {
         viewModel.$otpSentStatus.sink { v in
             if v == .success{
                 let newViewController = VerificationViewController()
-                newViewController.viewModel = VerificationViewModel(phoneText: self.viewModel.phoneText, nameText: self.viewModel.firstNameText + " " + self.viewModel.lastNameText, emailText: self.viewModel.emailText, passwordText: self.viewModel.passwordText)
+                newViewController.viewModel = VerificationViewModel(phoneText: self.viewModel.checkForPhone(phone: self.viewModel.phoneText, code: self.viewModel.phoneCode), nameText: self.viewModel.firstNameText + " " + self.viewModel.lastNameText, emailText: self.viewModel.emailText, passwordText: self.viewModel.passwordText)
                 self.navigationController?.pushViewController(newViewController, animated: true)
             }else if v == .failed{
                 Alert.show("Registration Error", message: "Something Error Happined Please Try Again", context: self)

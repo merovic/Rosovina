@@ -61,6 +61,12 @@ class MyProfileView: UIViewController {
         }
     }
     
+    @IBOutlet weak var saveButton: UIButton! {
+        didSet {
+            saveButton.prettyHareefButton(radius: 16)
+        }
+    }
+    
     @IBOutlet weak var addressView: UIStackView!
     @IBOutlet weak var container: UIView!
     
@@ -141,6 +147,12 @@ class MyProfileView: UIViewController {
             .sink(receiveValue:{_ in
                 
             })
+            .store(in: &bindings)
+        
+        saveButton.tapPublisher
+            .sink { _ in
+                self.viewModel.updateProfile()
+            }
             .store(in: &bindings)
         
         deactivateGest.tapPublisher
@@ -308,9 +320,9 @@ extension MyProfileView: UIImagePickerControllerDelegate, UINavigationController
         
         picker.dismiss(animated: true, completion: nil)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.viewModel.updateProfile()
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//            self.viewModel.updateProfile()
+//        }
     }
 }
 

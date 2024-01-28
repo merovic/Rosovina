@@ -54,7 +54,7 @@ struct CountryPicker: View {
                         .frame(width: 13, height: 10)
                 }
             }
-            .frame(width: 90)
+            .frame(width: 100)
         }
         
     }

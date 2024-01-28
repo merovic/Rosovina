@@ -59,20 +59,20 @@ class VerificationViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func checkForPhone(phone: String) -> String{
+    func checkForPhone(phone: String, code: String) -> String{
+        let fCode = code.replacingOccurrences(of: "+", with: "")
         if !phone.starts(with: "0"){
-            return "20" + phone
+            return fCode + phone
         }else{
-            return "2" + phone
+            return fCode.dropLast() + phone
         }
     }
-    
     
     func otpCheck() {
              
         if !codeText.isEmpty {
             self.isAnimating = true
-            dataService.otp_check(request: OTPCheckAPIRequest(phone: checkForPhone(phone: phoneText), otp: codeText))
+            dataService.otp_check(request: OTPCheckAPIRequest(phone: phoneText, otp: codeText))
                 .receive(on: DispatchQueue.main)
                 .sink(
                     receiveCompletion: { (completion) in
@@ -113,7 +113,7 @@ class VerificationViewModel: ObservableObject {
                 
         self.isAnimating = true
         
-        dataService.register(request: RegistrationAPIRequest(name: nameText, phone: checkForPhone(phone: phoneText), password: passwordText, email: emailText, mobileToken: token))
+        dataService.register(request: RegistrationAPIRequest(name: nameText, phone: phoneText, password: passwordText, email: emailText, mobileToken: token))
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in

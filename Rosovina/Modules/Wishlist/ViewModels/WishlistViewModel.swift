@@ -67,6 +67,7 @@ class WishlistViewModel: ObservableObject {
                 },
                 receiveValue: { response in
                     self.isAnimating = false
+                    self.wishlistItems = response.data?.items ?? []
                 }
             )
             .store(in: &cancellables)
@@ -89,6 +90,7 @@ class WishlistViewModel: ObservableObject {
                 },
                 receiveValue: { response in
                     self.isAnimating = false
+                    self.wishlistItems = response.data?.items ?? []
                 }
             )
             .store(in: &cancellables)

@@ -196,19 +196,19 @@
                                     <rect key="frame" x="0.0" y="41" width="353" height="48"/>
                                     <subviews>
                                         <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type your phone..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EF5-UR-jDn">
-                                            <rect key="frame" x="115" y="14.666666666666687" width="222" height="18.666666666666671"/>
+                                            <rect key="frame" x="125" y="14.666666666666687" width="212" height="18.666666666666671"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" textContentType="tel"/>
                                         </textField>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cyk-U6-BuM">
-                                            <rect key="frame" x="8" y="8" width="90" height="32"/>
+                                            <rect key="frame" x="8" y="8" width="100" height="32"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="90" id="bpT-4p-VDC"/>
+                                                <constraint firstAttribute="width" constant="100" id="bpT-4p-VDC"/>
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wF1-uv-rle">
-                                            <rect key="frame" x="106" y="0.0" width="1" height="48"/>
+                                            <rect key="frame" x="116" y="0.0" width="1" height="48"/>
                                             <color key="backgroundColor" systemColor="systemGray5Color"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="1" id="7wu-I6-elz"/>

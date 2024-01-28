@@ -16,7 +16,7 @@ extension String{
     }
     
     func isValidPhone() -> Bool {
-        let regEx = "^(010|011|012|015|10|11|12|15|2010|2011|2012|2015)\\d{8}$"
+        let regEx = "^(010|011|012|015|10|11|12|15|2010|2011|2012|2015|05)\\d{8}$"
         let phoneCheck = NSPredicate(format: "SELF MATCHES %@", regEx)
         return phoneCheck.evaluate(with: self)
     }

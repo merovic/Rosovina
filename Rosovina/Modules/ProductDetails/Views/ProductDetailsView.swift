@@ -197,10 +197,10 @@ class ProductDetailsView: UIViewController {
             .sink { _ in
                 if self.viewModel?.productDetails?.addedToWishlist ?? false {
                     self.viewModel?.removeItemFromWishlist()
-                    self.addToWishListButton.setImage(UIImage(named: "Frame"), for: .normal)
+                    self.addToWishListButton.setImage(UIImage(systemName: "heart"), for: .normal)
                 }else{
                     self.viewModel?.addItemToWishlist()
-                    self.addToWishListButton.setImage(UIImage(named: "icons_like_blue"), for: .normal)
+                    self.addToWishListButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
                 }
             }
             .store(in: &bindings)
@@ -307,8 +307,8 @@ class ProductDetailsView: UIViewController {
                 self.priceLabel.text = "EGP " + String(product!.price.rounded())
                 
                 self.informationTextView.text = product!.description
-                
-                self.addToWishListButton.setImage(UIImage(named: product!.addedToWishlist ?? false ? "icons_like_blue" : "Frame"), for: .normal)
+                //heart
+                self.addToWishListButton.setImage(UIImage(systemName: product!.addedToWishlist ?? false ? "heart.fill" : "heart"), for: .normal)
             }
         }.store(in: &bindings)
     }
