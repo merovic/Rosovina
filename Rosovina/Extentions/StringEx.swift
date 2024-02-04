@@ -7,45 +7,6 @@
 
 import Foundation
 
-extension String{
-    
-    func isValidEmail() -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: self)
-    }
-    
-    func isValidPhone() -> Bool {
-        let regEx = "^(010|011|012|015|10|11|12|15|2010|2011|2012|2015|05)\\d{8}$"
-        let phoneCheck = NSPredicate(format: "SELF MATCHES %@", regEx)
-        return phoneCheck.evaluate(with: self)
-    }
-    
-    func containsCapital() -> Bool {
-        let capitalLetterRegEx  = ".*[A-Z]+.*"
-        let texttest = NSPredicate(format:"SELF MATCHES %@", capitalLetterRegEx)
-        return texttest.evaluate(with: self)
-    }
-    
-    func containsSmall() -> Bool {
-        let capitalLetterRegEx  = ".*[a-z]+.*"
-        let texttest = NSPredicate(format:"SELF MATCHES %@", capitalLetterRegEx)
-        return texttest.evaluate(with: self)
-    }
-    
-    func containsNumbers() -> Bool {
-        let numberRegEx  = ".*[0-9]+.*"
-        let texttest1 = NSPredicate(format:"SELF MATCHES %@", numberRegEx)
-        return texttest1.evaluate(with: self)
-    }
-    
-    func containsSpecialChars() -> Bool {
-        let specialCharacterRegEx  = ".*[!&^%$#@()/_*+-]+.*"
-        let texttest2 = NSPredicate(format:"SELF MATCHES %@", specialCharacterRegEx)
-        return texttest2.evaluate(with: self)
-    }
-}
-
 extension String {
     func trimmingWhitespace() -> String {
         return self.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -53,7 +14,6 @@ extension String {
 }
 
 public extension String {
-    
     var replacedArabicDigitsWithEnglish: String {
         var str = self
         let map = ["٠": "0",

@@ -110,7 +110,7 @@ struct WishlistProductItem: View {
                     .foregroundColor(Color.black)
                 HStack{
                     HStack{
-                        Text("EGP " + String(product.price.rounded()))
+                        Text((product.currencyCode ?? "SAR") + " " + String(product.price.rounded()))
                             .font(.poppinsFont(size: 16, weight: .bold))
                             .foregroundColor(Color.black)
                         

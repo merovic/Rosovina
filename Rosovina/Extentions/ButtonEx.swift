@@ -49,3 +49,19 @@ extension UIButton{
         
     }
 }
+
+extension UIButton {
+    func enable() {
+        DispatchQueue.main.async {
+            self.isEnabled = true
+            self.alpha = 1.0
+        }
+    }
+
+    func disable() {
+        DispatchQueue.main.async {
+            self.isEnabled = false
+            self.alpha = 0.5
+        }
+    }
+}

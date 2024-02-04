@@ -102,7 +102,7 @@ struct AddressitemSwiftUIView: View {
                     .frame(width: 14, height: 14)
             }
             
-            Text("+02 0100 3319 530")
+            Text(LoginDataService.shared.getMobileNumber())
                 .font(.poppinsFont(size: 16, weight: .regular))
                 .foregroundColor(Color.black)
             

@@ -15,6 +15,7 @@ struct ProductDetailsAPIResponse: Codable {
     let showInHome, isFeatured, isPopular, isNewArrival: Int
     let isInStock: Int
     let addedToWishlist: Bool?
+    let currencyCode: String?
     let sku: String
     let rate: String?
     let imageURL: String
@@ -36,6 +37,7 @@ struct ProductDetailsAPIResponse: Codable {
         case isNewArrival = "is_new_arrival"
         case isInStock = "is_in_stock"
         case addedToWishlist = "added_to_wishlist"
+        case currencyCode = "currency_code"
         case sku, rate
         case imageURL = "image_url"
         case title, description

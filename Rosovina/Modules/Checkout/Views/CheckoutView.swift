@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 import CombineCocoa
+import MFSDK
 
 class CheckoutView: UIViewController {
     
@@ -35,14 +36,29 @@ class CheckoutView: UIViewController {
     @IBOutlet weak var selectedAddressPhone: UILabel!
     @IBOutlet weak var selectedAddressContent: UILabel!
     
+    var creditCardGest: UITapGestureRecognizer = {
+        let gest = UITapGestureRecognizer()
+        gest.numberOfTapsRequired = 1
+        return gest
+    }()
+    
     @IBOutlet weak var creditCardView: UIView! {
         didSet {
             creditCardView.rounded()
+            creditCardView.addGestureRecognizer(creditCardGest)
         }
     }
+    
+    var codGest: UITapGestureRecognizer = {
+        let gest = UITapGestureRecognizer()
+        gest.numberOfTapsRequired = 1
+        return gest
+    }()
+    
     @IBOutlet weak var codView: UIView! {
         didSet {
             codView.rounded()
+            codView.addGestureRecognizer(codGest)
         }
     }
     
@@ -60,6 +76,7 @@ class CheckoutView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         BindViews()
+        MFSettings.shared.delegate = self
         // Add observer for the custom notification
         NotificationCenter.default.addObserver(self, selector: #selector(handleDidUpdateValue(_:)), name: .didUpdateValue, object: nil)
     }
@@ -73,7 +90,7 @@ class CheckoutView: UIViewController {
     @objc func handleDidUpdateValue(_ notification: Notification) {
         if let updatedValue = notification.object as? UserAddress {
             // Handle the updated value as needed
-            print("Updated value received in FirstViewController: \(updatedValue)")
+            print("Updated value received : \(updatedValue)")
             self.viewModel?.selectedLocation = updatedValue
             self.viewModel?.updateCart()
         }
@@ -109,11 +126,6 @@ class CheckoutView: UIViewController {
                 self.present(navigationController, animated: true, completion: nil)
                 
                 navigationController.setNavigationBarHidden(true, animated: false)
-                
-//                let newViewController = AddAddressView()
-//                newViewController.viewModel = AddAddressViewModel()
-//                newViewController.delegate = self
-//                self.navigationController?.pushViewController(newViewController, animated: true)
             }
             .store(in: &bindings)
         
@@ -125,6 +137,18 @@ class CheckoutView: UIViewController {
                 newViewController.modalTransitionStyle = .crossDissolve
                 self.present(newViewController, animated: true)
             }
+            .store(in: &bindings)
+        
+        creditCardGest.tapPublisher
+            .sink(receiveValue:{_ in
+                self.viewModel?.paymentMethodID = .visa
+            })
+            .store(in: &bindings)
+        
+        codGest.tapPublisher
+            .sink(receiveValue:{_ in
+                self.viewModel?.paymentMethodID = .cash
+            })
             .store(in: &bindings)
         
         payButton.tapPublisher
@@ -159,11 +183,37 @@ class CheckoutView: UIViewController {
             
         }.store(in: &bindings)
         
+        viewModel!.$errorMessage.sink { message in
+            if message != "" {
+                Alert.show("Order Failed", message: message, context: self)
+            }
+        }.store(in: &bindings)
+        
         viewModel!.$orderCreatedID.sink { response in
             if response != 0 {
+                if self.viewModel?.paymentMethodID == .cash {
+                    self.viewModel?.confirmOrder(orderID: response, paymentReference: String(response))
+                }else{
+                    self.viewModel!.initiateSDK()
+                }
+            }
+        }.store(in: &bindings)
+        
+        viewModel!.$orderConfirmed.sink { response in
+            if response{
                 let newViewController = CheckoutSucessView()
-                newViewController.orderID = response
+                newViewController.orderID = self.viewModel!.orderCreatedID
                 self.navigationController?.pushViewController(newViewController, animated: true)
+            }
+        }.store(in: &bindings)
+        
+        viewModel!.$paymentMethodID.sink { paymentMethod in
+            if paymentMethod == .cash{
+                self.codView.backgroundColor = UIColor.init(named: "OnionColor")
+                self.creditCardView.backgroundColor = UIColor.init(named: "LightGray")
+            }else{
+                self.creditCardView.backgroundColor = UIColor.init(named: "OnionColor")
+                self.codView.backgroundColor = UIColor.init(named: "LightGray")
             }
         }.store(in: &bindings)
         
@@ -175,5 +225,12 @@ extension CheckoutView: SelectLocationDelegate {
     func didLocationSelected(location: UserAddress) {
         self.viewModel?.selectedLocation = location
         self.viewModel?.updateCart()
+    }
+}
+
+
+extension CheckoutView: MFPaymentDelegate {
+    func didInvoiceCreated(invoiceId: String) {
+        print("#\(invoiceId)")
     }
 }

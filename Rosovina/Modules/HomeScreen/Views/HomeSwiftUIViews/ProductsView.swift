@@ -70,11 +70,11 @@ struct ProductItem: View {
                     .foregroundColor(Color.black)
                 HStack{
                     HStack{
-                        Text("EGP " + String(product.price?.rounded() ?? 0))
-                            .font(.poppinsFont(size: 16, weight: .bold))
+                        Text((product.currencyCode ?? "SAR") + " " + String(product.price?.rounded() ?? 0))
+                            .font(.poppinsFont(size: 14, weight: .bold))
                             .foregroundColor(Color.black)
-                        Text("EGP " + (product.discountAmount ?? ""))
-                            .font(.poppinsFont(size: 10, weight: .medium))
+                        Text((product.currencyCode ?? "SAR") + " " + (product.discountAmount ?? ""))
+                            .font(.poppinsFont(size: 8, weight: .medium))
                             .foregroundColor(Color.gray)
                             .strikethrough()
                         

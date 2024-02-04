@@ -21,6 +21,7 @@ struct Product: Codable, Identifiable {
     let unitCode: String
     let listOrder: Int?
     let slug: String
+    let currencyCode: String?
     let showInHome, isFeatured, isPopular, isNewArrival: Int
     let isInStock: Int
     let addedToWishlist: Bool?
@@ -38,6 +39,7 @@ struct Product: Codable, Identifiable {
         case unitCode = "unit_code"
         case listOrder = "list_order"
         case slug
+        case currencyCode = "currency_code"
         case showInHome = "show_in_home"
         case isFeatured = "is_featured"
         case isPopular = "is_popular"

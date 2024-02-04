@@ -19,6 +19,10 @@ class CreatePasswordViewModel: ObservableObject {
     
     var token = ""
     
+    @Published var passwordValidationState: ValidationState = .idle
+    
+    @Published var confirmValidationState: ValidationState = .idle
+    
     @Published var resetStatus: ResetStatus = .idle
     
     @Published var loginStatus: LoginStatus = .idle
@@ -30,9 +34,7 @@ class CreatePasswordViewModel: ObservableObject {
     @Published var passwordEyeOn = false
     
     @Published var confirmEyeOn = false
-    
-    @Published var canRegister = false
-                
+                    
     @Published var isAnimating = false
         
     //---------------------
@@ -44,18 +46,12 @@ class CreatePasswordViewModel: ObservableObject {
         self.dataService = dataService
         
         retriveToken()
-        
-        Publishers.CombineLatest($passwordText, $confirmText)
-            .map { passwordText, confirmText in
-                return (!passwordText.isEmpty && !confirmText.isEmpty && passwordText == confirmText)
-            }
-            .assign(to: \.canRegister, on: self)
-            .store(in: &cancellables)
+    
     }
     
     func retriveToken() {
                 
-        dataService.generateToken(phone: checkForPhone(phone: phoneText))
+        dataService.generateToken(phone: phoneText)
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in
@@ -78,48 +74,37 @@ class CreatePasswordViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func checkForPhone(phone: String) -> String{
-        if !phone.starts(with: "0"){
-            return "20" + phone
-        }else{
-            return "2" + phone
-        }
-    }
-    
     func resetPassword() {
             
-        if canRegister{
-            self.isAnimating = true
-            dataService.resetPassword(request: ResetPasswordAPIRequest(phone: checkForPhone(phone: self.phoneText), newPassword: passwordText), token: token)
-                .receive(on: DispatchQueue.main)
-                .sink(
-                    receiveCompletion: { (completion) in
-                        switch completion {
-                        case .finished:
-                            print("Publisher stopped observing")
-                        case .failure(_):
-                            self.isAnimating = false
-                        }
-                    },
-                    receiveValue: { response in
+        self.isAnimating = true
+        
+        dataService.resetPassword(request: ResetPasswordAPIRequest(phone: self.phoneText, newPassword: passwordText), token: token)
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { (completion) in
+                    switch completion {
+                    case .finished:
+                        print("Publisher stopped observing")
+                    case .failure(_):
                         self.isAnimating = false
-                        if response.success{
-                            self.resetStatus = .success
-                        }else{
-                            self.resetStatus = .failed
-                        }
                     }
-                )
-                .store(in: &cancellables)
-        } else{
-            self.resetStatus = .failed
-        }
+                },
+                receiveValue: { response in
+                    self.isAnimating = false
+                    if response.success{
+                        self.resetStatus = .success
+                    }else{
+                        self.resetStatus = .failed
+                    }
+                }
+            )
+            .store(in: &cancellables)
         
     }
     
     func login() {
     
-        AppLoginService().login(request: LoginAPIRequest(phone: checkForPhone(phone: phoneText), password: passwordText, mobileToken: token))
+        AppLoginService().login(request: LoginAPIRequest(phone: phoneText, password: passwordText, mobileToken: token))
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in

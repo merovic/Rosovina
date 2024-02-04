@@ -15,11 +15,17 @@ class MyProfileViewModel: ObservableObject {
     
     //---------------------
     
+    @Published var firstNameValidationState: ValidationState = .valid
+    
+    @Published var lastNameValidationState: ValidationState = .valid
+    
+    @Published var emailValidationState: ValidationState = .valid
+    
     @Published var userImage = LoginDataService.shared.getImageURL()
     
     @Published var userFirstName = String(LoginDataService.shared.getFullName().split(separator: " ")[0])
     
-    @Published var userLastName = LoginDataService.shared.getFullName().split(separator: " ").count > 2 ? String(LoginDataService.shared.getFullName().split(separator: " ")[1]) : ""
+    @Published var userLastName = LoginDataService.shared.getFullName().split(separator: " ").count > 1 ? String(LoginDataService.shared.getFullName().split(separator: " ")[1]) : ""
         
     @Published var userEmail = LoginDataService.shared.getEmail()
     

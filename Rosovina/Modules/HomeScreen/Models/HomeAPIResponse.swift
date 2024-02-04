@@ -61,6 +61,7 @@ struct DynamicHomeModel: Codable {
     let title, description: String?
     let listOrder: Int?
     let slug: String?
+    let currencyCode: String?
     let showInHome, isOccasion: Int?
     let imageURL: String?
     let thumbURL: String?
@@ -80,6 +81,7 @@ struct DynamicHomeModel: Codable {
         case title, description
         case listOrder = "list_order"
         case slug
+        case currencyCode = "currency_code"
         case showInHome = "show_in_home"
         case isOccasion = "is_occasion"
         case imageURL = "image_url"

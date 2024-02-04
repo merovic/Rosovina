@@ -14,6 +14,7 @@
                 <outlet property="confirmedDate" destination="OOh-0N-wsZ" id="hkP-vJ-9fb"/>
                 <outlet property="confirmedImage" destination="u2s-vv-jxC" id="cZH-n0-Ps0"/>
                 <outlet property="confirmedTime" destination="Jlx-SE-fpa" id="yk2-Sj-UCh"/>
+                <outlet property="containerHeight" destination="oLU-yO-PNW" id="nwL-Zx-jGE"/>
                 <outlet property="deliveredDate" destination="1iZ-Q8-76e" id="zLJ-Kp-s0t"/>
                 <outlet property="deliveredImage" destination="8Yy-LB-oKN" id="cLH-8G-KZz"/>
                 <outlet property="deliveredTime" destination="UTo-R8-TVd" id="OQ9-JG-LhL"/>

@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,7 +13,7 @@
             <connections>
                 <outlet property="addAddressTextField" destination="6zD-XI-wtN" id="pG5-m3-TUe"/>
                 <outlet property="addAddressView" destination="OHH-Sn-dOr" id="A11-eL-cOm"/>
-                <outlet property="addNewButton" destination="JZL-9g-PtN" id="lqm-7G-jB8"/>
+                <outlet property="addNewButton" destination="sTK-HI-nLZ" id="W5H-9B-KOu"/>
                 <outlet property="addressContentTextField" destination="VSC-sW-YQu" id="CXn-YJ-2DD"/>
                 <outlet property="addressContentView" destination="pj2-Cf-tWb" id="TdM-vJ-TMH"/>
                 <outlet property="areaView" destination="dPq-oD-Zuu" id="4Ze-Xt-dX2"/>
@@ -20,14 +21,16 @@
                 <outlet property="cityView" destination="YZp-bM-O6X" id="BaT-pF-1dQ"/>
                 <outlet property="countryView" destination="CYS-a7-VuV" id="1B7-XR-aPU"/>
                 <outlet property="defaultSwitch" destination="1Sf-NV-WxW" id="Sad-a0-rRF"/>
+                <outlet property="deleteAddress" destination="JZL-9g-PtN" id="kUR-D2-gC8"/>
                 <outlet property="postCodeTextField" destination="adc-A9-iiP" id="35Q-AD-lJO"/>
                 <outlet property="postCodeView" destination="bKW-bL-z0u" id="ThJ-vU-eZD"/>
+                <outlet property="titleLabel" destination="JrA-fG-ONt" id="BUi-vj-Fqe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="393" height="968"/>
+            <rect key="frame" x="0.0" y="0.0" width="393" height="1000"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pUm-LR-m0x">
@@ -65,13 +68,13 @@
                     </constraints>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xrf-WZ-PXe">
-                    <rect key="frame" x="0.0" y="124" width="393" height="844"/>
+                    <rect key="frame" x="0.0" y="124" width="393" height="876"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bmp-Po-DZr">
-                            <rect key="frame" x="0.0" y="8" width="393" height="844"/>
+                            <rect key="frame" x="0.0" y="8" width="393" height="876"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="cXT-VH-mYK">
-                                    <rect key="frame" x="8" y="0.0" width="377" height="720"/>
+                                    <rect key="frame" x="8" y="0.0" width="377" height="802"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CYs-UV-L8L">
                                             <rect key="frame" x="0.0" y="0.0" width="377" height="100"/>
@@ -348,7 +351,7 @@
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qZe-6b-Ryq">
-                                            <rect key="frame" x="0.0" y="600" width="377" height="120"/>
+                                            <rect key="frame" x="0.0" y="600" width="377" height="80"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qAU-8l-BH5">
                                                     <rect key="frame" x="8" y="8" width="201.33333333333334" height="31"/>
@@ -366,11 +369,22 @@
                                                         </label>
                                                     </subviews>
                                                 </stackView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JZL-9g-PtN">
-                                                    <rect key="frame" x="8" y="64" width="361" height="56"/>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstItem="qAU-8l-BH5" firstAttribute="leading" secondItem="qZe-6b-Ryq" secondAttribute="leading" constant="8" id="8Ti-6s-AP3"/>
+                                                <constraint firstItem="qAU-8l-BH5" firstAttribute="top" secondItem="qZe-6b-Ryq" secondAttribute="top" constant="8" id="SdO-PD-LNK"/>
+                                                <constraint firstAttribute="height" constant="80" id="gDn-EA-dLd"/>
+                                            </constraints>
+                                        </view>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="fks-SH-0rv">
+                                            <rect key="frame" x="0.0" y="680" width="377" height="122"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sTK-HI-nLZ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="377" height="56"/>
                                                     <color key="backgroundColor" red="0.1764705882" green="0.19215686269999999" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="56" id="e1H-HM-9gA"/>
+                                                        <constraint firstAttribute="height" constant="56" id="Dgr-VY-bJg"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -378,17 +392,20 @@
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JZL-9g-PtN">
+                                                    <rect key="frame" x="0.0" y="66" width="377" height="56"/>
+                                                    <color key="backgroundColor" name="DarkRed"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="56" id="e1H-HM-9gA"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="Delete Address">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                </button>
                                             </subviews>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                            <constraints>
-                                                <constraint firstItem="qAU-8l-BH5" firstAttribute="leading" secondItem="qZe-6b-Ryq" secondAttribute="leading" constant="8" id="8Ti-6s-AP3"/>
-                                                <constraint firstItem="JZL-9g-PtN" firstAttribute="leading" secondItem="qZe-6b-Ryq" secondAttribute="leading" constant="8" id="JRe-Tw-l7D"/>
-                                                <constraint firstItem="qAU-8l-BH5" firstAttribute="top" secondItem="qZe-6b-Ryq" secondAttribute="top" constant="8" id="SdO-PD-LNK"/>
-                                                <constraint firstAttribute="height" constant="120" id="gDn-EA-dLd"/>
-                                                <constraint firstAttribute="bottom" secondItem="JZL-9g-PtN" secondAttribute="bottom" id="mqe-pP-7D5"/>
-                                                <constraint firstAttribute="trailing" secondItem="JZL-9g-PtN" secondAttribute="trailing" constant="8" id="nbC-eK-PAZ"/>
-                                            </constraints>
-                                        </view>
+                                        </stackView>
                                     </subviews>
                                 </stackView>
                             </subviews>
@@ -429,6 +446,9 @@
     </objects>
     <resources>
         <image name="arrow" width="24" height="21.666666030883789"/>
+        <namedColor name="DarkRed">
+            <color red="0.74900001287460327" green="0.2669999897480011" blue="0.37999999523162842" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

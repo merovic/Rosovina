@@ -33,19 +33,27 @@ class MyProfileView: UIViewController {
     }
     @IBOutlet weak var firstNameTextField: UITextField!
     
+    @IBOutlet weak var firstNameErrorMessage: UILabel!
+    
     @IBOutlet weak var lastNameView: UIView! {
         didSet {
             lastNameView.roundedGrayHareefView()
         }
     }
+    
     @IBOutlet weak var lastNameTextField: UITextField!
+    
+    @IBOutlet weak var lastNameErrorMessage: UILabel!
     
     @IBOutlet weak var emailView: UIView! {
         didSet {
             emailView.roundedGrayHareefView()
         }
     }
+    
     @IBOutlet weak var emailTextField: UITextField!
+    
+    @IBOutlet weak var emailErrorMessage: UILabel!
     
     var imageGest: UITapGestureRecognizer = {
         let gest = UITapGestureRecognizer()
@@ -145,7 +153,9 @@ class MyProfileView: UIViewController {
         
         changePassGest.tapPublisher
             .sink(receiveValue:{_ in
-                
+                let newViewController = ForgetPasswordView()
+                newViewController.viewModel = CreatePasswordViewModel(phoneText: LoginDataService.shared.getMobileNumber())
+                self.navigationController?.pushViewController(newViewController, animated: true)
             })
             .store(in: &bindings)
         
@@ -186,15 +196,105 @@ class MyProfileView: UIViewController {
             .assign(to: \.userFirstName, on: viewModel)
         .store(in: &bindings)
         
+        firstNameTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .name)
+            .assign(to: \.firstNameValidationState, on: viewModel)
+        .store(in: &bindings)
+        
+        viewModel.$firstNameValidationState
+            .sink { [self] state in
+                switch state {
+                case .error(let error):
+                    self.firstNameErrorMessage.isHidden = false
+                    self.firstNameErrorMessage.text = error.description
+                    self.firstNameView.roundedRedHareefView()
+                default:
+                    self.firstNameErrorMessage.isHidden = true
+                    self.firstNameErrorMessage.text = ""
+                    self.firstNameView.roundedGrayHareefView()
+                }
+                
+                let validationStates = [
+                    state,
+                    viewModel.lastNameValidationState,
+                    viewModel.emailValidationState
+                ]
+                
+                validationStates.allSatisfy({ $0 == .valid }) ? saveButton.enable() : saveButton.disable()
+            }
+            .store(in: &bindings)
+        
         lastNameTextField.textPublisher
             .receive(on: DispatchQueue.main)
             .assign(to: \.userLastName, on: viewModel)
         .store(in: &bindings)
         
+        lastNameTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .name)
+            .assign(to: \.lastNameValidationState, on: viewModel)
+        .store(in: &bindings)
+        
+        viewModel.$lastNameValidationState
+            .sink { [self] state in
+                switch state {
+                case .error(let error):
+                    self.lastNameErrorMessage.isHidden = false
+                    self.lastNameErrorMessage.text = error.description
+                    self.lastNameView.roundedRedHareefView()
+                default:
+                    self.lastNameErrorMessage.isHidden = true
+                    self.lastNameErrorMessage.text = ""
+                    self.lastNameView.roundedGrayHareefView()
+                }
+                
+                let validationStates = [
+                    viewModel.firstNameValidationState,
+                    state,
+                    viewModel.emailValidationState
+                ]
+                
+                validationStates.allSatisfy({ $0 == .valid }) ? saveButton.enable() : saveButton.disable()
+            }
+            .store(in: &bindings)
+        
         emailTextField.textPublisher
             .receive(on: DispatchQueue.main)
             .assign(to: \.userEmail, on: viewModel)
         .store(in: &bindings)
+        
+        emailTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .email)
+            .assign(to: \.emailValidationState, on: viewModel)
+        .store(in: &bindings)
+        
+        viewModel.$emailValidationState
+            .sink { [self] state in
+                switch state {
+                case .error(let error):
+                    self.emailErrorMessage.isHidden = false
+                    self.emailErrorMessage.text = error.description
+                    self.emailView.roundedRedHareefView()
+                default:
+                    self.emailErrorMessage.isHidden = true
+                    self.emailErrorMessage.text = ""
+                    self.emailView.roundedGrayHareefView()
+                }
+                
+                let validationStates = [
+                    viewModel.firstNameValidationState,
+                    viewModel.lastNameValidationState,
+                    state
+                ]
+                
+                validationStates.allSatisfy({ $0 == .valid }) ? saveButton.enable() : saveButton.disable()
+            }
+            .store(in: &bindings)
         
         imageGest.tapPublisher
             .sink(receiveValue:{_ in
@@ -227,6 +327,14 @@ class MyProfileView: UIViewController {
                 self.height.constant = CGFloat(v.count * 135)
             }else{
                 self.addressView.isHidden = true
+            }
+        }.store(in: &bindings)
+        
+        viewModel.$selectedAddress.sink { address in
+            if address != nil {
+                let newViewController = AddAddressView()
+                newViewController.viewModel = AddAddressViewModel(addressToUpdate: address)
+                self.navigationController?.pushViewController(newViewController, animated: true)
             }
         }.store(in: &bindings)
     }

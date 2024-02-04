@@ -33,6 +33,7 @@ class AddAddressViewModel: ObservableObject {
     
     @Published var addedAddress: UserAddress?
                                             
+    @Published var errorMessage = ""
     @Published var isAnimating = false
         
     let token = UIDevice.current.identifierForVendor!.uuidString
@@ -73,25 +74,30 @@ class AddAddressViewModel: ObservableObject {
         
     func addAddress() {
         
-        self.isAnimating = true
-        
-        dataService.addAddress(request: AddUserAddress(name: addressName, address: addressContent, coordinates: addressCoordinates, countryID: selectedCountry!.id, cityID: selectedCity!.id, areaID: selectedArea!.id, buildingNo: buildingNo, floorNo: floorNo, flatNo: flatNo, postalCode: postalCode, notes: "", isDefault: isDefault))
-            .receive(on: DispatchQueue.main)
-            .sink(
-                receiveCompletion: { (completion) in
-                    switch completion {
-                    case .finished:
-                        print("Publisher stopped observing")
-                    case .failure(_):
+        if !addressName.isEmpty && !addressContent.isEmpty && !addressContent.isEmpty {
+            self.isAnimating = true
+            
+            dataService.addAddress(request: AddUserAddress(name: addressName, address: addressContent, coordinates: addressCoordinates, countryID: selectedCountry!.id, cityID: selectedCity!.id, areaID: selectedArea!.id, buildingNo: buildingNo, floorNo: floorNo, flatNo: flatNo, postalCode: postalCode, notes: "", isDefault: isDefault))
+                .receive(on: DispatchQueue.main)
+                .sink(
+                    receiveCompletion: { (completion) in
+                        switch completion {
+                        case .finished:
+                            print("Publisher stopped observing")
+                        case .failure(_):
+                            self.isAnimating = false
+                        }
+                    },
+                    receiveValue: { response in
                         self.isAnimating = false
+                        self.addedAddress = response.data
                     }
-                },
-                receiveValue: { response in
-                    self.isAnimating = false
-                    self.addedAddress = response.data
-                }
-            )
-            .store(in: &cancellables)
+                )
+                .store(in: &cancellables)
+        }else{
+            self.errorMessage = "Complete Your Address Data First"
+        }
+        
     }
     
     func updateAddress() {
@@ -111,6 +117,30 @@ class AddAddressViewModel: ObservableObject {
                 },
                 receiveValue: { response in
                     self.isAnimating = false
+                    self.addedAddress = response.data
+                }
+            )
+            .store(in: &cancellables)
+    }
+    
+    func deleteAddress() {
+        
+        self.isAnimating = true
+        
+        dataService.removeAddress(addressID: String(self.addressToUpdate!.id!))
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { (completion) in
+                    switch completion {
+                    case .finished:
+                        print("Publisher stopped observing")
+                    case .failure(_):
+                        self.isAnimating = false
+                    }
+                },
+                receiveValue: { response in
+                    self.isAnimating = false
+                    self.addedAddress = response.data?[0]
                 }
             )
             .store(in: &cancellables)

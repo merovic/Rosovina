@@ -118,6 +118,7 @@ struct MyOrderItem: Codable, Identifiable {
     let productName, sku, imageURL, notes: String
     let unitPrice, quantity, taxPercentage, taxAmount: Int
     let discountPercentage: Double
+    let currencyCode: String?
     let discountAmount, priceAfterDiscount, total: Int
 
     enum CodingKeys: String, CodingKey {
@@ -127,6 +128,7 @@ struct MyOrderItem: Codable, Identifiable {
         case vendorID = "vendor_id"
         case productName = "product_name"
         case sku
+        case currencyCode = "currency_code"
         case imageURL = "image_url"
         case notes
         case unitPrice = "unit_price"

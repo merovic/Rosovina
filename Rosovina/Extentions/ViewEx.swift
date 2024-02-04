@@ -33,6 +33,14 @@ extension UIView{
         self.layer.borderColor = #colorLiteral(red: 0.9387457371, green: 0.9387457371, blue: 0.9387457371, alpha: 1)
     }
     
+    func roundedRedHareefView(){
+        self.layer.masksToBounds = false
+        self.layer.backgroundColor = UIColor.clear.cgColor
+        self.layer.cornerRadius = 10
+        self.layer.borderWidth = 1
+        self.layer.borderColor = #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1)
+    }
+    
     func roundedBlackHareefView(){
         self.layer.masksToBounds = false
         self.layer.backgroundColor = UIColor.clear.cgColor

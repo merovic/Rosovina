@@ -27,6 +27,7 @@ struct WishlistItem: Codable, Identifiable {
     let productID: Int
     let productName, productDescription, unitCode: String
     let isInStock: Int
+    let currencyCode: String?
     let price: Double
     let productImage: String
 
@@ -37,6 +38,7 @@ struct WishlistItem: Codable, Identifiable {
         case unitCode = "unit_code"
         case isInStock = "is_in_stock"
         case price
+        case currencyCode = "currency_code"
         case productImage = "product_image"
     }
 }

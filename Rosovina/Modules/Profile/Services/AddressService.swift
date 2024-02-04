@@ -13,7 +13,7 @@ protocol AddressService {
     func getUserAddress() -> AnyPublisher<BaseResponseAnother<GetAddressesAPIResponse>, AFError>
     func addAddress(request: AddUserAddress) -> AnyPublisher<BaseResponseAnother<UserAddress>, AFError>
     func updateAddress(addressID: String,request: AddUserAddress) -> AnyPublisher<BaseResponseAnother<UserAddress>, AFError>
-    func removeAddress(addressID: String) -> AnyPublisher<BaseResponseAnother<UserAddress>, AFError>
+    func removeAddress(addressID: String) -> AnyPublisher<BaseResponseAnother<GetAddressesAPIResponse>, AFError>
 }
 
 class AppAddressService: AddressService {
@@ -29,7 +29,7 @@ class AppAddressService: AddressService {
         return APIClient.performDecodableRequest(route: APIRouter.updateAddress(addressID: addressID, request: request))
     }
     
-    func removeAddress(addressID: String) -> AnyPublisher<BaseResponseAnother<UserAddress>, AFError> {
+    func removeAddress(addressID: String) -> AnyPublisher<BaseResponseAnother<GetAddressesAPIResponse>, AFError> {
         return APIClient.performDecodableRequest(route: APIRouter.removeAddress(addressID: addressID))
     }
 

@@ -31,6 +31,8 @@ class PhoneNumberView: UIViewController {
     
     @IBOutlet weak var phoneNumberTextField: UITextField!
     
+    @IBOutlet weak var phoneErrorMessage: UILabel!
+    
     @IBOutlet weak var doneButton: UIButton! {
         didSet {
             doneButton.prettyHareefButton(radius: 16)
@@ -59,6 +61,34 @@ class PhoneNumberView: UIViewController {
             .assign(to: \.phoneText, on: viewModel)
         .store(in: &bindings)
         
+        phoneNumberTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .phone(country: .egypt))
+            .assign(to: \.phoneValidationState, on: viewModel)
+        .store(in: &bindings)
+        
+        viewModel.$phoneValidationState
+            .sink { [self] state in
+                switch state {
+                case .error(let error):
+                    self.phoneErrorMessage.isHidden = false
+                    self.phoneErrorMessage.text = error.description
+                    self.phoneView.roundedRedHareefView()
+                default:
+                    self.phoneErrorMessage.isHidden = true
+                    self.phoneErrorMessage.text = ""
+                    self.phoneView.roundedGrayHareefView()
+                }
+                
+                let validationStates = [
+                    state
+                ]
+                
+                validationStates.allSatisfy({ $0 == .valid }) ? doneButton.enable() : doneButton.disable()
+            }
+            .store(in: &bindings)
+        
         backButton.tapPublisher
             .sink { _ in
                 self.navigationController?.popViewController(animated: true)
@@ -71,7 +101,7 @@ class PhoneNumberView: UIViewController {
         
         doneButton.tapPublisher
             .sink { _ in
-                if !self.viewModel.phoneText.isEmpty && self.viewModel.phoneText.isValidPhone() {
+                if !self.viewModel.phoneText.isEmpty && self.viewModel.phoneText.isValidPhone(forCountry: .egypt) {
                     self.viewModel.otpSentStatus = .success
                 }else{
                     self.viewModel.otpSentStatus = .failed

@@ -12,8 +12,8 @@ struct CountryPicker: View {
     
     @ObservedObject var viewModel = CountryPickerViewModel()
     //@State var selectedCountry = ""
-    @State var selectedFlag: Image? = Image("EGX")
-    var placeholder = "+20"
+    @State var selectedFlag: Image? = Image("SAX")
+    var placeholder = "+966"
     var dropDownList = Country.countryNamesByCode()
     
     var body: some View {
@@ -68,7 +68,7 @@ struct CountryPicker_Previews: PreviewProvider {
 }
 
 class CountryPickerViewModel: ObservableObject {
-    @Published var phoneCode = "+20"
+    @Published var phoneCode = "+966"
 }
 
 

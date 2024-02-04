@@ -43,6 +43,7 @@ struct CartItem: Codable, Identifiable {
     let productAttributeValueID: Int?
     let productName: String
     let notes: String?
+    let currencyCode: String?
     let productImage: String
     var quantity: String
     let couponCode, unitPrice, taxPercentage: String
@@ -55,6 +56,7 @@ struct CartItem: Codable, Identifiable {
         case productAttributeValueID = "product_attribute_value_id"
         case productName = "product_name"
         case notes
+        case currencyCode = "currency_code"
         case productImage = "product_image"
         case couponCode = "coupon_code"
         case unitPrice = "unit_price"

@@ -27,6 +27,7 @@ target 'Rosovina' do
   pod 'SwiftyJSON', '~> 4.0'
   pod 'SwiftyCodeView'
   pod "WARangeSlider"
+  pod 'MyFatoorah'
 
 post_install do |installer|
     installer.generated_projects.each do |project|

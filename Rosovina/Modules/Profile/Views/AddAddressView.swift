@@ -21,6 +21,14 @@ class AddAddressView: UIViewController {
     
     var delegate: SelectLocationDelegate!
 
+    @IBOutlet weak var titleLabel: UILabel! {
+        didSet {
+            if self.viewModel?.addressToUpdate != nil {
+                titleLabel.text = "Update Address"
+            }
+        }
+    }
+    
     @IBOutlet weak var backButton: UIButton!
     
     @IBOutlet weak var addAddressView: UIView! {
@@ -70,6 +78,19 @@ class AddAddressView: UIViewController {
     @IBOutlet weak var addNewButton: UIButton! {
         didSet {
             addNewButton.prettyHareefButton(radius: 16)
+            if self.viewModel?.addressToUpdate != nil {
+                addNewButton.setTitle("Update Address", for: .normal)
+            }
+        }
+    }
+    
+    
+    @IBOutlet weak var deleteAddress: UIButton! {
+        didSet {
+            deleteAddress.prettyHareefButton(radius: 16)
+            if self.viewModel?.addressToUpdate == nil {
+                deleteAddress.isHidden = true
+            }
         }
     }
     
@@ -84,8 +105,12 @@ class AddAddressView: UIViewController {
         // Post the notification
         NotificationCenter.default.post(name: .didUpdateValue, object: address)
         
-        self.dismiss(animated: true)
-        //navigationController?.popToRootViewController(animated: true)
+        if self.viewModel?.addressToUpdate != nil {
+            self.navigationController?.popViewController(animated: true)
+        }else{
+            self.dismiss(animated: true)
+        }
+        
     }
     
     func AttachViews() {
@@ -106,6 +131,11 @@ class AddAddressView: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             }
             .store(in: &bindings)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.addAddressTextField.text = self.viewModel?.addressName
+            self.addressContentTextField.text = self.viewModel?.addressContent
+        }
         
         addAddressTextField.textPublisher
             .receive(on: DispatchQueue.main)
@@ -129,15 +159,29 @@ class AddAddressView: UIViewController {
         
         addNewButton.tapPublisher
             .sink { _ in
-                self.viewModel?.addAddress()
+                if self.viewModel?.addressToUpdate != nil{
+                    self.viewModel?.updateAddress()
+                }else{
+                    self.viewModel?.addAddress()
+                }
+            }
+            .store(in: &bindings)
+        
+        deleteAddress.tapPublisher
+            .sink { _ in
+                self.viewModel?.deleteAddress()
             }
             .store(in: &bindings)
         
         viewModel!.$addedAddress.sink { response in
             if response != nil{
                 self.updateValueAndNavigateBack(address: response!)
-//                self.delegate.didLocationSelected(location: response!)
-//                self.navigationController?.popViewController(animated: true)
+            }
+        }.store(in: &bindings)
+        
+        viewModel!.$errorMessage.sink { error in
+            if error != ""{
+                Alert.show("Error Saving an Address", message: error, context: self)
             }
         }.store(in: &bindings)
     }

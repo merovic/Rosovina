@@ -16,7 +16,9 @@ class ForgetPasswordView: UIViewController {
     var viewModel: CreatePasswordViewModel!
     
     private let loadingView = LoadingAnimation()
-
+    
+    @IBOutlet weak var backButton: UIButton!
+    
     @IBOutlet weak var newPasswordView: UIView! {
         didSet {
             newPasswordView.roundedGrayHareefView()
@@ -25,6 +27,8 @@ class ForgetPasswordView: UIViewController {
     
     @IBOutlet weak var passwordTextField: UITextField!
     
+    
+    @IBOutlet weak var passwordErrorMessage: UILabel!
     
     @IBOutlet weak var retypeView: UIView! {
         didSet {
@@ -60,9 +64,12 @@ class ForgetPasswordView: UIViewController {
         }
     }
     
+    @IBOutlet weak var retypeErrorMessage: UILabel!
+    
     @IBOutlet weak var doneButton: UIButton! {
         didSet {
             doneButton.prettyHareefButton(radius: 16)
+            doneButton.disable()
         }
     }
     
@@ -78,10 +85,50 @@ class ForgetPasswordView: UIViewController {
             .assign(to: \.isVisible, on: loadingView)
             .store(in: &bindings)
         
+        backButton.tapPublisher
+            .sink { _ in
+                self.navigationController?.popViewController(animated: true)
+            }
+            .store(in: &bindings)
+        
         passwordTextField.textPublisher
             .receive(on: DispatchQueue.main)
             .assign(to: \.passwordText, on: viewModel)
         .store(in: &bindings)
+        
+        passwordTextField.textPublisher
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.passwordText, on: viewModel)
+        .store(in: &bindings)
+        
+        passwordTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .password)
+            .assign(to: \.passwordValidationState, on: viewModel)
+        .store(in: &bindings)
+        
+        viewModel.$passwordValidationState
+            .sink { [self] state in
+                switch state {
+                case .error(let error):
+                    self.passwordErrorMessage.isHidden = false
+                    self.passwordErrorMessage.text = error.description
+                    self.newPasswordView.roundedRedHareefView()
+                default:
+                    self.passwordErrorMessage.isHidden = true
+                    self.passwordErrorMessage.text = ""
+                    self.newPasswordView.roundedGrayHareefView()
+                }
+                
+                let validationStates = [
+                    state,
+                    viewModel.confirmValidationState,
+                ]
+                
+                validationStates.allSatisfy({ $0 == .valid }) ? doneButton.enable() : doneButton.disable()
+            }
+            .store(in: &bindings)
         
         viewModel.$passwordEyeOn
             .receive(on: DispatchQueue.main)
@@ -97,6 +144,35 @@ class ForgetPasswordView: UIViewController {
             .receive(on: DispatchQueue.main)
             .assign(to: \.confirmText, on: viewModel)
         .store(in: &bindings)
+        
+        confirmPasswordTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .password)
+            .assign(to: \.confirmValidationState, on: viewModel)
+        .store(in: &bindings)
+        
+        viewModel.$confirmValidationState
+            .sink { [self] state in
+                switch state {
+                case .error(let error):
+                    self.retypeErrorMessage.isHidden = false
+                    self.retypeErrorMessage.text = error.description
+                    self.retypeView.roundedRedHareefView()
+                default:
+                    self.retypeErrorMessage.isHidden = true
+                    self.retypeErrorMessage.text = ""
+                    self.retypeView.roundedGrayHareefView()
+                }
+                
+                let validationStates = [
+                    state,
+                    viewModel.passwordValidationState,
+                ]
+                
+                validationStates.allSatisfy({ $0 == .valid }) ? doneButton.enable() : doneButton.disable()
+            }
+            .store(in: &bindings)
         
         passwordGest.tapPublisher
             .sink(receiveValue:{_ in

@@ -64,7 +64,7 @@ class VerificationViewModel: ObservableObject {
         if !phone.starts(with: "0"){
             return fCode + phone
         }else{
-            return fCode.dropLast() + phone
+            return fCode + phone.dropFirst()
         }
     }
     

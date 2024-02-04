@@ -31,6 +31,8 @@ class RegistrationView: UIViewController {
     
     @IBOutlet weak var emailTextField: UITextField!
     
+    @IBOutlet weak var emailErrorMessage: UILabel!
+    
     @IBOutlet weak var firstNameView: UIView! {
         didSet {
             firstNameView.roundedGrayHareefView()
@@ -38,6 +40,8 @@ class RegistrationView: UIViewController {
     }
     
     @IBOutlet weak var firstNameTextField: UITextField!
+    
+    @IBOutlet weak var firstNameErrorMessage: UILabel!
     
     @IBOutlet weak var lastNameView: UIView! {
         didSet {
@@ -47,6 +51,8 @@ class RegistrationView: UIViewController {
     
     @IBOutlet weak var lastNameTextField: UITextField!
     
+    @IBOutlet weak var lastNameErrorMessage: UILabel!
+    
     @IBOutlet weak var phoneView: UIView! {
         didSet {
             phoneView.roundedGrayHareefView()
@@ -55,6 +61,9 @@ class RegistrationView: UIViewController {
     
     @IBOutlet weak var phoneTextField: UITextField!
     
+    @IBOutlet weak var phoneErrorMessage: UILabel!
+    
+    
     @IBOutlet weak var passwordView: UIView! {
         didSet {
             passwordView.roundedGrayHareefView()
@@ -62,6 +71,8 @@ class RegistrationView: UIViewController {
     }
     
     @IBOutlet weak var passwordTextField: UITextField!
+    
+    @IBOutlet weak var passwordErrorMessage: UILabel!
     
     var passwordGest: UITapGestureRecognizer = {
         let gest = UITapGestureRecognizer()
@@ -79,6 +90,7 @@ class RegistrationView: UIViewController {
     @IBOutlet weak var createButton: UIButton! {
         didSet {
             createButton.prettyHareefButton(radius: 16)
+            createButton.disable()
         }
     }
     
@@ -114,35 +126,201 @@ class RegistrationView: UIViewController {
             .assign(to: \.firstNameText, on: viewModel)
         .store(in: &bindings)
         
+        viewModel.$passwordEyeOn
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.isSecureTextEntry, on: passwordTextField)
+            .store(in: &bindings)
+        
+        passwordGest.tapPublisher
+            .sink(receiveValue:{_ in
+                self.passwordEye.image = UIImage(systemName: self.viewModel.passwordEyeOn ? "eye.slash.fill" : "eye.fill")
+                self.viewModel.switchPasswordEye()
+            })
+            .store(in: &bindings)
+        
+        firstNameTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .name)
+            .assign(to: \.firstNameValidationState, on: viewModel)
+        .store(in: &bindings)
+        
+        viewModel.$firstNameValidationState
+            .sink { [self] state in
+                switch state {
+                case .error(let error):
+                    self.firstNameErrorMessage.isHidden = false
+                    self.firstNameErrorMessage.text = error.description
+                    self.firstNameView.roundedRedHareefView()
+                default:
+                    self.firstNameErrorMessage.isHidden = true
+                    self.firstNameErrorMessage.text = ""
+                    self.firstNameView.roundedGrayHareefView()
+                }
+                
+                let validationStates = [
+                    state,
+                    viewModel.lastNameValidationState,
+                    viewModel.emailValidationState,
+                    viewModel.passwordValidationState,
+                    viewModel.phoneValidationState
+                ]
+                
+                validationStates.allSatisfy({ $0 == .valid }) ? createButton.enable() : createButton.disable()
+            }
+            .store(in: &bindings)
+        
         lastNameTextField.textPublisher
             .receive(on: DispatchQueue.main)
             .assign(to: \.lastNameText, on: viewModel)
         .store(in: &bindings)
+        
+        lastNameTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .name)
+            .assign(to: \.lastNameValidationState, on: viewModel)
+        .store(in: &bindings)
+        
+        viewModel.$lastNameValidationState
+            .sink { [self] state in
+                switch state {
+                case .error(let error):
+                    self.lastNameErrorMessage.isHidden = false
+                    self.lastNameErrorMessage.text = error.description
+                    self.lastNameView.roundedRedHareefView()
+                default:
+                    self.lastNameErrorMessage.isHidden = true
+                    self.lastNameErrorMessage.text = ""
+                    self.lastNameView.roundedGrayHareefView()
+                }
+                
+                let validationStates = [
+                    viewModel.firstNameValidationState,
+                    state,
+                    viewModel.emailValidationState,
+                    viewModel.passwordValidationState,
+                    viewModel.phoneValidationState
+                ]
+                
+                validationStates.allSatisfy({ $0 == .valid }) ? createButton.enable() : createButton.disable()
+            }
+            .store(in: &bindings)
         
         emailTextField.textPublisher
             .receive(on: DispatchQueue.main)
             .assign(to: \.emailText, on: viewModel)
         .store(in: &bindings)
         
+        emailTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .email)
+            .assign(to: \.emailValidationState, on: viewModel)
+        .store(in: &bindings)
+        
+        viewModel.$emailValidationState
+            .sink { [self] state in
+                switch state {
+                case .error(let error):
+                    self.emailErrorMessage.isHidden = false
+                    self.emailErrorMessage.text = error.description
+                    self.emailView.roundedRedHareefView()
+                default:
+                    self.emailErrorMessage.isHidden = true
+                    self.emailErrorMessage.text = ""
+                    self.emailView.roundedGrayHareefView()
+                }
+                
+                let validationStates = [
+                    viewModel.firstNameValidationState,
+                    viewModel.lastNameValidationState,
+                    state,
+                    viewModel.passwordValidationState,
+                    viewModel.phoneValidationState
+                ]
+                
+                validationStates.allSatisfy({ $0 == .valid }) ? createButton.enable() : createButton.disable()
+            }
+            .store(in: &bindings)
+        
         phoneTextField.textPublisher
             .receive(on: DispatchQueue.main)
             .assign(to: \.phoneText, on: viewModel)
         .store(in: &bindings)
+        
+        phoneTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .phone(country: .egypt))
+            .assign(to: \.phoneValidationState, on: viewModel)
+        .store(in: &bindings)
+        
+        viewModel.$phoneValidationState
+            .sink { [self] state in
+                switch state {
+                case .error(let error):
+                    self.phoneErrorMessage.isHidden = false
+                    self.phoneErrorMessage.text = error.description
+                    self.phoneView.roundedRedHareefView()
+                default:
+                    self.phoneErrorMessage.isHidden = true
+                    self.phoneErrorMessage.text = ""
+                    self.phoneView.roundedGrayHareefView()
+                }
+                
+                let validationStates = [
+                    viewModel.firstNameValidationState,
+                    viewModel.lastNameValidationState,
+                    viewModel.emailValidationState,
+                    viewModel.passwordValidationState,
+                    state
+                ]
+                
+                validationStates.allSatisfy({ $0 == .valid }) ? createButton.enable() : createButton.disable()
+            }
+            .store(in: &bindings)
         
         passwordTextField.textPublisher
             .receive(on: DispatchQueue.main)
             .assign(to: \.passwordText, on: viewModel)
         .store(in: &bindings)
         
-        createButton.tapPublisher
-            .sink { _ in
-                //self.viewModel.sendOTP()
-                if self.viewModel.canContinue {
-                    self.viewModel.otpSentStatus = .success
-                }else{
-                    self.viewModel.otpSentStatus = .failed
+        passwordTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .password)
+            .assign(to: \.passwordValidationState, on: viewModel)
+        .store(in: &bindings)
+        
+        viewModel.$passwordValidationState
+            .sink { [self] state in
+                switch state {
+                case .error(let error):
+                    self.passwordErrorMessage.isHidden = false
+                    self.passwordErrorMessage.text = error.description
+                    self.passwordView.roundedRedHareefView()
+                default:
+                    self.passwordErrorMessage.isHidden = true
+                    self.passwordErrorMessage.text = ""
+                    self.passwordView.roundedGrayHareefView()
                 }
                 
+                let validationStates = [
+                    viewModel.firstNameValidationState,
+                    viewModel.lastNameValidationState,
+                    viewModel.emailValidationState,
+                    state,
+                    viewModel.phoneValidationState
+                ]
+                
+                validationStates.allSatisfy({ $0 == .valid }) ? createButton.enable() : createButton.disable()
+            }
+            .store(in: &bindings)
+        
+        createButton.tapPublisher
+            .sink { _ in
+                self.viewModel.sendOTP()
             }
             .store(in: &bindings)
         

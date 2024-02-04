@@ -114,7 +114,7 @@ class FilterView: UIViewController {
     @IBAction func valueChanged(_ sender: RangeSlider) {
         self.viewModel.minimumPriceRange = Int(rangleSlider.lowerValue)
         self.viewModel.maximumPriceRange = Int(rangleSlider.upperValue)
-        self.rangeText.text = "Between: " + String(Int(rangleSlider.lowerValue)) + " EGP - " + String(Int(rangleSlider.upperValue)) + " EGP"
+        self.rangeText.text = "Between: " + String(Int(rangleSlider.lowerValue)) + " SAR - " + String(Int(rangleSlider.upperValue)) + " SAR"
     }
 }
 

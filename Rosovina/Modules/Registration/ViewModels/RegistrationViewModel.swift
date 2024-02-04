@@ -15,21 +15,31 @@ class RegistrationViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     //---------------------
-            
+    
+    @Published var firstNameValidationState: ValidationState = .idle
+    
+    @Published var lastNameValidationState: ValidationState = .idle
+    
+    @Published var phoneValidationState: ValidationState = .idle
+    
+    @Published var passwordValidationState: ValidationState = .idle
+    
+    @Published var emailValidationState: ValidationState = .idle
+                
     @Published var firstNameText = ""
     
     @Published var lastNameText = ""
     
-    @Published var phoneCode = "+20"
+    @Published var phoneCode = "+966"
     
     @Published var phoneText = ""
         
     @Published var emailText = ""
     
     @Published var passwordText = ""
-                
-    @Published var canContinue = false
     
+    @Published var passwordEyeOn = true
+                    
     @Published var otpSentStatus: PhoneStatus = .idle
                     
     @Published var isAnimating = false
@@ -40,20 +50,6 @@ class RegistrationViewModel: ObservableObject {
     
     init(dataService: RegistrationService = AppRegistrationService()) {
         self.dataService = dataService
-        
-        Publishers.CombineLatest($firstNameText, $lastNameText)
-            .map { firstNameText, lastNameText in
-                return (!firstNameText.isEmpty && !lastNameText.isEmpty)
-            }
-            .assign(to: \.canContinue, on: self)
-            .store(in: &cancellables)
-        
-        Publishers.CombineLatest3($phoneText, $emailText, $passwordText)
-            .map { phoneText, emailText, passwordText in
-                return (phoneText.isValidPhone() && !passwordText.isEmpty && (emailText.isValidEmail() || !emailText.isEmpty))
-            }
-            .assign(to: \.canContinue, on: self)
-            .store(in: &cancellables)
     }
     
     func checkForPhone(phone: String, code: String) -> String{
@@ -61,35 +57,34 @@ class RegistrationViewModel: ObservableObject {
         if !phone.starts(with: "0"){
             return fCode + phone
         }else{
-            return fCode.dropLast() + phone
+            return fCode + phone.dropFirst()
         }
     }
     
     func sendOTP() {
-        if phoneText.isValidPhone() && !phoneText.isEmpty {
-            dataService.otp_send(request: OTPSendAPIRequest(phone: checkForPhone(phone: phoneText, code: phoneCode)))
-                .receive(on: DispatchQueue.main)
-                .sink(
-                    receiveCompletion: { (completion) in
-                        switch completion {
-                        case .finished:
-                            print("Publisher stopped observing")
-                        case .failure(_):
-                            self.isAnimating = false
-                        }
-                    },
-                    receiveValue: { response in
-                        if response.success {
-                            self.otpSentStatus = .success
-                        }
+        dataService.otp_send(request: OTPSendAPIRequest(phone: checkForPhone(phone: phoneText, code: phoneCode)))
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { (completion) in
+                    switch completion {
+                    case .finished:
+                        print("Publisher stopped observing")
+                    case .failure(_):
+                        self.isAnimating = false
                     }
-                )
-                .store(in: &cancellables)
-        }else{
-            otpSentStatus = .error
-        }
+                },
+                receiveValue: { response in
+                    if response.success {
+                        self.otpSentStatus = .success
+                    }
+                }
+            )
+            .store(in: &cancellables)
     }
       
+    func switchPasswordEye(){
+        self.passwordEyeOn.toggle()
+    }
 }
 
 enum PhoneStatus: Identifiable {

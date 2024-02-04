@@ -37,32 +37,26 @@ class OrderTrackingView: UIViewController {
     
     @IBOutlet weak var orderDateLabel: UILabel!
     
-    
     @IBOutlet weak var statusImage: UIImageView!
-    
     
     @IBOutlet weak var confirmedImage: UIImageView!
     @IBOutlet weak var confirmedDate: UILabel!
     @IBOutlet weak var confirmedTime: UILabel!
     
-    
     @IBOutlet weak var processingImage: UIImageView!
     @IBOutlet weak var processingDate: UILabel!
     @IBOutlet weak var processingTime: UILabel!
-    
     
     @IBOutlet weak var shippingImage: UIImageView!
     @IBOutlet weak var shippingDate: UILabel!
     @IBOutlet weak var shippingTime: UILabel!
     
-    
     @IBOutlet weak var deliveredImage: UIImageView!
     @IBOutlet weak var deliveredDate: UILabel!
     @IBOutlet weak var deliveredTime: UILabel!
     
-    
+    @IBOutlet weak var containerHeight: NSLayoutConstraint!
     @IBOutlet weak var productsContainer: UIView!
-    
     
     @IBOutlet weak var totalCount: UILabel!
     @IBOutlet weak var totalPrice: UILabel!
@@ -118,6 +112,8 @@ class OrderTrackingView: UIViewController {
                     self.processingDate.isHidden = false
                     self.processingTime.isHidden = false
                     
+                    self.processingImage.image = UIImage(named: "orderConfirmed")
+                    
                     self.processingDate.text = order?.activities[1].formattedDate
                     self.processingTime.text = order?.activities[1].formattedTime
                 }
@@ -127,6 +123,9 @@ class OrderTrackingView: UIViewController {
                     
                     self.shippingDate.isHidden = false
                     self.shippingTime.isHidden = false
+                    
+                    self.processingImage.image = UIImage(named: "orderConfirmed")
+                    self.shippingImage.image = UIImage(named: "orderShippedOn")
                     
                     self.shippingDate.text = order?.activities[2].formattedDate
                     self.shippingTime.text = order?.activities[2].formattedTime
@@ -138,13 +137,18 @@ class OrderTrackingView: UIViewController {
                     self.deliveredDate.isHidden = false
                     self.deliveredDate.isHidden = false
                     
+                    self.processingImage.image = UIImage(named: "orderConfirmed")
+                    self.shippingImage.image = UIImage(named: "orderShippedOn")
+                    self.deliveredImage.image = UIImage(named: "orderDeliveredOn")
+                    
                     self.deliveredDate.text = order?.activities[3].formattedDate
                     self.deliveredTime.text = order?.activities[3].formattedTime
                 }
                 
                 self.totalCount.text = String(order?.itemsCount ?? 1)
-                self.totalPrice.text = String(order?.total ?? 0) + " " + (order?.currencyCode ?? "EGP")
+                self.totalPrice.text = String(order?.total ?? 0) + " " + (order?.currencyCode ?? "SAR")
                 self.paymentMethod.text = order?.paymentMethodName
+                self.containerHeight.constant = CGFloat((order?.itemsCount ?? 1) * 180)
             }
         }.store(in: &bindings)
     }
@@ -206,7 +210,7 @@ struct OrderTrackingItemSwiftUIView: View {
                         .padding(.horizontal, 20)
                 }.padding(.top, 5)
                 
-                Text(String(orderItem.total) + " EGP")
+                Text(String(orderItem.total) + " " + (orderItem.currencyCode ?? "SAR"))
                     .font(.poppinsFont(size: 12, weight: .medium))
                     .foregroundColor(Color.gray)
             }

@@ -47,7 +47,6 @@ class VerificationViewController: UIViewController {
         
         continueButton.tapPublisher
             .sink { _ in
-                //self.viewModel.register()
                 self.viewModel.otpCheck()
             }
             .store(in: &bindings)

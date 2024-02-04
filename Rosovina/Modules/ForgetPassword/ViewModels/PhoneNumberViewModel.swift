@@ -15,10 +15,12 @@ class PhoneNumberViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     //---------------------
+    
+    @Published var phoneValidationState: ValidationState = .idle
             
     @Published var backPressed = false
     
-    @Published var phoneCode = "+20"
+    @Published var phoneCode = "+966"
     
     @Published var phoneText: String = ""
     
@@ -39,7 +41,7 @@ class PhoneNumberViewModel: ObservableObject {
         
         $phoneText
             .map { phone in
-                return !phone.isEmpty && phone.isValidPhone()
+                return !phone.isEmpty && phone.isValidPhone(forCountry: .egypt)
             }
             .assign(to: \.canCheck, on: self)
             .store(in: &cancellables)
@@ -50,7 +52,7 @@ class PhoneNumberViewModel: ObservableObject {
         if !phone.starts(with: "0"){
             return fCode + phone
         }else{
-            return fCode.dropLast() + phone
+            return fCode + phone.dropFirst()
         }
     }
     

@@ -29,7 +29,7 @@ class SelectAddressViewModel: ObservableObject {
         self.dataService = dataService
         getAddresses()
     }
-        
+    
     func getAddresses() {
         
         self.isAnimating = true
