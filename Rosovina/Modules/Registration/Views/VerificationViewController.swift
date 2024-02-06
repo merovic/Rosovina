@@ -24,16 +24,26 @@ class VerificationViewController: UIViewController {
     
     @IBOutlet weak var otpView: CustomCodeView!
     
+    @IBOutlet weak var didntGetLabel: UILabel!
+    
+    @IBOutlet weak var resendButton: UIButton!
+    
+    @IBOutlet weak var timerLabel: UILabel!
+    
     @IBOutlet weak var continueButton: UIButton! {
         didSet {
             continueButton.prettyHareefButton(radius: 16)
         }
     }
+    
+    var countdownTimer: Timer?
+    var secondsRemaining = 60
  
     override func viewDidLoad() {
         super.viewDidLoad()
         otpView.delegate = self
         BindViews()
+        startCountdown()
     }
     
     func BindViews(){
@@ -54,6 +64,13 @@ class VerificationViewController: UIViewController {
         backButton.tapPublisher
             .sink { _ in
                 self.navigationController?.popViewController(animated: true)
+            }
+            .store(in: &bindings)
+        
+        resendButton.tapPublisher
+            .sink { _ in
+                self.viewModel.sendOTP()
+                self.startCountdown()
             }
             .store(in: &bindings)
                 
@@ -79,6 +96,40 @@ class VerificationViewController: UIViewController {
                 Alert.show("OTP Error", message: self.viewModel.errorMessage, context: self)
             }
         }.store(in: &bindings)
+    }
+    
+    func startCountdown() {
+        countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateCountdown), userInfo: nil, repeats: true)
+        self.didntGetLabel.isHidden = true
+        self.resendButton.isHidden = true
+        self.timerLabel.isHidden = false
+        self.secondsRemaining = 60
+        print("Countdown started!")
+    }
+        
+    @objc func updateCountdown() {
+        secondsRemaining -= 1
+        
+        // Calculate minutes and seconds
+        let minutes = secondsRemaining / 60
+        let seconds = secondsRemaining % 60
+        
+        // Format the time as (minutes:seconds)
+        let formattedTime = String(format: "%d:%02d", minutes, seconds)
+        
+        // Update label to display remaining time
+        timerLabel.text = formattedTime
+        
+        if secondsRemaining == 0 {
+            // Countdown has ended, invalidate the timer
+            countdownTimer?.invalidate()
+            // Notify that the countdown has ended
+            self.didntGetLabel.isHidden = false
+            self.resendButton.isHidden = false
+            self.timerLabel.isHidden = true
+            self.timerLabel.text = "1:00"
+            print("Countdown ended!")
+        }
     }
 
 }

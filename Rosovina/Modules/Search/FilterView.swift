@@ -28,11 +28,11 @@ class FilterView: UIViewController {
         didSet{
             rangleSlider.trackHighlightTintColor = UIColor.init(named: "AccentColor")!
             rangleSlider.thumbTintColor = UIColor.init(named: "DarkRed")!
-            rangleSlider.maximumValue = 200
-            rangleSlider.minimumValue = 10
+            rangleSlider.maximumValue = 5000
+            rangleSlider.minimumValue = 500
             
-            rangleSlider.lowerValue = 20
-            rangleSlider.upperValue = 100
+            rangleSlider.lowerValue = 600
+            rangleSlider.upperValue = 3000
         }
     }
     

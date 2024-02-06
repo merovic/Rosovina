@@ -71,8 +71,8 @@
                                         <action selector="valueChanged:" destination="-1" eventType="valueChanged" id="WfI-qr-hSP"/>
                                     </connections>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Between: 20 EGP - 100 EGP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="job-SV-NWy">
-                                    <rect key="frame" x="0.0" y="71.333333333333343" width="177.66666666666666" height="17"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Between: 600 SAR - 3000 SAR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="job-SV-NWy">
+                                    <rect key="frame" x="0.0" y="71.333333333333343" width="197.66666666666666" height="17"/>
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                     <color key="textColor" name="AccentColor"/>
                                     <nil key="highlightedColor"/>

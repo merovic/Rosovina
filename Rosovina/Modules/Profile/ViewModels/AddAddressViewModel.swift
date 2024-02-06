@@ -63,6 +63,7 @@ class AddAddressViewModel: ObservableObject {
             self.floorNo = address.floorNo ?? ""
             self.flatNo = address.flatNo ?? ""
             self.postalCode = address.postalCode ?? ""
+            self.isDefault = address.isDefault
         }
         
         if let location = mapLocation{

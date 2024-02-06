@@ -109,6 +109,25 @@ class VerificationViewModel: ObservableObject {
         
     }
     
+    func sendOTP() {
+        dataService.otp_send(request: OTPSendAPIRequest(phone: self.phoneText))
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { (completion) in
+                    switch completion {
+                    case .finished:
+                        print("Publisher stopped observing")
+                    case .failure(_):
+                        self.isAnimating = false
+                    }
+                },
+                receiveValue: { response in
+                    
+                }
+            )
+            .store(in: &cancellables)
+    }
+    
     func register() {
                 
         self.isAnimating = true

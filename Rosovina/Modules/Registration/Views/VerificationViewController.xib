@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,8 +13,11 @@
             <connections>
                 <outlet property="backButton" destination="ERZ-NI-fFh" id="juK-95-AvL"/>
                 <outlet property="continueButton" destination="yce-Np-2Ie" id="OdY-j6-XcG"/>
+                <outlet property="didntGetLabel" destination="XSR-Nm-gMO" id="Ykw-gW-jer"/>
                 <outlet property="otpView" destination="jDy-Pm-ude" id="TpI-K3-73h"/>
                 <outlet property="phoneNumberText" destination="FPO-Do-6xH" id="0p3-9p-0ty"/>
+                <outlet property="resendButton" destination="SUc-Oi-7gm" id="Fz4-fE-vu1"/>
+                <outlet property="timerLabel" destination="QFd-pZ-bnk" id="d1N-aF-Ji6"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -50,13 +54,13 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We texted you on +201003319530" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FPO-Do-6xH">
-                    <rect key="frame" x="70.666666666666686" y="223.33333333333334" width="252" height="20"/>
+                    <rect key="frame" x="71.000000000000014" y="223.33333333333334" width="251.33333333333337" height="19.333333333333343"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <color key="textColor" systemColor="systemGray2Color"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jDy-Pm-ude" customClass="CustomCodeView" customModule="Rosovina">
-                    <rect key="frame" x="16" y="288.33333333333331" width="361" height="70"/>
+                    <rect key="frame" x="16" y="287.66666666666669" width="361" height="70"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="70" id="4JT-Sy-AoU"/>
@@ -77,7 +81,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yce-Np-2Ie">
-                    <rect key="frame" x="16" y="470.33333333333331" width="361" height="55.999999999999943"/>
+                    <rect key="frame" x="16" y="469.66666666666669" width="361" height="56.000000000000057"/>
                     <color key="backgroundColor" red="0.1764705882" green="0.19215686269999999" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="56" id="mq0-Zf-YSh"/>
@@ -87,6 +91,31 @@
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                 </button>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="oIR-Fg-0kK">
+                    <rect key="frame" x="180" y="373.66666666666669" width="33.333333333333343" height="19.333333333333314"/>
+                    <subviews>
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Didnt get the code ?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XSR-Nm-gMO">
+                            <rect key="frame" x="-60.666666666666671" y="0.0" width="154.33333333333334" height="0.0"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" name="AccentColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SUc-Oi-7gm">
+                            <rect key="frame" x="-10.333333333333343" y="0.0" width="54" height="0.0"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Resend">
+                                <color key="titleColor" name="DarkRed"/>
+                            </state>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFd-pZ-bnk">
+                            <rect key="frame" x="0.0" y="0.0" width="33.333333333333336" height="19.333333333333329"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                            <color key="textColor" name="DarkRed"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -103,15 +132,23 @@
                 <constraint firstItem="jDy-Pm-ude" firstAttribute="top" secondItem="FPO-Do-6xH" secondAttribute="bottom" constant="45" id="YiM-H8-t2n"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="yce-Np-2Ie" secondAttribute="trailing" constant="16" id="gxC-iD-O3v"/>
                 <constraint firstItem="ERZ-NI-fFh" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="n4o-dQ-ID4"/>
+                <constraint firstItem="oIR-Fg-0kK" firstAttribute="top" secondItem="jDy-Pm-ude" secondAttribute="bottom" constant="16" id="oOq-Rj-aIw"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="YB4-Rk-9Qs" secondAttribute="trailing" constant="24" id="ooP-2Y-NDg"/>
                 <constraint firstItem="jDy-Pm-ude" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="r65-yD-WKa"/>
                 <constraint firstItem="FPO-Do-6xH" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="tpv-Th-zRe"/>
+                <constraint firstItem="oIR-Fg-0kK" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="vcA-Up-Yfs"/>
             </constraints>
             <point key="canvasLocation" x="44" y="21"/>
         </view>
     </objects>
     <resources>
         <image name="arrow" width="24" height="21.666666030883789"/>
+        <namedColor name="AccentColor">
+            <color red="0.17599999904632568" green="0.19200000166893005" blue="0.25900000333786011" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="DarkRed">
+            <color red="0.74900001287460327" green="0.2669999897480011" blue="0.37999999523162842" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -111,27 +111,32 @@ class CartViewModel: ObservableObject {
         
         self.isAnimating = true
         
-        dataService.checkPromoCode(request: CheckPromoCodeAPIRequest(code: self.promocodeText, amount: cartResponse?.total ?? 0))
-            .receive(on: DispatchQueue.main)
-            .sink(
-                receiveCompletion: { (completion) in
-                    switch completion {
-                    case .finished:
-                        print("Publisher stopped observing")
-                    case .failure(_):
+        if !self.promocodeText.isEmpty {
+            dataService.checkPromoCode(request: CheckPromoCodeAPIRequest(code: self.promocodeText, amount: cartResponse?.total ?? 0))
+                .receive(on: DispatchQueue.main)
+                .sink(
+                    receiveCompletion: { (completion) in
+                        switch completion {
+                        case .finished:
+                            print("Publisher stopped observing")
+                        case .failure(_):
+                            self.isAnimating = false
+                        }
+                    },
+                    receiveValue: { response in
                         self.isAnimating = false
+                        if response.success{
+                            self.updateCartForPromoCode(promoCodeID: response.data?.id ?? 0)
+                        }else{
+                            self.errorMessage = response.message
+                        }
                     }
-                },
-                receiveValue: { response in
-                    self.isAnimating = false
-                    if response.success{
-                        self.updateCartForPromoCode(promoCodeID: response.data?.id ?? 0)
-                    }else{
-                        self.errorMessage = response.message
-                    }
-                }
-            )
-            .store(in: &cancellables)
+                )
+                .store(in: &cancellables)
+        }else{
+            self.errorMessage = "Check your Promocode first"
+        }
+        
     }
         
 }

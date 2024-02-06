@@ -73,9 +73,15 @@ class ShoppingCartView: UIViewController {
         
         checkOutButton.tapPublisher
             .sink { _ in
-                let newViewController = OrderCustomizeView()
-                newViewController.viewModel = OrderCustomizeViewModel(cartResponse: self.viewModel.cartResponse!)
-                self.navigationController?.pushViewController(newViewController, animated: true)
+                if LoginDataService.shared.isLogedIn(){
+                    let newViewController = OrderCustomizeView()
+                    newViewController.viewModel = OrderCustomizeViewModel(cartResponse: self.viewModel.cartResponse!)
+                    self.navigationController?.pushViewController(newViewController, animated: true)
+                }else {
+                    let newViewController = NeedLoginView()
+                    newViewController.showBackButton = true
+                    self.navigationController?.pushViewController(newViewController, animated: true)
+                }
             }
             .store(in: &bindings)
         

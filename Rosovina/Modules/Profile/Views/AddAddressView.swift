@@ -73,7 +73,11 @@ class AddAddressView: UIViewController {
     
     @IBOutlet weak var postCodeTextField: UITextField!
     
-    @IBOutlet weak var defaultSwitch: UISwitch!
+    @IBOutlet weak var defaultSwitch: UISwitch! {
+        didSet {
+            defaultSwitch.isOn = viewModel!.isDefault
+        }
+    }
     
     @IBOutlet weak var addNewButton: UIButton! {
         didSet {
@@ -135,6 +139,8 @@ class AddAddressView: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.addAddressTextField.text = self.viewModel?.addressName
             self.addressContentTextField.text = self.viewModel?.addressContent
+            self.postCodeTextField.text = self.viewModel?.postalCode
+            self.defaultSwitch.isOn = self.viewModel!.isDefault
         }
         
         addAddressTextField.textPublisher

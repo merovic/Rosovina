@@ -74,14 +74,8 @@ class DashboardTabBarController: UITabBarController, UITabBarControllerDelegate 
     }
     
     @objc func middleButtonTapped() {
-        if LoginDataService.shared.isLogedIn(){
-            let newViewController = ShoppingCartView()
-            self.navigationController?.pushViewController(newViewController, animated: true)
-        }else {
-            let newViewController = NeedLoginView()
-            newViewController.showBackButton = true
-            self.navigationController?.pushViewController(newViewController, animated: true)
-        }
+        let newViewController = ShoppingCartView()
+        self.navigationController?.pushViewController(newViewController, animated: true)
     }
 }
 

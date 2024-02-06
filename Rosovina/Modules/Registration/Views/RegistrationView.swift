@@ -320,7 +320,7 @@ class RegistrationView: UIViewController {
         
         createButton.tapPublisher
             .sink { _ in
-                self.viewModel.sendOTP()
+                self.viewModel.checkPhone()
             }
             .store(in: &bindings)
         
@@ -331,6 +331,8 @@ class RegistrationView: UIViewController {
                 self.navigationController?.pushViewController(newViewController, animated: true)
             }else if v == .failed{
                 Alert.show("Registration Error", message: "Something Error Happined Please Try Again", context: self)
+            }else if v == .error{
+                Alert.show("Registration Error", message: "Phone has been taken", context: self)
             }
         }.store(in: &bindings)
         

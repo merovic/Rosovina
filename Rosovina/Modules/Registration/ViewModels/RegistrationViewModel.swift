@@ -61,6 +61,33 @@ class RegistrationViewModel: ObservableObject {
         }
     }
     
+    func checkPhone() {
+        
+        self.isAnimating = true
+        
+        dataService.check_phone(request: PhoneAPIRequest(phone: checkForPhone(phone: phoneText, code: phoneCode)))
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { (completion) in
+                    switch completion {
+                    case .finished:
+                        print("Publisher stopped observing")
+                    case .failure(_):
+                        self.isAnimating = false
+                    }
+                },
+                receiveValue: { response in
+                    if !response.success {
+                        self.otpSentStatus = .error
+                        self.isAnimating = false
+                    } else{
+                        self.sendOTP()
+                    }
+                }
+            )
+            .store(in: &cancellables)
+    }
+    
     func sendOTP() {
         dataService.otp_send(request: OTPSendAPIRequest(phone: checkForPhone(phone: phoneText, code: phoneCode)))
             .receive(on: DispatchQueue.main)
@@ -74,6 +101,7 @@ class RegistrationViewModel: ObservableObject {
                     }
                 },
                 receiveValue: { response in
+                    self.isAnimating = false
                     if response.success {
                         self.otpSentStatus = .success
                     }
