@@ -17,6 +17,15 @@ struct OccasionsSwiftUIView: View {
     @Binding
     var selectedCategory: DynamicHomeModel?
     
+    @Binding
+    var viewMoreClicked: Bool
+    
+    @Binding
+    var viewMoreItems: [DynamicHomeModel]
+    
+    @Binding
+    var selectedViewMoreType: ViewMoreType?
+    
     var body: some View {
         VStack {
             HStack{
@@ -27,6 +36,11 @@ struct OccasionsSwiftUIView: View {
                 Text("View More")
                     .font(.poppinsFont(size: 10, weight: .semibold))
                     .foregroundColor(Color.black)
+                    .onTapGesture {
+                        self.viewMoreItems = occasions
+                        self.selectedViewMoreType = occasions[0].isOccasion == 1 ? .occation : .category
+                        self.viewMoreClicked = true
+                    }
             }
             
             ScrollView(.horizontal, showsIndicators: false){

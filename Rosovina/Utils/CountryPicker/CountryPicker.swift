@@ -11,32 +11,29 @@ import SwiftUI
 struct CountryPicker: View {
     
     @ObservedObject var viewModel = CountryPickerViewModel()
-    //@State var selectedCountry = ""
     @State var selectedFlag: Image? = Image("SAX")
     var placeholder = "+966"
     var dropDownList = Country.countryNamesByCode()
     
     var body: some View {
         Menu {
-            ForEach(dropDownList, id: \.self) { client in
+            ForEach(dropDownList, id: \.self) { country in
                 Button(action: {
-                    self.viewModel.phoneCode = client.phoneCode
-                    self.selectedFlag = client.flag
+                    self.viewModel.phoneCode = country.phoneCode
+                    self.selectedFlag = country.flag
                 }) {
                     HStack{
-                        Text(client.name)
-                            .foregroundColor(client.name.isEmpty ? .gray : .black)
+                        Text(country.name)
+                            .foregroundColor(country.name.isEmpty ? .gray : .black)
                         Spacer()
                         
-                        client.flag
+                        country.flag
                     }
                     .padding(.horizontal)
-                    
                 }
             }
             
         } label: {
-            
             VStack(spacing: 5){
                 HStack{
                     if selectedFlag != nil{

@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import Firebase
+import CoreTelephony
 
 class LoginViewModel: ObservableObject {
     
@@ -48,13 +49,6 @@ class LoginViewModel: ObservableObject {
     
     init(dataService: LoginService = AppLoginService()) {
         self.dataService = dataService
-                
-        Publishers.CombineLatest($passwordText, $phoneText)
-            .map { passwordText, phoneText in
-                return (!passwordText.isEmpty && !phoneText.isEmpty && phoneText.isValidPhone(forCountry: .egypt))
-            }
-            .assign(to: \.canLogin, on: self)
-            .store(in: &cancellables)
     }
     
     func checkForPhone(phone: String) -> String{
@@ -63,6 +57,14 @@ class LoginViewModel: ObservableObject {
             return fCode + phone
         }else{
             return fCode + phone.dropFirst()
+        }
+    }
+    
+    func getUserCountry() {
+        let controller = CountryDectectorViewController()
+        controller.loadViewIfNeeded()
+        controller.didDetectCountryCode = { countryCode in
+            print(countryCode ?? "")
         }
     }
     
@@ -122,3 +124,31 @@ enum LoginStatus: Identifiable {
 
 
 
+import MapKit
+
+class CountryDectectorViewController: UIViewController {
+    var didDetectCountryCode: ((String?) -> Void)?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Map view setup
+        let mapView = MKMapView()
+        view.addSubview(mapView)
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            mapView.topAnchor.constraint(equalTo: view.topAnchor),
+            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        mapView.layoutIfNeeded()
+        // Reverse geocoding map region center
+        let location = CLLocation(
+            latitude: mapView.region.center.latitude,
+            longitude: mapView.region.center.longitude
+        )
+        CLGeocoder().reverseGeocodeLocation(location) { placemarks, _ in
+            self.didDetectCountryCode?(placemarks?.first?.isoCountryCode)
+        }
+    }
+}

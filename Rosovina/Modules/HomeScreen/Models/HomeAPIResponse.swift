@@ -55,7 +55,7 @@ enum SectionDataType: String, Codable {
 }
 
 // MARK: - DynamicHomeModel
-struct DynamicHomeModel: Codable {
+struct DynamicHomeModel: Codable, Identifiable {
     let id: Int?
     let imagePath: String?
     let title, description: String?

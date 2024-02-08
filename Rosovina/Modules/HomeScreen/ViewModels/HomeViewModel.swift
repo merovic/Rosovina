@@ -22,6 +22,14 @@ class HomeViewModel: ObservableObject {
     @Published var badgeCount = "0"
     
     @Published var selectedCategory: DynamicHomeModel?
+    
+    @Published var selectedViewMoreType: ViewMoreType?
+    
+    @Published var selectedViewMoreItems: [DynamicHomeModel] = []
+    
+    @Published var viewMoreCategoriesClicked = false
+    
+    @Published var viewMoreProductsClicked = false
                         
     @Published var isAnimating = false
     
@@ -41,7 +49,7 @@ class HomeViewModel: ObservableObject {
         
         self.isAnimating = true
 
-        dataService.home()
+        dataService.home(deviceToken: token)
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in
@@ -101,4 +109,11 @@ class HomeViewModel: ObservableObject {
             .store(in: &cancellables)
     }
         
+}
+
+enum ViewMoreType: Identifiable {
+    case category, occation, product
+    var id: Int {
+        self.hashValue
+    }
 }

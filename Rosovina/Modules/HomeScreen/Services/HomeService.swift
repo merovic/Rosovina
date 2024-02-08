@@ -10,7 +10,7 @@ import Combine
 import Alamofire
 
 protocol HomeService {
-    func home() -> AnyPublisher<BaseResponseAnother<HomeAPIResponse>, AFError>
+    func home(deviceToken: String) -> AnyPublisher<BaseResponseAnother<HomeAPIResponse>, AFError>
     func getProducts(request: GetProductsAPIRequest) -> AnyPublisher<BaseResponseAnother<GetProductsAPIResponse>, AFError>
     func getCategories(isOccations: Bool)  -> AnyPublisher<BaseResponseAnother<GetCategoriesAPIResponse>, AFError>
 }
@@ -24,8 +24,8 @@ class AppHomeService: HomeService {
         return APIClient.performDecodableRequest(route: APIRouter.getProducts(request: request))
     }
     
-    func home() -> AnyPublisher<BaseResponseAnother<HomeAPIResponse>, AFError> {
-        return APIClient.performDecodableRequest(route: APIRouter.home)
+    func home(deviceToken: String) -> AnyPublisher<BaseResponseAnother<HomeAPIResponse>, AFError> {
+        return APIClient.performDecodableRequest(route: APIRouter.home(deviceToken: deviceToken))
     }
 }
 

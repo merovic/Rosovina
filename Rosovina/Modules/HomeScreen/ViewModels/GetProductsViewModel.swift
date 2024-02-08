@@ -124,5 +124,3 @@ enum ProductType: Identifiable {
         self.hashValue
     }
 }
-
-

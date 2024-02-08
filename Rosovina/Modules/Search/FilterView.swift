@@ -75,7 +75,7 @@ class FilterView: UIViewController {
     }
     
     @IBAction func applyFilterClicked(_ sender: Any) {
-        self.delegate.filterAssigned(categories: self.viewModel.selectedCategories, priceRange: [self.viewModel.maximumPriceRange, self.viewModel.maximumPriceRange], brands: [], rating: [self.viewModel.currentRate])
+        self.delegate.filterAssigned(categories: self.viewModel.selectedCategories, priceRange: [self.viewModel.minimumPriceRange, self.viewModel.maximumPriceRange], brands: [], rating: [self.viewModel.currentRate])
         self.dismiss(animated: true)
     }
     

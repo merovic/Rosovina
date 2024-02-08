@@ -106,6 +106,22 @@ class HomeViewController: UIViewController {
                 self.navigationController?.pushViewController(newViewController, animated: true)
             }
         }.store(in: &bindings)
+        
+        viewModel.$viewMoreProductsClicked.sink { v in
+            if v {
+                let newViewController = ViewMoreView()
+                newViewController.viewModel = ViewMoreViewModel(viewMoreItems: self.viewModel.selectedViewMoreItems, viewMoreType: self.viewModel.selectedViewMoreType ?? .product)
+                self.navigationController?.pushViewController(newViewController, animated: true)
+            }
+        }.store(in: &bindings)
+        
+        viewModel.$viewMoreCategoriesClicked.sink { v in
+            if v {
+                let newViewController = ViewMoreView()
+                newViewController.viewModel = ViewMoreViewModel(viewMoreItems: self.viewModel.selectedViewMoreItems, viewMoreType: self.viewModel.selectedViewMoreType ?? .product)
+                self.navigationController?.pushViewController(newViewController, animated: true)
+            }
+        }.store(in: &bindings)
     }
 
 }
@@ -140,13 +156,13 @@ struct HomeSwiftUIView: View {
                             .frame(height: 120)
                     case .occasionCategories:
                         // MARK: - Occasions
-                        OccasionsSwiftUIView(title: section.title, occasions: section.data, selectedCategory: $viewModel.selectedCategory)
+                        OccasionsSwiftUIView(title: section.title, occasions: section.data, selectedCategory: $viewModel.selectedCategory, viewMoreClicked: $viewModel.viewMoreCategoriesClicked, viewMoreItems: $viewModel.selectedViewMoreItems, selectedViewMoreType: $viewModel.selectedViewMoreType)
                     case .categories:
                         // MARK: - Categories
-                        OccasionsSwiftUIView(title: section.title, occasions: section.data, selectedCategory: $viewModel.selectedCategory)
+                        OccasionsSwiftUIView(title: section.title, occasions: section.data, selectedCategory: $viewModel.selectedCategory, viewMoreClicked: $viewModel.viewMoreCategoriesClicked, viewMoreItems: $viewModel.selectedViewMoreItems, selectedViewMoreType: $viewModel.selectedViewMoreType)
                     case .featuredProducts:
                         // MARK: - Featured products
-                        ProductsSwiftUIView(viewModel: viewModel, selectedProduct: $viewModel.selectedProduct, sectionName: section.title, products: section.data)
+                        ProductsSwiftUIView(viewModel: viewModel, selectedProduct: $viewModel.selectedProduct, sectionName: section.title, products: section.data, viewMoreClicked: $viewModel.viewMoreProductsClicked, viewMoreItems: $viewModel.selectedViewMoreItems, selectedViewMoreType: $viewModel.selectedViewMoreType)
                     case .advertise:
                         // MARK: - Advertise
                         WebImage(url: URL(string: section.data[0].imagePath ?? ""))
@@ -157,7 +173,7 @@ struct HomeSwiftUIView: View {
                             .padding(.horizontal)
                         // MARK: - Popular products
                     case .popularProducts:
-                        ProductsSwiftUIView(viewModel: viewModel, selectedProduct: $viewModel.selectedProduct, sectionName: section.title, products: section.data)
+                        ProductsSwiftUIView(viewModel: viewModel, selectedProduct: $viewModel.selectedProduct, sectionName: section.title, products: section.data, viewMoreClicked: $viewModel.viewMoreProductsClicked, viewMoreItems: $viewModel.selectedViewMoreItems, selectedViewMoreType: $viewModel.selectedViewMoreType)
                     }
                 }
                 

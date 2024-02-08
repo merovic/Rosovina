@@ -21,7 +21,7 @@ enum APIRouter: URLRequestConvertible {
     case logout
     
     // MARK: - HomeModule
-    case home
+    case home(deviceToken: String)
     case getProducts(request: GetProductsAPIRequest)
     case product_details(productID: String)
     case getCategories(isOccasion: Bool)
@@ -64,9 +64,9 @@ enum APIRouter: URLRequestConvertible {
     // MARK: - RequestParameterMethod
     private var requestParameter: RequestParameterMethod? {
         switch self {
-        case .login,.register,.otp_send,.otp_check,.reset_password,.check_phone,.generate_token, .getCart, .updateCart, .getWishlist, .addToWishList, .removeFromWishList, .getProducts, .addAddress, .updateAddress, .createOrder, .notifications, .updateAccount, .checkPromoCode, .addReview, .confirmOrder:
+        case .home, .login,.register,.otp_send,.otp_check,.reset_password,.check_phone,.generate_token, .getCart, .updateCart, .getWishlist, .addToWishList, .removeFromWishList, .getProducts, .addAddress, .updateAddress, .createOrder, .notifications, .updateAccount, .checkPromoCode, .addReview, .confirmOrder:
             return .formParam
-        case .logout, .home, .getUserAddresses, .getCountries, .myOrders, .getGiftCards, .deleteAccount:
+        case .logout, .getUserAddresses, .getCountries, .myOrders, .getGiftCards, .deleteAccount:
             return nil
         case .product_details, .removeAddress, .myOrderDetails:
             return .pathParam
@@ -88,9 +88,9 @@ enum APIRouter: URLRequestConvertible {
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
-        case .login,.register,.otp_send, .otp_check,.reset_password,.check_phone,.generate_token, .product_details, .getCart, .updateCart, .getWishlist, .addToWishList, .removeFromWishList, .getProducts, .addAddress, .updateAddress, .removeAddress, .createOrder, .notifications, .updateAccount, .checkPromoCode, .deleteAccount, .addReview, .confirmOrder:
+        case .home, .login,.register,.otp_send, .otp_check,.reset_password,.check_phone,.generate_token, .product_details, .getCart, .updateCart, .getWishlist, .addToWishList, .removeFromWishList, .getProducts, .addAddress, .updateAddress, .removeAddress, .createOrder, .notifications, .updateAccount, .checkPromoCode, .deleteAccount, .addReview, .confirmOrder:
             return .post
-        case .logout, .home, .getUserAddresses, .getCountries, .getCities, .getAreas, .myOrders, .myOrderDetails, .getGiftCards, .getCategories:
+        case .logout, .getUserAddresses, .getCountries, .getCities, .getAreas, .myOrders, .myOrderDetails, .getGiftCards, .getCategories:
             return .get
         }
     }
@@ -196,8 +196,8 @@ enum APIRouter: URLRequestConvertible {
             return request.dictionary
         case .logout:
             return nil
-        case .home:
-            return nil
+        case .home(deviceToken: let deviceToken):
+            return ["device_token": deviceToken]
         case .product_details:
             return nil
         case .getCart(deviceToken: let deviceToken):

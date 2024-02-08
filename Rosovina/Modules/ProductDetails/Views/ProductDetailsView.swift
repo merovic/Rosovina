@@ -183,13 +183,14 @@ class ProductDetailsView: UIViewController {
         
         addToCartGest.tapPublisher
             .sink { _ in
-                if LoginDataService.shared.isLogedIn() {
-                    self.viewModel?.updateCart()
-                }else{
-                    let newViewController = NeedLoginView()
-                    newViewController.showBackButton = true
-                    self.navigationController?.pushViewController(newViewController, animated: true)
-                }
+//                if LoginDataService.shared.isLogedIn() {
+//                    self.viewModel?.updateCart()
+//                }else{
+//                    let newViewController = NeedLoginView()
+//                    newViewController.showBackButton = true
+//                    self.navigationController?.pushViewController(newViewController, animated: true)
+//                }
+                self.viewModel?.updateCart()
             }
             .store(in: &bindings)
         

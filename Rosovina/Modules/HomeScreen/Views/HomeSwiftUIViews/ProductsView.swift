@@ -17,6 +17,15 @@ struct ProductsSwiftUIView: View {
     var sectionName: String
     var products: [DynamicHomeModel]
     
+    @Binding
+    var viewMoreClicked: Bool
+    
+    @Binding
+    var viewMoreItems: [DynamicHomeModel]
+    
+    @Binding
+    var selectedViewMoreType: ViewMoreType?
+    
     var body: some View {
         VStack {
             HStack{
@@ -27,6 +36,11 @@ struct ProductsSwiftUIView: View {
                 Text("View More")
                     .font(.poppinsFont(size: 10, weight: .semibold))
                     .foregroundColor(Color.black)
+                    .onTapGesture {
+                        self.viewMoreItems = products
+                        self.selectedViewMoreType = .product
+                        self.viewMoreClicked = true
+                    }
             }
             
             ScrollView(.horizontal, showsIndicators: false){
