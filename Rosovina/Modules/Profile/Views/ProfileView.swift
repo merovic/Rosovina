@@ -186,7 +186,8 @@ class ProfileView: UIViewController {
         
         supportGest.tapPublisher
             .sink(receiveValue:{_ in
-                
+                let newViewController = ContactusView()
+                self.navigationController?.pushViewController(newViewController, animated: true)
             })
             .store(in: &bindings)
         

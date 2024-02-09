@@ -25,6 +25,8 @@ class CheckoutSucessView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        HapticFeedBackEngine.shared.successFeedback()
+        HapticFeedBackEngine.shared.playSound()
     }
     
     @IBAction func continueClicked(_ sender: Any) {

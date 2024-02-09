@@ -115,6 +115,8 @@ class CheckoutView: UIViewController {
                 let navigationController = UINavigationController(rootViewController: newViewController)
                 navigationController.modalPresentationStyle = .fullScreen
                 self.present(navigationController, animated: true, completion: nil)
+                
+                navigationController.setNavigationBarHidden(true, animated: false)
             }
             .store(in: &bindings)
         

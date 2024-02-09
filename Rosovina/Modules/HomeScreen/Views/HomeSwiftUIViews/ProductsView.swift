@@ -135,6 +135,15 @@ struct CardGrayBackground: ViewModifier {
     }
 }
 
+struct SuperCardGrayBackground: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .background(Color.white)
+            .cornerRadius(15)
+            .shadow(color: Color.gray.opacity(0.2), radius: 5)
+    }
+}
+
 extension View {
     func cardBackground() -> some View {
         modifier(CardBackground())
@@ -142,5 +151,9 @@ extension View {
     
     func cardGrayBackground() -> some View {
         modifier(CardGrayBackground())
+    }
+    
+    func superCardGrayBackground() -> some View {
+        modifier(SuperCardGrayBackground())
     }
 }

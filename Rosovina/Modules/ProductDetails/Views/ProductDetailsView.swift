@@ -26,7 +26,18 @@ class ProductDetailsView: UIViewController {
 
     @IBOutlet weak var backButton: UIButton!
     
-    @IBOutlet weak var mainImage: UIImageView!
+    var imageMainGest: UITapGestureRecognizer = {
+        let gest = UITapGestureRecognizer()
+        gest.numberOfTapsRequired = 1
+        return gest
+    }()
+    
+    @IBOutlet weak var mainImage: UIImageView! {
+        didSet{
+            mainImage.isUserInteractionEnabled = true
+            mainImage.addGestureRecognizer(imageMainGest)
+        }
+    }
     
     @IBOutlet weak var titleLabel: UILabel!
     
@@ -204,6 +215,19 @@ class ProductDetailsView: UIViewController {
                     self.addToWishListButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
                 }
             }
+            .store(in: &bindings)
+        
+        imageMainGest.tapPublisher
+            .sink(receiveValue:{_ in
+                let newViewController = SliderView()
+                var sliderImages: [String] = []
+                sliderImages.append(self.viewModel?.productDetails?.imageURL ?? "")
+                for image in self.viewModel!.productDetails!.images {
+                    sliderImages.append(image)
+                }
+                newViewController.imageNames = sliderImages
+                self.present(newViewController, animated: true)
+            })
             .store(in: &bindings)
         
         imageOneGest.tapPublisher

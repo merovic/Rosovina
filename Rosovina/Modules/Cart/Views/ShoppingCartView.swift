@@ -87,7 +87,7 @@ class ShoppingCartView: UIViewController {
         
         viewModel.$errorMessage.sink { response in
             if response != ""{
-                Alert.show("PromoCode Error", message: "The selected code is invalid.", context: self)
+                Alert.show("PromoCode Error", message: response, context: self)
             }
         }.store(in: &bindings)
         
@@ -210,6 +210,7 @@ struct ShoppingCartItemSwiftUIView: View {
                 .scaledToFit()
                 .cornerRadius(10)
                 .frame(width: 80, height: 80)
+                .padding(.leading, 12)
             
             VStack(alignment: .leading){
                 HStack {

@@ -109,9 +109,8 @@ class CartViewModel: ObservableObject {
     
     func checkPromoCode() {
         
-        self.isAnimating = true
-        
         if !self.promocodeText.isEmpty {
+            self.isAnimating = true
             dataService.checkPromoCode(request: CheckPromoCodeAPIRequest(code: self.promocodeText, amount: cartResponse?.total ?? 0))
                 .receive(on: DispatchQueue.main)
                 .sink(

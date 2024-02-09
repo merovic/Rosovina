@@ -12,7 +12,7 @@ struct CreateOrderAPIRequest: Codable {
     let mobileToken: String
 
     enum CodingKeys: String, CodingKey {
-        case mobileToken = "mobile_token"
+        case mobileToken = "device_token"
     }
 }
 

@@ -16,6 +16,8 @@ class WishlistViewModel: ObservableObject {
     //---------------------
                 
     @Published var wishlistItems: [WishlistItem] = []
+    
+    @Published var selectedProductID: Int = 0
                         
     @Published var isAnimating = false
         

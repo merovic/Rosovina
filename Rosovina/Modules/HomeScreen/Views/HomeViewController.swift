@@ -145,15 +145,18 @@ struct HomeSwiftUIView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false){
             VStack(spacing: 15) {
-                Spacer().frame(height: 35)
+                
+                Spacer().frame(height: 15)
                 
                 ForEach(self.viewModel.sections) { section in
                     switch section.code{
                     case .slider:
                         // MARK: - Slider
-                        SnapCarousel(items: section.data)
-                            .environmentObject(ContentViewModel().stateModel)
-                            .frame(height: 120)
+                        ImageCarouselView(data: section.data)
+                            .frame(height: 200)
+//                        SnapCarousel(items: section.data)
+//                            .environmentObject(ContentViewModel().stateModel)
+//                            .frame(height: 120)
                     case .occasionCategories:
                         // MARK: - Occasions
                         OccasionsSwiftUIView(title: section.title, occasions: section.data, selectedCategory: $viewModel.selectedCategory, viewMoreClicked: $viewModel.viewMoreCategoriesClicked, viewMoreItems: $viewModel.selectedViewMoreItems, selectedViewMoreType: $viewModel.selectedViewMoreType)

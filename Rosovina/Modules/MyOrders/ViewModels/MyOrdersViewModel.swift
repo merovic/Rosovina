@@ -48,8 +48,8 @@ class MyOrdersViewModel: ObservableObject {
                 },
                 receiveValue: { response in
                     self.isAnimating = false
-                    self.myCurrentOrders = response.data!.filter{ ($0.statusID == 1) }
-                    self.myHistoryOrders = response.data!.filter{ ($0.statusID != 1) }
+                    self.myCurrentOrders = response.data!.filter{ ($0.statusID != 6) }
+                    self.myHistoryOrders = response.data!.filter{ ($0.statusID == 6) }
                 }
             )
             .store(in: &cancellables)

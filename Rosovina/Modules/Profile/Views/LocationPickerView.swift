@@ -43,7 +43,7 @@ class LocationPickerView: UIViewController, GMSMapViewDelegate {
         resultsViewController?.delegate = self
 
         let filter = GMSAutocompleteFilter()
-        filter.countries = ["EG"]
+        filter.countries = ["EG", "SA"]
 
         resultsViewController?.autocompleteFilter = filter
 

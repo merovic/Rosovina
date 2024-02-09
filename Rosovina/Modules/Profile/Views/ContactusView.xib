@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ContactusView" customModule="Rosovina" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eWl-dm-FAT">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="116"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zo6-AF-odb">
+                            <rect key="frame" x="8" y="61.666666666666657" width="35" height="35"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="35" id="WAz-ih-NYe"/>
+                                <constraint firstAttribute="width" constant="35" id="gfv-L3-h81"/>
+                            </constraints>
+                            <color key="tintColor" red="0.043137254899999998" green="0.66666666669999997" blue="0.6705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <state key="normal" image="arrow"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="invertedLoc" value="YES"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="backpressed:" destination="-1" eventType="touchUpInside" id="y4h-b9-xdE"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact us" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXA-xa-Axm">
+                            <rect key="frame" x="71.666666666666686" y="67" width="250" height="24"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="250" id="Wbn-ie-m9t"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                            <color key="textColor" red="0.1764705882" green="0.19215686269999999" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="cXA-xa-Axm" firstAttribute="centerX" secondItem="eWl-dm-FAT" secondAttribute="centerX" id="3Z8-qq-0cY"/>
+                        <constraint firstItem="Zo6-AF-odb" firstAttribute="leading" secondItem="eWl-dm-FAT" secondAttribute="leading" constant="8" id="D8T-cg-wYk"/>
+                        <constraint firstAttribute="height" constant="116" id="aKi-j8-AZG"/>
+                        <constraint firstItem="cXA-xa-Axm" firstAttribute="top" secondItem="eWl-dm-FAT" secondAttribute="top" constant="67" id="hH0-aA-ORi"/>
+                        <constraint firstItem="Zo6-AF-odb" firstAttribute="centerY" secondItem="cXA-xa-Axm" secondAttribute="centerY" id="nJm-pz-0kW"/>
+                    </constraints>
+                </view>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="21m-QR-XNE">
+                    <rect key="frame" x="70.666666666666686" y="139" width="252" height="237"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="252" id="ekl-TY-1Qa"/>
+                        <constraint firstAttribute="height" constant="237" id="skD-75-lrd"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Wc-k5-f1a">
+                    <rect key="frame" x="122" y="420" width="149" height="33"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="info@rosovina.com">
+                        <color key="titleColor" name="AccentColor"/>
+                    </state>
+                    <connections>
+                        <action selector="email:" destination="-1" eventType="touchUpInside" id="56G-ZG-HSu"/>
+                    </connections>
+                </button>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="W5l-pj-gGe">
+                    <rect key="frame" x="101" y="483" width="191" height="35"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hsu-dz-kBc">
+                            <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="35" id="TuT-tm-HYZ"/>
+                                <constraint firstAttribute="height" constant="35" id="mYE-Tm-oQS"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="facebook"/>
+                            <connections>
+                                <action selector="facebook:" destination="-1" eventType="touchUpInside" id="ii7-TF-j0k"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jLp-Be-ROI">
+                            <rect key="frame" x="52" y="0.0" width="35" height="35"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="35" id="2nu-u9-Uv8"/>
+                                <constraint firstAttribute="width" constant="35" id="XwZ-MQ-fzE"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="instagram"/>
+                            <connections>
+                                <action selector="instagram:" destination="-1" eventType="touchUpInside" id="SAX-At-zV4"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NwK-BQ-xEL">
+                            <rect key="frame" x="104" y="0.0" width="35" height="35"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="35" id="DsR-Sv-6en"/>
+                                <constraint firstAttribute="width" constant="35" id="EFT-2C-udS"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="snapchat"/>
+                            <connections>
+                                <action selector="snapchat:" destination="-1" eventType="touchUpInside" id="RWx-3l-sgB"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D9J-rj-ZEy">
+                            <rect key="frame" x="156" y="0.0" width="35" height="35"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="35" id="MWU-QL-KkI"/>
+                                <constraint firstAttribute="height" constant="35" id="gTK-5Y-oqX"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="tiktok"/>
+                            <connections>
+                                <action selector="tiktok:" destination="-1" eventType="touchUpInside" id="V8V-R4-yoZ"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemGray6Color"/>
+            <constraints>
+                <constraint firstItem="eWl-dm-FAT" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="2L8-mh-4MG"/>
+                <constraint firstItem="21m-QR-XNE" firstAttribute="top" secondItem="eWl-dm-FAT" secondAttribute="bottom" constant="23" id="Dek-1U-Ryi"/>
+                <constraint firstItem="eWl-dm-FAT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="FpJ-49-BK2"/>
+                <constraint firstItem="8Wc-k5-f1a" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="RvG-dO-La0"/>
+                <constraint firstItem="eWl-dm-FAT" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="SU2-e9-tPw"/>
+                <constraint firstItem="W5l-pj-gGe" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="eWo-Tk-Dgm"/>
+                <constraint firstItem="8Wc-k5-f1a" firstAttribute="top" secondItem="21m-QR-XNE" secondAttribute="bottom" constant="44" id="f2I-er-nP8"/>
+                <constraint firstItem="21m-QR-XNE" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="nND-2F-t4a"/>
+                <constraint firstItem="W5l-pj-gGe" firstAttribute="top" secondItem="8Wc-k5-f1a" secondAttribute="bottom" constant="30" id="vbY-G3-m3D"/>
+            </constraints>
+            <point key="canvasLocation" x="139.69465648854961" y="19.718309859154932"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="arrow" width="24" height="21.666666030883789"/>
+        <image name="facebook" width="512" height="512"/>
+        <image name="instagram" width="512" height="512"/>
+        <image name="logo" width="2048" height="2048"/>
+        <image name="snapchat" width="512" height="512"/>
+        <image name="tiktok" width="512" height="512"/>
+        <namedColor name="AccentColor">
+            <color red="0.17599999904632568" green="0.19200000166893005" blue="0.25900000333786011" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

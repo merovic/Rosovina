@@ -17,7 +17,7 @@ class VerificationViewModel: ObservableObject {
     //---------------------
     
     //var token = LoginDataService.shared.getFirebaseToken()
-    var token = "asjdfbajhbsfabsjfhbajsb"
+    var token = "asjdfbajhbsfabsjfhbajsbjhgjgjhhgjhg"
     
     var phoneText:String = ""
     var nameText:String = ""

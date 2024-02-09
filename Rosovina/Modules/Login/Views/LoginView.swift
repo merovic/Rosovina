@@ -283,6 +283,7 @@ class LoginView: UIViewController {
         
         viewModel.$loginStatus.sink { v in
             if v == .success{
+                HapticFeedBackEngine.shared.successFeedback()
                 self.passwordIncorrectLabel.isHidden = true
                 let nav1 = UINavigationController()
                 let vc = DashboardTabBarController()

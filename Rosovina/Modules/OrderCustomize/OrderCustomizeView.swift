@@ -49,7 +49,11 @@ class OrderCustomizeView: UIViewController {
     
     @IBOutlet weak var linkTextView: UITextField!
     
-    @IBOutlet weak var applyButton: UIButton!
+    @IBOutlet weak var applyButton: UIButton! {
+        didSet {
+            applyButton.roundCornersForSpecificCorners(corners: [.topRight, .bottomRight], radius: 10)
+        }
+    }
     
     @IBOutlet weak var previewButton: UIButton! {
         didSet {
@@ -183,6 +187,7 @@ struct GiftCardsSwiftUIView: View {
                 ForEach(self.viewModel.giftCards) { card in
                     GiftCardItemSwiftUIView(viewModel: viewModel, giftCard: card)
                         .onTapGesture {
+                            HapticFeedBackEngine.shared.successFeedback()
                             self.viewModel.selectedGiftCardID = card.id
                         }
                 }

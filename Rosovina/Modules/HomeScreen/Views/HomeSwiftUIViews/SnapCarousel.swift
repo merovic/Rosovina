@@ -41,7 +41,7 @@ struct SnapCarousel: View {
                                 //.placeholder(Image("Banner").resizable())
                                 .resizable()
                                 .indicator(.activity)
-                                .scaledToFit()
+                                //.scaledToFill()
                                 .frame(width: 319, height: 143)
                         }
                     }
@@ -117,7 +117,6 @@ struct Carousel<Items : View> : View {
             .offset(x: CGFloat(calcOffset), y: 0)
             .gesture(DragGesture().updating($isDetectingLongPress) { currentState, gestureState, transaction in
                 self.UIState.screenDrag = Float(currentState.translation.width)
-                
             }.onEnded { value in
                 self.UIState.screenDrag = 0
                 
@@ -140,7 +139,8 @@ struct Carousel<Items : View> : View {
                         .frame(width: 8, height: 8)
                         .foregroundColor(index == UIState.activeCard ? .black : .gray)
                 }
-            }.padding(.top, 50)
+            }.frame(height: 30)
+            .padding(.top, 50)
         }.padding(.top, 40)
     }
 }
@@ -218,4 +218,77 @@ final class ContentViewModel: ObservableObject {
     }
 }
 
+//-----------------------
 
+struct ImageCarouselView: View {
+    var data: [DynamicHomeModel]
+    
+    @State private var currentIndex: Int = 0
+    
+    var body: some View {
+        VStack {
+            TabView(selection: $currentIndex) {
+                ForEach(0..<data.count, id: \.self) { index in
+                    ZStack(alignment: .leading){
+                        WebImage(url: URL(string: data[index].imagePath ?? ""))
+                          .resizable()
+                          .indicator(.activity)
+                          .aspectRatio(contentMode: .fill)
+                          .frame(width: UIScreen.main.bounds.width - 50)
+                          .superCardGrayBackground()
+                        
+                        VStack(alignment: .leading, spacing: 5){
+                            Text(data[index].title ?? "")
+                                .font(.poppinsFont(size: 14, weight: .medium))
+                                .foregroundColor(Color("AccentColor"))
+                            
+                            HStack(alignment: .top, spacing: 0){
+                                Text("60%")
+                                    .font(.poppinsFont(size: 34, weight: .bold))
+                                    .foregroundColor(Color("AccentColor"))
+                                Text("Up to")
+                                    .font(.poppinsFont(size: 10, weight: .medium))
+                                    .foregroundColor(Color("AccentColor"))
+                                    .padding(.top, 8)
+                            }
+                            
+                            Button(action: {
+                                // Action to perform when button is tapped
+                            }) {
+                                Text("Get Now")
+                                    .frame(width: 115, height: 31)
+                                    .font(.poppinsFont(size: 12, weight: .semibold))
+                                    .foregroundColor(Color("AccentColor"))
+                                    .background(Color.white)
+                                    .cornerRadius(20)
+                            }
+                            
+                        }.padding(.horizontal)
+                    }
+                }
+            }
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            
+            if data.count > 1 {
+                PageControl(numberOfPages: data.count, currentPage: $currentIndex)
+                    .padding(.top, 10)
+            }
+        }
+    }
+}
+
+struct PageControl: View {
+    var numberOfPages: Int
+    @Binding var currentPage: Int
+    
+    var body: some View {
+        HStack {
+            ForEach(0..<numberOfPages, id: \.self) { index in
+                Circle()
+                    .frame(width: 8, height: 8)
+                    .foregroundColor(index == currentPage ? Color("AccentColor") : .gray)
+                    .padding(.horizontal, 4)
+            }
+        }
+    }
+}

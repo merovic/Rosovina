@@ -44,16 +44,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LhS-dV-hox">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="330"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="350"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="330" id="d8a-Z6-WAK"/>
+                        <constraint firstAttribute="height" constant="350" id="d8a-Z6-WAK"/>
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MYo-EM-qMW" customClass="CardView" customModule="Rosovina" customModuleProvider="target">
-                    <rect key="frame" x="30" y="280" width="333" height="100"/>
+                    <rect key="frame" x="22" y="300" width="349" height="100"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Fz2-Ud-9RA">
-                            <rect key="frame" x="8" y="16" width="106.66666666666667" height="68"/>
+                            <rect key="frame" x="16.000000000000007" y="16" width="106.66666666666669" height="68"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pink Love" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rgh-aY-5H4">
                                     <rect key="frame" x="0.0" y="0.0" width="106.66666666666667" height="28.666666666666668"/>
@@ -70,7 +70,7 @@
                             </subviews>
                         </stackView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$32.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rkh-ZM-rh4">
-                            <rect key="frame" x="202.66666666666666" y="49" width="122.33333333333334" height="43"/>
+                            <rect key="frame" x="210.66666666666666" y="49" width="122.33333333333334" height="43"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="36"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -79,8 +79,8 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstItem="Fz2-Ud-9RA" firstAttribute="centerY" secondItem="MYo-EM-qMW" secondAttribute="centerY" id="IOf-Os-50H"/>
-                        <constraint firstItem="Fz2-Ud-9RA" firstAttribute="leading" secondItem="MYo-EM-qMW" secondAttribute="leading" constant="8" id="PjY-5B-ssv"/>
-                        <constraint firstAttribute="trailing" secondItem="Rkh-ZM-rh4" secondAttribute="trailing" constant="8" id="Uio-Sm-hpu"/>
+                        <constraint firstItem="Fz2-Ud-9RA" firstAttribute="leading" secondItem="MYo-EM-qMW" secondAttribute="leading" constant="16" id="PjY-5B-ssv"/>
+                        <constraint firstAttribute="trailing" secondItem="Rkh-ZM-rh4" secondAttribute="trailing" constant="16" id="Uio-Sm-hpu"/>
                         <constraint firstAttribute="bottom" secondItem="Rkh-ZM-rh4" secondAttribute="bottom" constant="8" id="VBi-tp-ZZ1"/>
                         <constraint firstAttribute="height" constant="100" id="XWw-TA-5Yd"/>
                     </constraints>
@@ -97,7 +97,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BZA-ig-1ZZ">
-                    <rect key="frame" x="16" y="515" width="361" height="215"/>
+                    <rect key="frame" x="16" y="535" width="361" height="195"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="textColor" systemColor="labelColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -204,7 +204,7 @@
                     </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="7uN-Am-wNr">
-                    <rect key="frame" x="16" y="480" width="361" height="27"/>
+                    <rect key="frame" x="16" y="500" width="361" height="27"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="VfU-hH-xaF">
                             <rect key="frame" x="0.0" y="0.0" width="109.66666666666667" height="27"/>
@@ -294,7 +294,7 @@
                     <state key="normal" image="arrow"/>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xLh-tK-tGf">
-                    <rect key="frame" x="16" y="388" width="224" height="84"/>
+                    <rect key="frame" x="16" y="408" width="224" height="84"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="eLW-wt-CHV">
                             <rect key="frame" x="20" y="5.6666666666666856" width="188" height="73"/>
@@ -377,7 +377,7 @@
                 <constraint firstAttribute="trailing" secondItem="7uN-Am-wNr" secondAttribute="trailing" constant="16" id="0RV-0C-1do"/>
                 <constraint firstItem="LhS-dV-hox" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="4nN-aZ-qg2"/>
                 <constraint firstItem="MYo-EM-qMW" firstAttribute="top" secondItem="LhS-dV-hox" secondAttribute="bottom" constant="-50" id="782-BH-bDq"/>
-                <constraint firstItem="MYo-EM-qMW" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="30" id="CmK-jQ-tAz"/>
+                <constraint firstItem="MYo-EM-qMW" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="22" id="CmK-jQ-tAz"/>
                 <constraint firstItem="BZA-ig-1ZZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="DBa-2a-Og4"/>
                 <constraint firstItem="LhS-dV-hox" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="EC5-3f-fNa"/>
                 <constraint firstItem="mF7-Fl-2E1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="H2q-hh-6jM"/>
@@ -391,7 +391,7 @@
                 <constraint firstItem="xLh-tK-tGf" firstAttribute="top" secondItem="MYo-EM-qMW" secondAttribute="bottom" constant="8" symbolic="YES" id="Z3T-iB-JAp"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="BZA-ig-1ZZ" secondAttribute="trailing" constant="16" id="aAE-Y9-xS8"/>
                 <constraint firstItem="BOv-zc-kZK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="24" id="fVK-Hk-Nz6"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="MYo-EM-qMW" secondAttribute="trailing" constant="30" id="l2I-Bb-ob9"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="MYo-EM-qMW" secondAttribute="trailing" constant="22" id="l2I-Bb-ob9"/>
                 <constraint firstItem="BOv-zc-kZK" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="lDv-4h-wD0"/>
                 <constraint firstItem="MYo-EM-qMW" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="zVZ-wS-Mg3"/>
                 <constraint firstItem="LhS-dV-hox" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="zvu-4t-bbF"/>

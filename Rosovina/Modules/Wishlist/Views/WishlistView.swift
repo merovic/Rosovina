@@ -55,6 +55,14 @@ class WishlistView: UIViewController {
             }
             .store(in: &bindings)
         
+        viewModel.$selectedProductID.sink { v in
+            if v != 0{
+                let newViewController = ProductDetailsView()
+                newViewController.viewModel = ProductDetailsViewModel(productID: v)
+                //newViewController.delegate = self
+                self.navigationController?.pushViewController(newViewController, animated: true)
+            }
+        }.store(in: &bindings)
     }
 
 }
@@ -103,6 +111,9 @@ struct WishlistProductItem: View {
                 .scaledToFit()
                 .cornerRadius(4.0)
                 .frame(width: 130, height: 148)
+                .onTapGesture {
+                    self.viewModel.selectedProductID = product.productID
+                }
             
             VStack(alignment: .leading){
                 Text(product.productName)

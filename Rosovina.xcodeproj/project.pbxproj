@@ -34,6 +34,13 @@
 		077CC6C42B74359A0014E5A0 /* ViewMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CC6C22B74359A0014E5A0 /* ViewMoreView.swift */; };
 		077CC6C52B74359A0014E5A0 /* ViewMoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 077CC6C32B74359A0014E5A0 /* ViewMoreView.xib */; };
 		077CC6C72B7436920014E5A0 /* ViewMoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CC6C62B7436920014E5A0 /* ViewMoreViewModel.swift */; };
+		077CC6CA2B767B650014E5A0 /* SliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CC6C82B767B650014E5A0 /* SliderView.swift */; };
+		077CC6CB2B767B650014E5A0 /* SliderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 077CC6C92B767B650014E5A0 /* SliderView.xib */; };
+		077CC6CE2B7689F90014E5A0 /* LongTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CC6CC2B7689F90014E5A0 /* LongTextView.swift */; };
+		077CC6CF2B7689F90014E5A0 /* LongTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 077CC6CD2B7689F90014E5A0 /* LongTextView.xib */; };
+		077CC6D22B7691A90014E5A0 /* ContactusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CC6D02B7691A80014E5A0 /* ContactusView.swift */; };
+		077CC6D32B7691A90014E5A0 /* ContactusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 077CC6D12B7691A90014E5A0 /* ContactusView.xib */; };
+		077CC6D52B76D7FA0014E5A0 /* HapticFeedBackEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CC6D42B76D7FA0014E5A0 /* HapticFeedBackEngine.swift */; };
 		07B3793B2B49ABE900F49DC3 /* MyOrdersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3793A2B49ABE900F49DC3 /* MyOrdersService.swift */; };
 		07B3793D2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3793C2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift */; };
 		07B3793F2B49ACB300F49DC3 /* MyOrdersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3793E2B49ACB300F49DC3 /* MyOrdersViewModel.swift */; };
@@ -250,6 +257,13 @@
 		077CC6C22B74359A0014E5A0 /* ViewMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMoreView.swift; sourceTree = "<group>"; };
 		077CC6C32B74359A0014E5A0 /* ViewMoreView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewMoreView.xib; sourceTree = "<group>"; };
 		077CC6C62B7436920014E5A0 /* ViewMoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMoreViewModel.swift; sourceTree = "<group>"; };
+		077CC6C82B767B650014E5A0 /* SliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderView.swift; sourceTree = "<group>"; };
+		077CC6C92B767B650014E5A0 /* SliderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SliderView.xib; sourceTree = "<group>"; };
+		077CC6CC2B7689F90014E5A0 /* LongTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTextView.swift; sourceTree = "<group>"; };
+		077CC6CD2B7689F90014E5A0 /* LongTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LongTextView.xib; sourceTree = "<group>"; };
+		077CC6D02B7691A80014E5A0 /* ContactusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactusView.swift; sourceTree = "<group>"; };
+		077CC6D12B7691A90014E5A0 /* ContactusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactusView.xib; sourceTree = "<group>"; };
+		077CC6D42B76D7FA0014E5A0 /* HapticFeedBackEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedBackEngine.swift; sourceTree = "<group>"; };
 		07B3793A2B49ABE900F49DC3 /* MyOrdersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersService.swift; sourceTree = "<group>"; };
 		07B3793C2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersAPIResponse.swift; sourceTree = "<group>"; };
 		07B3793E2B49ACB300F49DC3 /* MyOrdersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersViewModel.swift; sourceTree = "<group>"; };
@@ -684,6 +698,7 @@
 				07B6F69E2AF69D6000BE5BA6 /* SwiftBottomSheet.xib */,
 				07B6F6B32AF69D6E00BE5BA6 /* ViewFragmentation.swift */,
 				070757632B377CFB00A24CAE /* Keyboard.swift */,
+				077CC6D42B76D7FA0014E5A0 /* HapticFeedBackEngine.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -962,6 +977,8 @@
 				07BBA9442AFE782F006AE9F7 /* ProductDetailsView.xib */,
 				07BBA9472AFE87B0006AE9F7 /* CommentsView.swift */,
 				07BBA9482AFE87B0006AE9F7 /* CommentsView.xib */,
+				077CC6C82B767B650014E5A0 /* SliderView.swift */,
+				077CC6C92B767B650014E5A0 /* SliderView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1080,6 +1097,10 @@
 				07B379462B573B2E00F49DC3 /* LocationPickerView.xib */,
 				07BBA9A92B0031B4006AE9F7 /* AddAddressView.swift */,
 				07BBA9AA2B0031B4006AE9F7 /* AddAddressView.xib */,
+				077CC6CC2B7689F90014E5A0 /* LongTextView.swift */,
+				077CC6CD2B7689F90014E5A0 /* LongTextView.xib */,
+				077CC6D02B7691A80014E5A0 /* ContactusView.swift */,
+				077CC6D12B7691A90014E5A0 /* ContactusView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1352,8 +1373,10 @@
 				07B379482B573B2E00F49DC3 /* LocationPickerView.xib in Resources */,
 				07B6F6DB2AF69DF300BE5BA6 /* Poppins-Thin.ttf in Resources */,
 				07BEE17D2B4211590065C559 /* GoogleService-Info.plist in Resources */,
+				077CC6CF2B7689F90014E5A0 /* LongTextView.xib in Resources */,
 				07B6F6D12AF69DF300BE5BA6 /* Poppins-SemiBold.ttf in Resources */,
 				07B6F6E02AF69DF300BE5BA6 /* Poppins-ExtraBoldItalic.ttf in Resources */,
+				077CC6CB2B767B650014E5A0 /* SliderView.xib in Resources */,
 				07B6F6DD2AF69DF300BE5BA6 /* Poppins-LightItalic.ttf in Resources */,
 				07B6F6852AF68A3A00BE5BA6 /* LaunchScreen.storyboard in Resources */,
 				07BBA94F2AFEB0C8006AE9F7 /* ShoppingCartView.xib in Resources */,
@@ -1383,6 +1406,7 @@
 				07B379672B5B1B1A00F49DC3 /* NeedLoginView.xib in Resources */,
 				07B6F6E22AF69DF300BE5BA6 /* Poppins-Bold.ttf in Resources */,
 				07B6F6822AF68A3A00BE5BA6 /* Assets.xcassets in Resources */,
+				077CC6D32B7691A90014E5A0 /* ContactusView.xib in Resources */,
 				07BBA9912B0022EF006AE9F7 /* NotificationsView.xib in Resources */,
 				07B6F6802AF68A3800BE5BA6 /* Main.storyboard in Resources */,
 				07BBA9842AFFFFF4006AE9F7 /* ProfileView.xib in Resources */,
@@ -1495,10 +1519,12 @@
 				07BEE18F2B45F4010065C559 /* WishlistAPIRequest.swift in Sources */,
 				07C7F58E2B32642600A4168A /* OTPCheckAPIResponse.swift in Sources */,
 				076C2DE72B3375B4005ED1C7 /* CustomCodeView.swift in Sources */,
+				077CC6D22B7691A90014E5A0 /* ContactusView.swift in Sources */,
 				07BEE19F2B4606180065C559 /* GetProductsViewModel.swift in Sources */,
 				07BBA97A2AFFF9A3006AE9F7 /* BlogView.swift in Sources */,
 				070757622B376B6A00A24CAE /* CreatePasswordViewModel.swift in Sources */,
 				07BBA9902B0022EF006AE9F7 /* NotificationsView.swift in Sources */,
+				077CC6CE2B7689F90014E5A0 /* LongTextView.swift in Sources */,
 				07B6F6FE2AF6EA8700BE5BA6 /* DesignersView.swift in Sources */,
 				07BBA9612AFED902006AE9F7 /* LoginView.swift in Sources */,
 				07BBA9A22B002B9A006AE9F7 /* ReportView.swift in Sources */,
@@ -1575,6 +1601,7 @@
 				07BBA99E2B002B5D006AE9F7 /* WishlistView.swift in Sources */,
 				07C7F58F2B32642600A4168A /* CheckPhoneAPIResponse.swift in Sources */,
 				07C77AFB2B5C044A00FCA240 /* SearchView.swift in Sources */,
+				077CC6D52B76D7FA0014E5A0 /* HapticFeedBackEngine.swift in Sources */,
 				07BBA9992B002A05006AE9F7 /* SupportView.swift in Sources */,
 				07B3793D2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift in Sources */,
 				07C77B002B5C1F9F00FCA240 /* GetCategoriesAPIResponse.swift in Sources */,
@@ -1595,6 +1622,7 @@
 				07B6F6E62AF6A40900BE5BA6 /* OnboardingViewController.swift in Sources */,
 				07B6F6A32AF69D6100BE5BA6 /* FontEx.swift in Sources */,
 				07B6F67B2AF68A3800BE5BA6 /* SceneDelegate.swift in Sources */,
+				077CC6CA2B767B650014E5A0 /* SliderView.swift in Sources */,
 				07BEE1CA2B48B63B0065C559 /* SelectAddressViewModel.swift in Sources */,
 				07C77B142B684AB700FCA240 /* InputValidations.swift in Sources */,
 				07BEE1872B42271D0065C559 /* CartService.swift in Sources */,
@@ -1762,7 +1790,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 55F3N2WBNQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Rosovina/Info.plist;
@@ -1779,7 +1807,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.7;
+				MARKETING_VERSION = 1.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rosovina.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1797,7 +1825,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 55F3N2WBNQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Rosovina/Info.plist;
@@ -1814,7 +1842,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.7;
+				MARKETING_VERSION = 1.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rosovina.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

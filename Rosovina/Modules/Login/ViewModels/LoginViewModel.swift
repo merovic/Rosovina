@@ -72,7 +72,7 @@ class LoginViewModel: ObservableObject {
         
         self.isAnimating = true
         
-        dataService.login(request: LoginAPIRequest(phone: selectedType == 0 ? checkForPhone(phone: phoneText) : emailText, password: passwordText, mobileToken: "token"))
+        dataService.login(request: LoginAPIRequest(phone: selectedType == 0 ? checkForPhone(phone: phoneText) : emailText, password: passwordText, mobileToken: token))
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in
