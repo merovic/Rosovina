@@ -12,7 +12,7 @@ struct ProductDetailsAPIResponse: Codable {
     let id: Int
     let listOrder: Int?
     let slug: String
-    let showInHome, isFeatured, isPopular, isNewArrival: Int
+    let showInHome, isFeatured, isPopular, isNewArrival: Int?
     let isInStock: Int
     let addedToWishlist: Bool?
     let currencyCode: String?
@@ -26,6 +26,8 @@ struct ProductDetailsAPIResponse: Codable {
     let variants: [Variant]
     let images: [String]
     let reviews: [Review]
+    let isReadyForSale: Int
+    let isReadyForSaleText: String?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -48,6 +50,8 @@ struct ProductDetailsAPIResponse: Codable {
         case discountPercentage = "discount_percentage"
         case isActive = "is_active"
         case variants, images
+        case isReadyForSale = "is_ready_for_sale"
+        case isReadyForSaleText = "is_ready_for_sale_text"
     }
 }
 
@@ -73,8 +77,9 @@ extension Variant: Equatable {}
 // MARK: - AttributeValue
 struct AttributeValue: Codable {
     let id: Int
-    let title, originalPrice, discountPercentage, discountAmount: String
-    let taxPercentage, taxAmount, price: String
+    let originalPrice, price, discountAmount, taxAmount: Int
+    let title, discountPercentage: String
+    let taxPercentage: String
     let isActive: Bool
 
     enum CodingKeys: String, CodingKey {

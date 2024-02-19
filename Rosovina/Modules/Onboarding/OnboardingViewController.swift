@@ -28,7 +28,7 @@ class OnboardingViewController: UIViewController {
 
     @IBAction func getStartedClicked(_ sender: Any) {
         let nav1 = UINavigationController()
-        let vc = LoginView()
+        let vc = InitCountryView()
         nav1.isNavigationBarHidden = true
         nav1.viewControllers = [vc]
         nav1.modalPresentationStyle = .fullScreen

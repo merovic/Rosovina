@@ -9,6 +9,6 @@ import Foundation
 
 struct RemoteServers {
     struct ProductionServer {
-        static let baseURL = "https://api.rosovina.com/public/api"
+        static let baseURL = "https://pro.rosovina.com/public/api"
     }
 }

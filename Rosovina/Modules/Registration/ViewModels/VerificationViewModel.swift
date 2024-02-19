@@ -19,6 +19,7 @@ class VerificationViewModel: ObservableObject {
     //var token = LoginDataService.shared.getFirebaseToken()
     var token = "asjdfbajhbsfabsjfhbajsbjhgjgjhhgjhg"
     
+    var phoneCode:String = ""
     var phoneText:String = ""
     var nameText:String = ""
     var emailText:String = ""
@@ -42,7 +43,8 @@ class VerificationViewModel: ObservableObject {
     
     let dataService: RegistrationService
     
-    init(phoneText:String, nameText:String? = nil, emailText:String? = nil, passwordText:String? = nil, isResetPassword:Bool = false, dataService: RegistrationService = AppRegistrationService()) {
+    init(phoneText:String, phoneCode:String, nameText:String? = nil, emailText:String? = nil, passwordText:String? = nil, isResetPassword:Bool = false, dataService: RegistrationService = AppRegistrationService()) {
+        self.phoneCode = phoneCode
         self.phoneText = phoneText
         self.nameText = nameText ?? ""
         self.emailText = emailText ?? ""
@@ -132,7 +134,7 @@ class VerificationViewModel: ObservableObject {
                 
         self.isAnimating = true
         
-        dataService.register(request: RegistrationAPIRequest(name: nameText, phone: phoneText, password: passwordText, email: emailText, mobileToken: token))
+        dataService.register(request: RegistrationAPIRequest(name: nameText, countryCode: phoneCode, phone: phoneText, password: passwordText, email: emailText, mobileToken: token))
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in

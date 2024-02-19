@@ -43,7 +43,7 @@ struct SliderSwiftUIView: View {
                         .frame(width: UIScreen.main.bounds.width - 50)
                 }
             }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             
             HStack(spacing: 10) {
                 ForEach(0..<imageNames.count, id: \.self) { index in

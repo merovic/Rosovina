@@ -20,7 +20,13 @@ class SearchViewModel: ObservableObject {
     @Published var selectedProductID: Int = 0
     
     @Published var searchText: String = ""
-                        
+    
+    @Published var filterObject: Filter?
+    
+    @Published var currentPage: Int = 1
+    
+    @Published var productsListFull: Bool = false
+                            
     @Published var isAnimating = false
         
     let token = UIDevice.current.identifierForVendor!.uuidString
@@ -35,11 +41,11 @@ class SearchViewModel: ObservableObject {
         self.wishListService = wishListService
     }
     
-    func getProductsByFilter(categories: [Int], priceRange: [Int], brands: [Int], rating: [Int]) {
+    func getProductsByFilter() {
         
         self.isAnimating = true
         
-        dataService.getProducts(request: GetProductsAPIRequest(deviceToken: token, filter: Filter(occassions: categories, price: priceRange, brands: brands, rating: rating)))
+        dataService.getProducts(request: GetProductsAPIRequest(deviceToken: token, filter: filterObject, page: currentPage))
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in
@@ -52,7 +58,12 @@ class SearchViewModel: ObservableObject {
                 },
                 receiveValue: { response in
                     self.isAnimating = false
-                    self.productItems = response.data?.data ?? []
+                    self.productItems.append(contentsOf: response.data?.data ?? [])
+                    if (response.data?.meta.currentPage ?? 0) < (response.data?.meta.lastPage ?? 0){
+                        self.currentPage += 1
+                    }else{
+                        self.productsListFull = true
+                    }
                 }
             )
             .store(in: &cancellables)
@@ -62,7 +73,7 @@ class SearchViewModel: ObservableObject {
         
         self.isAnimating = true
         
-        dataService.getProducts(request: GetProductsAPIRequest(deviceToken: token, keyword: searchText))
+        dataService.getProducts(request: GetProductsAPIRequest(deviceToken: token, keyword: searchText, page: currentPage))
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in
@@ -75,7 +86,12 @@ class SearchViewModel: ObservableObject {
                 },
                 receiveValue: { response in
                     self.isAnimating = false
-                    self.productItems = response.data?.data ?? []
+                    self.productItems.append(contentsOf: response.data?.data ?? [])
+                    if (response.data?.meta.currentPage ?? 0) < (response.data?.meta.lastPage ?? 0){
+                        self.currentPage += 1
+                    }else{
+                        self.productsListFull = true
+                    }
                 }
             )
             .store(in: &cancellables)

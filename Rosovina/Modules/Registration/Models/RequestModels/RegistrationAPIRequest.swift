@@ -11,12 +11,13 @@ import MOLH
 
 // MARK: - RegistrationAPIRequest
 struct RegistrationAPIRequest: Codable {
-    let name, phone, password, platform: String
+    let name, countryCode, phone, password, platform: String
     let email, ipAddress, osVersion: String
     let mobileBrand, lang, mobileToken: String
     
-    init(name: String, phone: String, password:String, email:String, mobileToken: String){
+    init(name: String, countryCode: String, phone: String, password:String, email:String, mobileToken: String){
         self.name = name
+        self.countryCode = countryCode
         self.phone = phone
         self.password = password
         self.email = email
@@ -34,6 +35,7 @@ struct RegistrationAPIRequest: Codable {
             case osVersion = "os_version"
             case mobileBrand = "mobile_brand"
             case lang
+            case countryCode = "country_code"
             case mobileToken = "mobile_token"
         }
 }

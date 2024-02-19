@@ -10,7 +10,7 @@ import Foundation
 // MARK: - GetProductsAPIResponse
 struct GetProductsAPIResponse: Codable {
     let data: [Product]
-    //let meta: Meta
+    let meta: Meta
 }
 
 extension GetProductsAPIResponse: Equatable {}
@@ -22,16 +22,18 @@ struct Product: Codable, Identifiable {
     let listOrder: Int?
     let slug: String
     let currencyCode: String?
-    let showInHome, isFeatured, isPopular, isNewArrival: Int
+    let showInHome, isFeatured, isPopular, isNewArrival: Int?
     let isInStock: Int
     let addedToWishlist: Bool?
     let sku: String
     let rate: String?
-    let imagePath: String
+    let imagePath, discountPercentage: String
     let title, description: String
     let price: Double
-    let discountAmount, discountPercentage: String
+    let discountAmount: Int
     let isActive: Bool
+    let isReadyForSale: Int
+    let isReadyForSaleText: String?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -52,6 +54,8 @@ struct Product: Codable, Identifiable {
         case discountAmount = "discount_amount"
         case discountPercentage = "discount_percentage"
         case isActive = "is_active"
+        case isReadyForSale = "is_ready_for_sale"
+        case isReadyForSaleText = "is_ready_for_sale_text"
     }
 }
 
@@ -59,27 +63,18 @@ extension Product: Equatable {}
 
 // MARK: - Meta
 struct Meta: Codable {
-    let currentPage, from, lastPage: Int
+    let to, currentPage, lastPage, from: Int
+    let perPage, total: Int
     let path: String
-    let perPage, to, total: Int
 
     enum CodingKeys: String, CodingKey {
+        case to
         case currentPage = "current_page"
-        case from
         case lastPage = "last_page"
-        case path
+        case from
         case perPage = "per_page"
-        case to, total
+        case total, path
     }
 }
 
 extension Meta: Equatable {}
-
-// MARK: - Link
-struct Link: Codable {
-    let url: String?
-    let label: String
-    let active: Bool
-}
-
-extension Link: Equatable {}

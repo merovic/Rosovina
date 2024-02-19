@@ -11,6 +11,7 @@ import Foundation
 struct GeoLocationAPIResponseElement: Codable, Identifiable {
     let id: Int
     let name: String
+    let image_path: String?
 }
 
 extension GeoLocationAPIResponseElement: Equatable {}

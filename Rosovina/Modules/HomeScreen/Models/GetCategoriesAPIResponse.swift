@@ -18,7 +18,7 @@ extension GetCategoriesAPIResponse: Equatable {}
 struct Category: Codable, Identifiable {
     let id: Int
     let slug: String
-    let showInHome: Int
+    let showInHome: Int?
     let imagePath: String
     let thumbURL: String
     let title, description: String

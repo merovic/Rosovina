@@ -11,7 +11,8 @@ import Foundation
 struct CheckPromoCodeAPIResponse: Codable {
     let id: Int
     let discountPercentage: String?
-    let discountAmount, code: String
+    let discountAmount: Int
+    let code: String
     let bandwidth, userUsage: Int
     let startsIn, dueDate, minimumOrderPrice, maxDiscountAmount: String
     let createdBy: String?

@@ -52,9 +52,9 @@ class GetProductsViewModel: ObservableObject {
         
         switch productType{
         case .category:
-            request = GetProductsAPIRequest(deviceToken: token, categories: [typeID])
+            request = GetProductsAPIRequest(deviceToken: token, categories: [typeID], page: 1)
         case .occation:
-            request = GetProductsAPIRequest(deviceToken: token, filter: Filter(occassions: [typeID]))
+            request = GetProductsAPIRequest(deviceToken: token, filter: Filter(occassions: [typeID]), page: 1)
         }
         
         dataService.getProducts(request: request!)

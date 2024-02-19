@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 import Combine
 import CombineCocoa
 import MFSDK
@@ -16,18 +17,27 @@ class CheckoutView: UIViewController {
     
     var viewModel: CheckoutViewModel?
     
+    var countryPickerViewModel: CountryPickerViewModel = CountryPickerViewModel()
+    
     private let loadingView = LoadingAnimation()
 
     @IBOutlet weak var backbutton: UIButton!
     
+    @IBOutlet weak var customSwitch: UISwitch!
+    
+    @IBOutlet weak var addAddressStack: UIStackView!
+    
     @IBOutlet weak var addAddressButton: UIButton!
+    
     @IBOutlet weak var addAddressInitButton: UIButton! {
         didSet {
+            addAddressInitButton.isHidden = true
             addAddressInitButton.prettyHareefButton(radius: 16)
         }
     }
     @IBOutlet weak var addressView: UIView! {
         didSet {
+            addressView.isHidden = true
             addressView.rounded()
         }
     }
@@ -36,11 +46,45 @@ class CheckoutView: UIViewController {
     @IBOutlet weak var selectedAddressPhone: UILabel!
     @IBOutlet weak var selectedAddressContent: UILabel!
     
+    
+    @IBOutlet weak var recipientNameView: UIView! {
+        didSet {
+            recipientNameView.roundedGrayHareefView()
+        }
+    }
+    
+    @IBOutlet weak var recipientNameTextField: UITextField!
+    
+    @IBOutlet weak var recipientPhoneView: UIView! {
+        didSet {
+            recipientPhoneView.roundedGrayHareefView()
+        }
+    }
+    
+    @IBOutlet weak var countryPickerView: UIView!
+    
+    @IBOutlet weak var recipientPhoneTextField: UITextField!
+    
     var creditCardGest: UITapGestureRecognizer = {
         let gest = UITapGestureRecognizer()
         gest.numberOfTapsRequired = 1
         return gest
     }()
+    
+    
+    @IBOutlet weak var deliveryDateView: UIView! {
+        didSet {
+            deliveryDateView.roundedGrayHareefView()
+        }
+    }
+    
+    @IBOutlet weak var deliveryDateTextField: UITextField!
+    
+    @IBOutlet weak var slotsContainer: UIView! {
+        didSet {
+            slotsContainer.isHidden = true
+        }
+    }
     
     @IBOutlet weak var creditCardView: UIView! {
         didSet {
@@ -76,9 +120,15 @@ class CheckoutView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         BindViews()
+        AttachViews()
         MFSettings.shared.delegate = self
         // Add observer for the custom notification
         NotificationCenter.default.addObserver(self, selector: #selector(handleDidUpdateValue(_:)), name: .didUpdateValue, object: nil)
+    }
+    
+    func AttachViews() {
+        self.countryPickerView.EmbedSwiftUIView(view: CountryPicker(viewModel: countryPickerViewModel), parent: self)
+        self.slotsContainer.EmbedSwiftUIView(view: SlotsSwiftUIView(viewModel: viewModel!), parent: self)
     }
     
     deinit {
@@ -108,6 +158,20 @@ class CheckoutView: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             }
             .store(in: &bindings)
+        
+        countryPickerViewModel.$phoneCode.sink { code in
+            self.viewModel!.recipientPhoneCode = code
+        }.store(in: &bindings)
+        
+        recipientNameTextField.textPublisher
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.recipientNameText, on: viewModel!)
+        .store(in: &bindings)
+        
+        recipientPhoneTextField.textPublisher
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.recipientPhoneText, on: viewModel!)
+        .store(in: &bindings)
         
         addAddressButton.tapPublisher
             .sink { _ in
@@ -234,5 +298,59 @@ extension CheckoutView: SelectLocationDelegate {
 extension CheckoutView: MFPaymentDelegate {
     func didInvoiceCreated(invoiceId: String) {
         print("#\(invoiceId)")
+    }
+}
+
+
+struct SlotsSwiftUIView: View {
+    
+    @ObservedObject var viewModel: CheckoutViewModel
+    
+    var body: some View {
+        HStack{
+            ForEach(self.viewModel.availableSlots) { slot in
+                SlotsItemSwiftUIView(slot: slot, viewModel: viewModel)
+            }
+            Spacer()
+        }
+    }
+}
+
+struct SlotsItemSwiftUIView: View {
+    var slot: GetSlotsAPIResponseElement
+    
+    @ObservedObject var viewModel: CheckoutViewModel
+    
+    var body: some View {
+        ZStack {
+            VStack(alignment: .leading, spacing: 10) {
+                Text("20 FEB")
+                    .lineLimit(1)
+                    .font(.system(size: 15, weight: .semibold, design: .default))
+                    .foregroundColor(SwiftUI.Color("AccentColor"))
+                
+                Spacer().frame(height: 5)
+                
+                Text("Tuesday")
+                    .lineLimit(1)
+                    .font(.system(size: 15, weight: .semibold, design: .default))
+                    .foregroundColor(SwiftUI.Color.black)
+                
+                Text(slot.text)
+                    .lineLimit(1)
+                    .font(.system(size: 15, weight: .medium, design: .default))
+                    .foregroundColor(SwiftUI.Color.gray)
+                
+            }.padding()
+        }
+        .frame(minWidth: 120, maxWidth: 120, minHeight: 120, maxHeight: 120, alignment: .center)
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(viewModel.selectedSlot?.id == slot.id ? SwiftUI.Color("AccentColor") : SwiftUI.Color.gray , lineWidth: viewModel.selectedSlot?.id == slot.id ? 3 : 1)
+        )
+        .cornerRadius(8)
+        .onTapGesture {
+            viewModel.selectedSlot = slot
+        }
     }
 }

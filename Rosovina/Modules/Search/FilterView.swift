@@ -142,27 +142,27 @@ struct FilterSwiftUIView: View {
                 }
             }
             
-            VStack(alignment: .leading){
-                Text("Brands")
-                    .font(.poppinsFont(size: 16, weight: .bold))
-                    .foregroundColor(Color("AccentColor"))
-                
-                TextField("Search", text: $searchText)
-                    .padding()
-                    .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color("LightGray"), style: StrokeStyle(lineWidth: 1.0)))
-                    .onChange(of: searchText) { newSearchText in
-                        filterArray()
-                    }
-                
-                ScrollView(.horizontal, showsIndicators: false){
-                    HStack{
-                        ForEach(0..<viewModel.filteredBrands.count, id: \.self) { index in
-                            BrandItem(item: viewModel.brands[index], selectedBrands: $viewModel.brands)
-                        }
-                        Spacer()
-                    }
-                }
-            }
+//            VStack(alignment: .leading){
+//                Text("Brands")
+//                    .font(.poppinsFont(size: 16, weight: .bold))
+//                    .foregroundColor(Color("AccentColor"))
+//
+//                TextField("Search", text: $searchText)
+//                    .padding()
+//                    .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color("LightGray"), style: StrokeStyle(lineWidth: 1.0)))
+//                    .onChange(of: searchText) { newSearchText in
+//                        filterArray()
+//                    }
+//
+//                ScrollView(.horizontal, showsIndicators: false){
+//                    HStack{
+//                        ForEach(0..<viewModel.filteredBrands.count, id: \.self) { index in
+//                            BrandItem(item: viewModel.brands[index], selectedBrands: $viewModel.brands)
+//                        }
+//                        Spacer()
+//                    }
+//                }
+//            }
             
             VStack(alignment: .leading){
                 Text("Rating")
@@ -206,6 +206,8 @@ struct FilterSwiftUIView: View {
                         }
                 }
             }
+            
+            Spacer()
             
         }
     }

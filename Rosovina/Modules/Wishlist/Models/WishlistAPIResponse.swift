@@ -30,6 +30,8 @@ struct WishlistItem: Codable, Identifiable {
     let currencyCode: String?
     let price: Double
     let productImage: String
+    let isReadyForSale: Int?
+    let isReadyForSaleText: String?
 
     enum CodingKeys: String, CodingKey {
         case productID = "product_id"
@@ -40,6 +42,8 @@ struct WishlistItem: Codable, Identifiable {
         case price
         case currencyCode = "currency_code"
         case productImage = "product_image"
+        case isReadyForSale = "is_ready_for_sale"
+        case isReadyForSaleText = "is_ready_for_sale_text"
     }
 }
 

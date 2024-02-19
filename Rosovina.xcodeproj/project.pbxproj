@@ -41,6 +41,12 @@
 		077CC6D22B7691A90014E5A0 /* ContactusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CC6D02B7691A80014E5A0 /* ContactusView.swift */; };
 		077CC6D32B7691A90014E5A0 /* ContactusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 077CC6D12B7691A90014E5A0 /* ContactusView.xib */; };
 		077CC6D52B76D7FA0014E5A0 /* HapticFeedBackEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CC6D42B76D7FA0014E5A0 /* HapticFeedBackEngine.swift */; };
+		077CC6D82B8293490014E5A0 /* InitCountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CC6D62B8293490014E5A0 /* InitCountryView.swift */; };
+		077CC6D92B8293490014E5A0 /* InitCountryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 077CC6D72B8293490014E5A0 /* InitCountryView.xib */; };
+		077CC6DB2B829BE30014E5A0 /* InitCountryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CC6DA2B829BE30014E5A0 /* InitCountryViewModel.swift */; };
+		077CC6DE2B82C5190014E5A0 /* CitySelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CC6DC2B82C5190014E5A0 /* CitySelectorView.swift */; };
+		077CC6DF2B82C5190014E5A0 /* CitySelectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 077CC6DD2B82C5190014E5A0 /* CitySelectorView.xib */; };
+		077CC6E12B841FA40014E5A0 /* GetSlotsAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CC6E02B841FA40014E5A0 /* GetSlotsAPIResponse.swift */; };
 		07B3793B2B49ABE900F49DC3 /* MyOrdersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3793A2B49ABE900F49DC3 /* MyOrdersService.swift */; };
 		07B3793D2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3793C2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift */; };
 		07B3793F2B49ACB300F49DC3 /* MyOrdersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3793E2B49ACB300F49DC3 /* MyOrdersViewModel.swift */; };
@@ -264,6 +270,12 @@
 		077CC6D02B7691A80014E5A0 /* ContactusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactusView.swift; sourceTree = "<group>"; };
 		077CC6D12B7691A90014E5A0 /* ContactusView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactusView.xib; sourceTree = "<group>"; };
 		077CC6D42B76D7FA0014E5A0 /* HapticFeedBackEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedBackEngine.swift; sourceTree = "<group>"; };
+		077CC6D62B8293490014E5A0 /* InitCountryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitCountryView.swift; sourceTree = "<group>"; };
+		077CC6D72B8293490014E5A0 /* InitCountryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InitCountryView.xib; sourceTree = "<group>"; };
+		077CC6DA2B829BE30014E5A0 /* InitCountryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitCountryViewModel.swift; sourceTree = "<group>"; };
+		077CC6DC2B82C5190014E5A0 /* CitySelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySelectorView.swift; sourceTree = "<group>"; };
+		077CC6DD2B82C5190014E5A0 /* CitySelectorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CitySelectorView.xib; sourceTree = "<group>"; };
+		077CC6E02B841FA40014E5A0 /* GetSlotsAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSlotsAPIResponse.swift; sourceTree = "<group>"; };
 		07B3793A2B49ABE900F49DC3 /* MyOrdersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersService.swift; sourceTree = "<group>"; };
 		07B3793C2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersAPIResponse.swift; sourceTree = "<group>"; };
 		07B3793E2B49ACB300F49DC3 /* MyOrdersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersViewModel.swift; sourceTree = "<group>"; };
@@ -517,6 +529,8 @@
 				07BEE19B2B4605800065C559 /* GetProductsView.xib */,
 				077CC6C22B74359A0014E5A0 /* ViewMoreView.swift */,
 				077CC6C32B74359A0014E5A0 /* ViewMoreView.xib */,
+				077CC6DC2B82C5190014E5A0 /* CitySelectorView.swift */,
+				077CC6DD2B82C5190014E5A0 /* CitySelectorView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -772,6 +786,9 @@
 			children = (
 				07B6F6E42AF6A40800BE5BA6 /* OnboardingViewController.swift */,
 				07B6F6E52AF6A40800BE5BA6 /* OnboardingViewController.xib */,
+				077CC6D62B8293490014E5A0 /* InitCountryView.swift */,
+				077CC6D72B8293490014E5A0 /* InitCountryView.xib */,
+				077CC6DA2B829BE30014E5A0 /* InitCountryViewModel.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -1162,6 +1179,7 @@
 				07BEE1BB2B4894CE0065C559 /* CreateOrderAPIRequest.swift */,
 				077CC6BE2B6AFF2D0014E5A0 /* ConfirmOrderAPIRequest.swift */,
 				077CC6C02B6D812A0014E5A0 /* ConfirmOrderAPIResponse.swift */,
+				077CC6E02B841FA40014E5A0 /* GetSlotsAPIResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1387,6 +1405,7 @@
 				07B6F6D62AF69DF300BE5BA6 /* Poppins-SemiBoldItalic.ttf in Resources */,
 				07B6F6B92AF69D6E00BE5BA6 /* PopUps.storyboard in Resources */,
 				07B6F6D22AF69DF300BE5BA6 /* Poppins-Medium.ttf in Resources */,
+				077CC6D92B8293490014E5A0 /* InitCountryView.xib in Resources */,
 				07BBA9672AFEDDF2006AE9F7 /* ForgetPasswordView.xib in Resources */,
 				07B6F6D82AF69DF300BE5BA6 /* Poppins-ExtraLightItalic.ttf in Resources */,
 				07B6F6D32AF69DF300BE5BA6 /* Poppins-Black.ttf in Resources */,
@@ -1418,6 +1437,7 @@
 				07B6F6E12AF69DF300BE5BA6 /* Poppins-MediumItalic.ttf in Resources */,
 				07BBA9AC2B0031B4006AE9F7 /* AddAddressView.xib in Resources */,
 				07C77AFC2B5C044A00FCA240 /* SearchView.xib in Resources */,
+				077CC6DF2B82C5190014E5A0 /* CitySelectorView.xib in Resources */,
 				07BEE1C82B48B2A80065C559 /* SelectAddressView.xib in Resources */,
 				07BBA94A2AFE87B0006AE9F7 /* CommentsView.xib in Resources */,
 				07B6F6DA2AF69DF300BE5BA6 /* Poppins-BoldItalic.ttf in Resources */,
@@ -1560,6 +1580,7 @@
 				07B6F6A92AF69D6100BE5BA6 /* StackViewEx.swift in Sources */,
 				07BEE1952B45F9F70065C559 /* GetProductsAPIResponse.swift in Sources */,
 				077CC6C12B6D812A0014E5A0 /* ConfirmOrderAPIResponse.swift in Sources */,
+				077CC6DE2B82C5190014E5A0 /* CitySelectorView.swift in Sources */,
 				07B379612B59E59A00F49DC3 /* CheckPromoCodeAPIResponse.swift in Sources */,
 				07B3793B2B49ABE900F49DC3 /* MyOrdersService.swift in Sources */,
 				07BEE1AD2B461E300065C559 /* AddAddressViewModel.swift in Sources */,
@@ -1590,6 +1611,7 @@
 				077CC6C42B74359A0014E5A0 /* ViewMoreView.swift in Sources */,
 				07B6F6A42AF69D6100BE5BA6 /* StringEx.swift in Sources */,
 				07B6F6B82AF69D6E00BE5BA6 /* DeviceID.swift in Sources */,
+				077CC6DB2B829BE30014E5A0 /* InitCountryViewModel.swift in Sources */,
 				07B379522B58A16700F49DC3 /* ProfileService.swift in Sources */,
 				07BEE1972B45FD2E0065C559 /* WishlistService.swift in Sources */,
 				07BEE1AF2B4764BE0065C559 /* GeolocationService.swift in Sources */,
@@ -1615,6 +1637,7 @@
 				07BEE1A92B461C250065C559 /* AddressService.swift in Sources */,
 				07BBA95C2AFED59E006AE9F7 /* ReviewView.swift in Sources */,
 				076C2DE52B3375B4005ED1C7 /* CustomCodeViewItem.swift in Sources */,
+				077CC6D82B8293490014E5A0 /* InitCountryView.swift in Sources */,
 				07BEE1A52B4619340065C559 /* GeoLocationAPIResponse.swift in Sources */,
 				07BEE1992B45FFBA0065C559 /* WishlistViewModel.swift in Sources */,
 				07B6F6BE2AF69D6E00BE5BA6 /* ViewFragmentation.swift in Sources */,
@@ -1636,6 +1659,7 @@
 				07BBA9662AFEDDF2006AE9F7 /* ForgetPasswordView.swift in Sources */,
 				07C77B022B5C203600FCA240 /* FilterViewModel.swift in Sources */,
 				07BEE1772B41FD280065C559 /* ProductDetailsAPIResponse.swift in Sources */,
+				077CC6E12B841FA40014E5A0 /* GetSlotsAPIResponse.swift in Sources */,
 				07B379692B5B292000F49DC3 /* UpdateAccountAPIResponse.swift in Sources */,
 				077CC6BF2B6AFF2D0014E5A0 /* ConfirmOrderAPIRequest.swift in Sources */,
 				07B6F6F22AF6CA7A00BE5BA6 /* ImageSliderView.swift in Sources */,
@@ -1790,7 +1814,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 55F3N2WBNQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Rosovina/Info.plist;
@@ -1807,7 +1831,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rosovina.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1825,7 +1849,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 55F3N2WBNQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Rosovina/Info.plist;
@@ -1842,7 +1866,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rosovina.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

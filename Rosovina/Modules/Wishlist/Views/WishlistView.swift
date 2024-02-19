@@ -104,16 +104,30 @@ struct WishlistProductItem: View {
     
     var body: some View {
         VStack {
-            WebImage(url: URL(string: product.productImage))
-                .placeholder(Image("logo").resizable())
-                .resizable()
-                .indicator(.activity)
-                .scaledToFit()
-                .cornerRadius(4.0)
-                .frame(width: 130, height: 148)
-                .onTapGesture {
-                    self.viewModel.selectedProductID = product.productID
+            ZStack(alignment: .topTrailing){
+                WebImage(url: URL(string: product.productImage))
+                    .placeholder(Image("logo").resizable())
+                    .resizable()
+                    .indicator(.activity)
+                    .scaledToFit()
+                    .cornerRadius(4.0)
+                    .frame(width: 130, height: 148)
+                    .onTapGesture {
+                        if product.isReadyForSale != 0 {
+                            self.viewModel.selectedProductID = product.productID
+                        }
+                    }
+                
+                if product.isReadyForSale == 0{
+                    Text(product.isReadyForSaleText ?? "")
+                        .font(.poppinsFont(size: 10, weight: .semibold))
+                        .foregroundColor(.white)
+                        .padding(.horizontal)
+                        .padding(.vertical, 5)
+                        .background(Color.red)
+                        .cornerRadius(10)
                 }
+            }
             
             VStack(alignment: .leading){
                 Text(product.productName)

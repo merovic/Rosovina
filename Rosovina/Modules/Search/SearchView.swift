@@ -89,8 +89,8 @@ class SearchView: UIViewController, UITextFieldDelegate {
             .store(in: &bindings)
         
         filterButton.tapPublisher
-            .sink(receiveValue:{_ in
-                let vc = FilterView(initialHeight: 600)
+            .sink(receiveValue:{_ in //600
+                let vc = FilterView(initialHeight: 520)
                 vc.delegate = self
                 self.presentBottomSheetInsideNavigationController(
                     viewController: vc,
@@ -109,7 +109,8 @@ class SearchView: UIViewController, UITextFieldDelegate {
 
 extension SearchView: FilterDelegate {
     func filterAssigned(categories: [Int], priceRange: [Int], brands: [Int], rating: [Int]) {
-        self.viewModel.getProductsByFilter(categories: categories, priceRange: priceRange, brands: brands, rating: rating)
+        self.viewModel.filterObject = Filter(occassions: categories, price: priceRange, brands: brands, rating: rating)
+        self.viewModel.getProductsByFilter()
     }
 }
 
@@ -121,9 +122,22 @@ struct GetProductsForSearchSwiftUIView: View {
         ZStack(alignment: .center){
             if self.viewModel.productItems.count > 0{
                 ScrollView(.vertical, showsIndicators: false){
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 10) {
-                        ForEach(self.viewModel.productItems) { item in
-                            SearchProductItem(viewModel: viewModel, product: item, selectedProductID: $viewModel.selectedProductID)
+                    VStack{
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 10) {
+                            ForEach(self.viewModel.productItems.indices, id: \.self) { index in
+                                SearchProductItem(viewModel: viewModel, product: self.viewModel.productItems[index], selectedProductID: $viewModel.selectedProductID)
+                                    .onAppear(perform: {
+                                        if index == viewModel.productItems.count - 1 {
+                                            if viewModel.productsListFull == false {
+                                                if viewModel.filterObject != nil {
+                                                    viewModel.getProductsByFilter()
+                                                }else{
+                                                    viewModel.getProductsBySearch()
+                                                }
+                                            }
+                                        }
+                                    })
+                            }
                         }
                     }
                 }

@@ -12,21 +12,26 @@ struct GetProductsAPIRequest: Codable {
     let deviceToken: String
     let categories: [Int]?
     let keyword, sort: String?
+    let cityID: Int
     let size: Int?
     let filter: Filter?
+    let page: Int
     
-    init(deviceToken: String, categories: [Int]? = nil, keyword: String? = nil, sort: String? = nil, size: Int? = nil, filter: Filter? = nil) {
+    init(deviceToken: String, categories: [Int]? = nil, keyword: String? = nil, sort: String? = nil, size: Int? = nil, filter: Filter? = nil, page: Int) {
         self.deviceToken = deviceToken
         self.categories = categories
         self.keyword = keyword
+        self.cityID = LoginDataService.shared.getUserCity().id
         self.sort = sort
         self.size = size
         self.filter = filter
+        self.page = page
     }
 
     enum CodingKeys: String, CodingKey {
         case deviceToken = "device_token"
-        case categories, keyword, sort, size, filter
+        case cityID = "city_id"
+        case categories, keyword, sort, size, filter, page
     }
 }
 

@@ -52,37 +52,36 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MYo-EM-qMW" customClass="CardView" customModule="Rosovina" customModuleProvider="target">
                     <rect key="frame" x="22" y="300" width="349" height="100"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Fz2-Ud-9RA">
-                            <rect key="frame" x="16.000000000000007" y="16" width="106.66666666666669" height="68"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pink Love" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rgh-aY-5H4">
-                                    <rect key="frame" x="0.0" y="0.0" width="106.66666666666667" height="28.666666666666668"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                    <color key="textColor" red="0.1764705882352941" green="0.19215686274509802" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only Flowers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAp-a2-yHd">
-                                    <rect key="frame" x="0.0" y="48.666666666666686" width="106.66666666666667" height="19.333333333333329"/>
-                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                    <color key="textColor" red="0.1764705882" green="0.19215686269999999" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                        </stackView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$32.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rkh-ZM-rh4">
-                            <rect key="frame" x="210.66666666666666" y="49" width="122.33333333333334" height="43"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SAR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rkh-ZM-rh4">
+                            <rect key="frame" x="263.33333333333331" y="49" width="69.666666666666686" height="43"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="36"/>
                             <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rgh-aY-5H4">
+                            <rect key="frame" x="16" y="8.0000000000000018" width="317" height="28.666666666666671"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                            <color key="textColor" red="0.1764705882352941" green="0.19215686274509802" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only Flowers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAp-a2-yHd">
+                            <rect key="frame" x="16" y="72.666666666666686" width="95.666666666666671" height="19.333333333333329"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                            <color key="textColor" red="0.1764705882" green="0.19215686269999999" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstItem="Fz2-Ud-9RA" firstAttribute="centerY" secondItem="MYo-EM-qMW" secondAttribute="centerY" id="IOf-Os-50H"/>
-                        <constraint firstItem="Fz2-Ud-9RA" firstAttribute="leading" secondItem="MYo-EM-qMW" secondAttribute="leading" constant="16" id="PjY-5B-ssv"/>
+                        <constraint firstAttribute="trailing" secondItem="rgh-aY-5H4" secondAttribute="trailing" constant="16" id="50e-Zz-Eip"/>
+                        <constraint firstItem="rgh-aY-5H4" firstAttribute="leading" secondItem="MYo-EM-qMW" secondAttribute="leading" constant="16" id="7gz-ha-NPv"/>
+                        <constraint firstItem="jAp-a2-yHd" firstAttribute="leading" secondItem="MYo-EM-qMW" secondAttribute="leading" constant="16" id="8Wg-oS-GsF"/>
+                        <constraint firstItem="Rkh-ZM-rh4" firstAttribute="top" secondItem="rgh-aY-5H4" secondAttribute="bottom" constant="12.333333333333329" id="E6g-Bu-TGX"/>
+                        <constraint firstItem="jAp-a2-yHd" firstAttribute="bottom" secondItem="Rkh-ZM-rh4" secondAttribute="bottom" id="MRd-RH-Nm8"/>
                         <constraint firstAttribute="trailing" secondItem="Rkh-ZM-rh4" secondAttribute="trailing" constant="16" id="Uio-Sm-hpu"/>
                         <constraint firstAttribute="bottom" secondItem="Rkh-ZM-rh4" secondAttribute="bottom" constant="8" id="VBi-tp-ZZ1"/>
-                        <constraint firstAttribute="height" constant="100" id="XWw-TA-5Yd"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="XWw-TA-5Yd"/>
+                        <constraint firstItem="rgh-aY-5H4" firstAttribute="top" secondItem="MYo-EM-qMW" secondAttribute="top" constant="8" id="ueb-U0-6q9"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">

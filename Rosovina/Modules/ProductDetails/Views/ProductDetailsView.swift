@@ -201,7 +201,11 @@ class ProductDetailsView: UIViewController {
 //                    newViewController.showBackButton = true
 //                    self.navigationController?.pushViewController(newViewController, animated: true)
 //                }
-                self.viewModel?.updateCart()
+                if self.viewModel!.productDetails!.isReadyForSale == 0 {
+                    Alert.show("", message: self.viewModel!.productDetails!.isReadyForSaleText ?? "", context: self)
+                }else{
+                    self.viewModel?.updateCart()
+                }
             }
             .store(in: &bindings)
         
@@ -234,7 +238,7 @@ class ProductDetailsView: UIViewController {
             .sink(receiveValue:{_ in
                 self.imageOneDot.isHidden = false
                 self.imageTwoDot.isHidden = true
-                self.imageThree.isHidden = true
+                self.imageThreeDot.isHidden = true
                 
                 self.imageOne.makeRounded()
                 
@@ -246,7 +250,7 @@ class ProductDetailsView: UIViewController {
             .sink(receiveValue:{_ in
                 self.imageOneDot.isHidden = true
                 self.imageTwoDot.isHidden = false
-                self.imageThree.isHidden = true
+                self.imageThreeDot.isHidden = true
                 
                 self.imageTwo.makeRounded()
                 
@@ -258,7 +262,7 @@ class ProductDetailsView: UIViewController {
             .sink(receiveValue:{_ in
                 self.imageOneDot.isHidden = true
                 self.imageTwoDot.isHidden = true
-                self.imageThree.isHidden = false
+                self.imageThreeDot.isHidden = false
                 
                 self.imageThree.makeRounded()
                 
@@ -312,7 +316,7 @@ class ProductDetailsView: UIViewController {
             if product != nil{
                 self.mainImage.sd_setImage(with: URL(string: product!.imageURL), placeholderImage: UIImage(named: "placeholder.png"))
                 
-                self.imageThree.isHidden = !(product!.images.count == 3)
+                self.imageThree.isHidden = !(product!.images.count == 2)
                 
                 self.imageOne.sd_setImage(with: URL(string: product!.imageURL), placeholderImage: UIImage(named: "placeholder.png"))
                 

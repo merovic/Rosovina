@@ -9,12 +9,35 @@ import UIKit
 import SwiftUI
 import Combine
 import SDWebImageSwiftUI
+import SDWebImage
+import BottomSheet
 
 class HomeViewController: UIViewController {
     
     private var bindings = Set<AnyCancellable>()
     
     var viewModel: HomeViewModel = HomeViewModel()
+    
+    var cityGest: UITapGestureRecognizer = {
+        let gest = UITapGestureRecognizer()
+        gest.numberOfTapsRequired = 1
+        return gest
+    }()
+    
+    @IBOutlet weak var cityStackView: UIStackView! {
+        didSet {
+            cityStackView.isUserInteractionEnabled = true
+            cityStackView.addGestureRecognizer(cityGest)
+        }
+    }
+    
+    @IBOutlet weak var flagImage: UIImageView!
+
+    @IBOutlet weak var cityName: UILabel! {
+        didSet {
+            cityName.text = LoginDataService.shared.getUserCity().name
+        }
+    }
     
     private let loadingView = LoadingAnimation()
 
@@ -51,6 +74,21 @@ class HomeViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .assign(to: \.isVisible, on: loadingView)
         .store(in: &bindings)
+        
+        cityGest.tapPublisher
+            .sink(receiveValue:{_ in
+                let vc = CitySelectorView(initialHeight: 1000)
+                vc.delegate = self
+                self.presentBottomSheetInsideNavigationController(
+                    viewController: vc,
+                    configuration: BottomSheetConfiguration(
+                        cornerRadius: 20,
+                        pullBarConfiguration: .visible(.init(height: 20)),
+                        shadowConfiguration: .init(backgroundColor: UIColor.black.withAlphaComponent(0.6))
+                    )
+                )
+            })
+            .store(in: &bindings)
         
         cartButton.tapPublisher
             .sink { _ in
@@ -126,6 +164,15 @@ class HomeViewController: UIViewController {
 
 }
 
+extension HomeViewController: CitySelectorBottomSheetDelegate {
+    func clickAssigned(selectedCity: GeoLocationAPIResponseElement) {
+        LoginDataService.shared.setUserCity(city: selectedCity)
+        self.cityName.text = selectedCity.name
+        self.viewModel.home()
+        //self.flagImage.sd_setImage(with: URL(string: selectedCity.image_path), placeholderImage: UIImage(named: "placeholder.png"))
+    }
+}
+
 extension HomeViewController: CartDelegate {
     func cartAssigned(quantity: Int) {
         if quantity != 0{
@@ -154,14 +201,14 @@ struct HomeSwiftUIView: View {
                         // MARK: - Slider
                         ImageCarouselView(data: section.data)
                             .frame(height: 200)
-//                        SnapCarousel(items: section.data)
-//                            .environmentObject(ContentViewModel().stateModel)
-//                            .frame(height: 120)
                     case .occasionCategories:
                         // MARK: - Occasions
                         OccasionsSwiftUIView(title: section.title, occasions: section.data, selectedCategory: $viewModel.selectedCategory, viewMoreClicked: $viewModel.viewMoreCategoriesClicked, viewMoreItems: $viewModel.selectedViewMoreItems, selectedViewMoreType: $viewModel.selectedViewMoreType)
                     case .categories:
                         // MARK: - Categories
+                        OccasionsSwiftUIView(title: section.title, occasions: section.data, selectedCategory: $viewModel.selectedCategory, viewMoreClicked: $viewModel.viewMoreCategoriesClicked, viewMoreItems: $viewModel.selectedViewMoreItems, selectedViewMoreType: $viewModel.selectedViewMoreType)
+                    case .brands:
+                        // MARK: - brands
                         OccasionsSwiftUIView(title: section.title, occasions: section.data, selectedCategory: $viewModel.selectedCategory, viewMoreClicked: $viewModel.viewMoreCategoriesClicked, viewMoreItems: $viewModel.selectedViewMoreItems, selectedViewMoreType: $viewModel.selectedViewMoreType)
                     case .featuredProducts:
                         // MARK: - Featured products

@@ -67,16 +67,33 @@ struct ProductItem: View {
     
     var body: some View {
         VStack {
-            WebImage(url: URL(string: product.imagePath ?? ""))
-                .placeholder(Image("logo").resizable())
-                .resizable()
-                .indicator(.activity)
-                .scaledToFit()
-                .cornerRadius(4.0)
-                .frame(width: 130, height: 148)
-                .onTapGesture {
-                    self.selectedProductID = product.id ?? 0
+            ZStack(alignment: .topTrailing){
+                WebImage(url: URL(string: product.imagePath ?? ""))
+                    .placeholder(Image("logo").resizable())
+                    .resizable()
+                    .indicator(.activity)
+                    .scaledToFit()
+                    .cornerRadius(4.0)
+                    .frame(width: 130, height: 148)
+                    .applyBlackAndWhite(isBlackAndWhite: product.isReadyForSale == 0)
+                    .onTapGesture {
+                        if product.isReadyForSale != 0 {
+                            self.selectedProductID = product.id ?? 0
+                        }
+                    }
+                
+                if product.isReadyForSale == 0{
+                    Text(product.isReadyForSaleText ?? "")
+                        .font(.poppinsFont(size: 10, weight: .semibold))
+                        .foregroundColor(.white)
+                        .padding(.horizontal)
+                        .padding(.vertical, 5)
+                        .background(Color.red)
+                        .cornerRadius(10)
                 }
+                
+            }.frame(width: 130, height: 148)
+            
             
             VStack(alignment: .leading){
                 Text(product.title ?? "")
@@ -87,7 +104,7 @@ struct ProductItem: View {
                         Text((product.currencyCode ?? "SAR") + " " + String(product.price?.rounded() ?? 0))
                             .font(.poppinsFont(size: 14, weight: .bold))
                             .foregroundColor(Color.black)
-                        Text((product.currencyCode ?? "SAR") + " " + (product.discountAmount ?? ""))
+                        Text((product.currencyCode ?? "SAR") + " " + String(product.discountAmount ?? 0))
                             .font(.poppinsFont(size: 8, weight: .medium))
                             .foregroundColor(Color.gray)
                             .strikethrough()
@@ -155,5 +172,26 @@ extension View {
     
     func superCardGrayBackground() -> some View {
         modifier(SuperCardGrayBackground())
+    }
+}
+
+
+struct BlackAndWhite: ViewModifier {
+    let isBlackAndWhite: Bool
+    
+    func body(content: Content) -> some View {
+        if isBlackAndWhite {
+            return AnyView(content
+                            .colorMultiply(.white)
+                            .saturation(0))
+        } else {
+            return AnyView(content)
+        }
+    }
+}
+
+extension View {
+    func applyBlackAndWhite(isBlackAndWhite: Bool) -> some View {
+        self.modifier(BlackAndWhite(isBlackAndWhite: isBlackAndWhite))
     }
 }

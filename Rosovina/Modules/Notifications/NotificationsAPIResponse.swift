@@ -10,7 +10,7 @@ import Foundation
 // MARK: - NotificationsAPIResponse
 struct NotificationsAPIResponse: Codable {
     let data: [NotificationItem]
-    let meta: Meta
+    //let meta: Meta
 }
 
 extension NotificationsAPIResponse: Equatable {}

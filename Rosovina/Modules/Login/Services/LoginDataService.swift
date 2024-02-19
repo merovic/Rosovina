@@ -45,6 +45,8 @@ class LoginDataService {
     private let totalPrice = "totalPrice"
     
     private let animationD = "animationD"
+    
+    private let userCity = "userCity"
         
     func setLogin(){
         UserDefaults.standard.set(true, forKey: self.isLoggedIn)
@@ -72,6 +74,30 @@ class LoginDataService {
             UserDefaults.standard.synchronize()
         }
         return isFirstLaunch
+    }
+    
+    
+    func setUserCity(city: GeoLocationAPIResponseElement){
+        let defaults = UserDefaults.standard
+        do {
+            let encodedData = try JSONEncoder().encode(city)
+            defaults.set(encodedData, forKey: self.userCity)
+        } catch {
+            print("Error encoding object: \(error)")
+        }
+    }
+    
+    func getUserCity() -> GeoLocationAPIResponseElement{
+        if let savedData = UserDefaults.standard.data(forKey: self.userCity) {
+            do {
+                let decodedObject = try JSONDecoder().decode(GeoLocationAPIResponseElement.self, from: savedData)
+                return decodedObject
+            } catch {
+                return GeoLocationAPIResponseElement(id: 1, name: "Saudi Arabia", image_path: "")
+            }
+        }else{
+            return GeoLocationAPIResponseElement(id: 1, name: "Saudi Arabia", image_path: "")
+        }
     }
     
     func isFirstLaunchFromTermination() -> Bool {

@@ -98,11 +98,11 @@ class ProductDetailsViewModel: ObservableObject {
         
         if let items = self.cartResponse{
             for cartItem in items.items{
-                apiArray.append(APICartItem(productID: cartItem.productID, quantity: Int(Double(cartItem.quantity) ?? 0.0), attributeValueIDS: [2]))
+                apiArray.append(APICartItem(productID: cartItem.productID, quantity: Int(Double(cartItem.quantity) ?? 0.0), attributeValueIDS: [cartItem.productAttributeValueID ?? 0]))
             }
         }
         
-        apiArray.append(APICartItem(productID: self.productDetails!.id, quantity: productQuantity, attributeValueIDS: [2]))
+        apiArray.append(APICartItem(productID: self.productDetails!.id, quantity: productQuantity, attributeValueIDS: [self.productDetails!.variants[0].attributeValues[0].id]))
         
         cartDataService.updateCart(request: UpdateCartAPIRequest(items: apiArray))
             .receive(on: DispatchQueue.main)

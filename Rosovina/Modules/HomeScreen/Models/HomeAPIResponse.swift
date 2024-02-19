@@ -47,6 +47,7 @@ extension Section: Equatable {}
 
 enum SectionDataType: String, Codable {
     case slider = "slider"
+    case brands = "brands"
     case occasionCategories = "occasionCategories"
     case categories = "categories"
     case featuredProducts = "featuredProducts"
@@ -70,10 +71,12 @@ struct DynamicHomeModel: Codable, Identifiable {
     let unitCode: String?
     let isFeatured, isPopular, isNewArrival, isInStock: Int?
     var addedToWishlist: Bool?
-    let sku: String?
+    let sku, discountPercentage: String?
     let rate: String?
     let price: Double?
-    let discountAmount, discountPercentage: String?
+    let discountAmount: Int?
+    let isReadyForSale: Int?
+    let isReadyForSaleText: String?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -97,6 +100,8 @@ struct DynamicHomeModel: Codable, Identifiable {
         case sku, rate, price
         case discountAmount = "discount_amount"
         case discountPercentage = "discount_percentage"
+        case isReadyForSale = "is_ready_for_sale"
+        case isReadyForSaleText = "is_ready_for_sale_text"
     }
 }
 

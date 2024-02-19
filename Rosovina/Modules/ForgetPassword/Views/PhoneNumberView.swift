@@ -114,7 +114,7 @@ class PhoneNumberView: UIViewController {
         viewModel.$otpSentStatus.sink { v in
             if v == .success{
                 let newViewController = VerificationViewController()
-                newViewController.viewModel = VerificationViewModel(phoneText: self.viewModel.checkForPhone(phone: self.viewModel.phoneText, code: self.viewModel.phoneCode), isResetPassword: true)
+                newViewController.viewModel = VerificationViewModel(phoneText: self.viewModel.checkForPhone(phone: self.viewModel.phoneText, code: self.viewModel.phoneCode), phoneCode: self.viewModel.phoneCode, isResetPassword: true)
                 self.navigationController?.pushViewController(newViewController, animated: true)
             }else if v == .failed{
                 Alert.show("Reset Failed", message: "Please Try Again", context: self)

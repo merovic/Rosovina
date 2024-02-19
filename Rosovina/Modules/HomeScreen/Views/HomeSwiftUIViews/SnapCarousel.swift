@@ -237,33 +237,33 @@ struct ImageCarouselView: View {
                           .frame(width: UIScreen.main.bounds.width - 50)
                           .superCardGrayBackground()
                         
-                        VStack(alignment: .leading, spacing: 5){
-                            Text(data[index].title ?? "")
-                                .font(.poppinsFont(size: 14, weight: .medium))
-                                .foregroundColor(Color("AccentColor"))
-                            
-                            HStack(alignment: .top, spacing: 0){
-                                Text("60%")
-                                    .font(.poppinsFont(size: 34, weight: .bold))
-                                    .foregroundColor(Color("AccentColor"))
-                                Text("Up to")
-                                    .font(.poppinsFont(size: 10, weight: .medium))
-                                    .foregroundColor(Color("AccentColor"))
-                                    .padding(.top, 8)
-                            }
-                            
-                            Button(action: {
-                                // Action to perform when button is tapped
-                            }) {
-                                Text("Get Now")
-                                    .frame(width: 115, height: 31)
-                                    .font(.poppinsFont(size: 12, weight: .semibold))
-                                    .foregroundColor(Color("AccentColor"))
-                                    .background(Color.white)
-                                    .cornerRadius(20)
-                            }
-                            
-                        }.padding(.horizontal)
+//                        VStack(alignment: .leading, spacing: 5){
+//                            Text(data[index].title ?? "")
+//                                .font(.poppinsFont(size: 14, weight: .medium))
+//                                .foregroundColor(Color("AccentColor"))
+//
+//                            HStack(alignment: .top, spacing: 0){
+//                                Text("60%")
+//                                    .font(.poppinsFont(size: 34, weight: .bold))
+//                                    .foregroundColor(Color("AccentColor"))
+//                                Text("Up to")
+//                                    .font(.poppinsFont(size: 10, weight: .medium))
+//                                    .foregroundColor(Color("AccentColor"))
+//                                    .padding(.top, 8)
+//                            }
+//
+//                            Button(action: {
+//                                // Action to perform when button is tapped
+//                            }) {
+//                                Text("Get Now")
+//                                    .frame(width: 115, height: 31)
+//                                    .font(.poppinsFont(size: 12, weight: .semibold))
+//                                    .foregroundColor(Color("AccentColor"))
+//                                    .background(Color.white)
+//                                    .cornerRadius(20)
+//                            }
+//
+//                        }.padding(.horizontal)
                     }
                 }
             }

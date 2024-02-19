@@ -64,7 +64,7 @@ class CartViewModel: ObservableObject {
         var apiArray: [APICartItem] = []
         
         for cartItem in self.cartResponse!.items{
-            apiArray.append(APICartItem(productID: cartItem.productID, quantity: Int(Double(cartItem.quantity) ?? 0.0), attributeValueIDS: [2]))
+            apiArray.append(APICartItem(productID: cartItem.productID, quantity: Int(Double(cartItem.quantity) ?? 0.0), attributeValueIDS: [cartItem.itemAttributeValues[0].productAttributeValueID]))
         }
         
         dataService.updateCart(request: UpdateCartAPIRequest(items: apiArray))

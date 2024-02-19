@@ -21,6 +21,8 @@ class HomeViewModel: ObservableObject {
     
     @Published var badgeCount = "0"
     
+    @Published var selectedCity: GeoLocationAPIResponseElement = LoginDataService.shared.getUserCity()
+    
     @Published var selectedCategory: DynamicHomeModel?
     
     @Published var selectedViewMoreType: ViewMoreType?
@@ -49,7 +51,7 @@ class HomeViewModel: ObservableObject {
         
         self.isAnimating = true
 
-        dataService.home(deviceToken: token)
+        dataService.home(deviceToken: token, cityID: LoginDataService.shared.getUserCity().id)
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in

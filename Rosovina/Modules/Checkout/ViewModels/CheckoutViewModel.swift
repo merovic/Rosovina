@@ -15,10 +15,26 @@ class CheckoutViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     //---------------------
+    
+    @Published var recipientNameValidationState: ValidationState = .idle
+    
+    @Published var recipientPhoneValidationState: ValidationState = .idle
+    
+    @Published var recipientNameText = ""
+    
+    @Published var recipientPhoneCode = "+966"
+    
+    @Published var recipientPhoneText = ""
+    
+    @Published var deliveryDateText = ""
+    
+    @Published var availableSlots: [GetSlotsAPIResponseElement] = []
+    
+    @Published var selectedSlot: GetSlotsAPIResponseElement?
             
     @Published var invoiceValue = 0
     
-    @Published var paymentMethodID: PaymentMethod = .cash
+    @Published var paymentMethodID: PaymentMethod = .visa
             
     @Published var cartResponse: GetCartAPIResponse
     
@@ -45,6 +61,38 @@ class CheckoutViewModel: ObservableObject {
         self.cartResponse = cartResponse
         
         self.invoiceValue = cartResponse.total
+    }
+    
+    func checkForPhone(phone: String, code: String) -> String{
+        let fCode = code.replacingOccurrences(of: "+", with: "")
+        if !phone.starts(with: "0"){
+            return fCode + phone
+        }else{
+            return fCode + phone.dropFirst()
+        }
+    }
+    
+    func getSlots() {
+        
+        self.isAnimating = true
+
+        dataService.getSlots(date: deliveryDateText)
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { (completion) in
+                    switch completion {
+                    case .finished:
+                        print("Publisher stopped observing")
+                    case .failure(_):
+                        self.isAnimating = false
+                    }
+                },
+                receiveValue: { response in
+                    self.isAnimating = false
+                    self.availableSlots = response.data ?? []
+                }
+            )
+            .store(in: &cancellables)
     }
         
     func createOrder() {

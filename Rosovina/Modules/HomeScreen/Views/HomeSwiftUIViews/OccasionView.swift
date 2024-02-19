@@ -54,8 +54,12 @@ struct OccasionsSwiftUIView: View {
                                         .frame(width: 60, height: 60)
                                 }else{
                                     RoundedRectangle(cornerRadius: 10)
-                                        .fill(Color("DarkRed"))
-                                        .frame(width: 61, height: 61)
+                                        .fill(Color.white)
+                                        .frame(width: 100, height: 100)
+                                    
+//                                    RoundedRectangle(cornerRadius: 10)
+//                                        .fill(Color("DarkRed"))
+//                                        .frame(width: 61, height: 61)
                                 }
                                 
                                 WebImage(url: URL(string: occasions[index].thumbURL ?? ""))
@@ -63,7 +67,8 @@ struct OccasionsSwiftUIView: View {
                                     .resizable()
                                     .indicator(.activity)
                                     .scaledToFit()
-                                    .frame(width: 32, height: 32)
+                                    .cornerRadius(10)
+                                    .frame(width: occasions[index].isOccasion == 1 ? 32 : 90, height: occasions[index].isOccasion == 1 ? 32 : 90)
                             }
                             
                             Text(occasions[index].title ?? "")

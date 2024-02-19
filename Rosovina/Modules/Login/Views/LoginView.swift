@@ -302,13 +302,13 @@ class LoginView: UIViewController {
             switch animation {
             case .keyboardWillShow:
                 self.signupStack.isHidden = true
-                self.continueLabel.isHidden = true
-                self.socialStack.isHidden = true
+                //self.continueLabel.isHidden = true
+                //self.socialStack.isHidden = true
                 self.typeSegmentation.isHidden = true
             case .keyboardWillHide:
                 self.signupStack.isHidden = false
-                self.continueLabel.isHidden = false
-                self.socialStack.isHidden = false
+                //self.continueLabel.isHidden = false
+                //self.socialStack.isHidden = false
                 self.typeSegmentation.isHidden = false
             }
         }

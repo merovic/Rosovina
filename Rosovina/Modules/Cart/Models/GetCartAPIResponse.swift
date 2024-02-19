@@ -46,9 +46,9 @@ struct CartItem: Codable, Identifiable {
     let currencyCode: String?
     let productImage: String
     var quantity: String
-    let couponCode, unitPrice, taxPercentage: String
-    let taxAmount, discountPercentage, discountAmount, priceAfterDiscount: String
-    let total: String
+    let couponCode, taxPercentage: String
+    let taxAmount, discountAmount, priceAfterDiscount: Int
+    let unitPrice, total: Int
     let itemAttributeValues: [ItemAttributeValue]
 
     enum CodingKeys: String, CodingKey {
@@ -63,7 +63,7 @@ struct CartItem: Codable, Identifiable {
         case quantity
         case taxPercentage = "tax_percentage"
         case taxAmount = "tax_amount"
-        case discountPercentage = "discount_percentage"
+        //case discountPercentage = "discount_percentage"
         case discountAmount = "discount_amount"
         case priceAfterDiscount = "price_after_discount"
         case total, itemAttributeValues
@@ -74,8 +74,8 @@ extension CartItem: Equatable {}
 
 // MARK: - ItemAttributeValue
 struct ItemAttributeValue: Codable {
-    let id, cartItemID, productAttributeValueID: Int
-    let title, total: String
+    let id, cartItemID, productAttributeValueID, total: Int
+    let title: String
 
     enum CodingKeys: String, CodingKey {
         case id

@@ -233,7 +233,7 @@ struct ShoppingCartItemSwiftUIView: View {
                         .padding(.horizontal)
                 }.padding(.top, 5)
                 
-                Text(cartItem.total + " " + (cartItem.currencyCode ?? "SAR"))
+                Text(String(cartItem.total) + " " + (cartItem.currencyCode ?? "SAR"))
                     .lineLimit(2)
                     .fixedSize(horizontal: false, vertical: true)
                     .multilineTextAlignment(.leading)
