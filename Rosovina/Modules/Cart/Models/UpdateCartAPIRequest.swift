@@ -13,13 +13,17 @@ struct UpdateCartAPIRequest: Codable {
     let addressID: Int?
     let deviceToken: String
     let promoCodeID: Int?
+    let receiverName: String?
+    let receiverPhone: String?
     let customize: Customize?
     let items: [APICartItem]?
     
-    init(addressID: Int? = nil, promoCodeID: Int? = nil, customize: Customize? = nil, items: [APICartItem]? = nil) {
+    init(addressID: Int? = nil, promoCodeID: Int? = nil, receiverName: String? = nil, receiverPhone: String? = nil, customize: Customize? = nil, items: [APICartItem]? = nil) {
         self.addressID = addressID
         self.deviceToken = UIDevice.current.identifierForVendor!.uuidString
         self.promoCodeID = promoCodeID
+        self.receiverName = receiverName
+        self.receiverPhone = receiverPhone
         self.customize = customize
         self.items = items
     }
@@ -28,6 +32,8 @@ struct UpdateCartAPIRequest: Codable {
             case addressID = "address_id"
             case deviceToken = "device_token"
             case promoCodeID = "promo_code_id"
+            case receiverName = "receiver_name"
+            case receiverPhone = "receiver_phone"
             case customize, items
         }
 }

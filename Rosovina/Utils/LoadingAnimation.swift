@@ -21,7 +21,7 @@ class LoadingAnimation: UIView {
             ProgressHUD.colorProgress = .systemGray2
             if(isVisible){
                 UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.addSubview(parentView)
-                ProgressHUD.show()
+                ProgressHUD.progress(0.15)
             }else{
                 parentView.removeFromSuperview()
                 ProgressHUD.dismiss()

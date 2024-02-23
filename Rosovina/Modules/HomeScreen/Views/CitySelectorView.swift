@@ -10,7 +10,7 @@ import SnapKit
 import Combine
 
 protocol CitySelectorBottomSheetDelegate {
-    func clickAssigned(selectedCity: GeoLocationAPIResponseElement)
+    func clickAssigned(selectedCountry: GeoLocationAPIResponseElement, selectedCity: GeoLocationAPIResponseElement)
 }
 
 class CitySelectorView: UIViewController {
@@ -50,7 +50,7 @@ class CitySelectorView: UIViewController {
         
         viewModel.$continueClicked.sink { response in
             if response {
-                self.delegate.clickAssigned(selectedCity: self.viewModel.selectedCity!)
+                self.delegate.clickAssigned(selectedCountry: self.viewModel.selectedCountry!, selectedCity: self.viewModel.selectedCity!)
                 self.dismiss(animated: true)
             }
         }.store(in: &bindings)

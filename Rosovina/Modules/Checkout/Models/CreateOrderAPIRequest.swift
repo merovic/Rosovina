@@ -10,9 +10,15 @@ import Foundation
 // MARK: - CreateOrderAPIRequest
 struct CreateOrderAPIRequest: Codable {
     let mobileToken: String
+    let slotID: Int
+    let slotDate: String
+    let slotText: String
 
     enum CodingKeys: String, CodingKey {
         case mobileToken = "device_token"
+        case slotID = "slot_id"
+        case slotDate = "slot_date"
+        case slotText = "slot_text"
     }
 }
 

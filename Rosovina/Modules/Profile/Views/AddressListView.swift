@@ -86,7 +86,7 @@ struct AddressitemSwiftUIView: View {
         VStack(alignment: .leading, spacing: 10){
             HStack{
                 HStack{
-                    Text(address.name)
+                    Text(address.name ?? "")
                         .font(.poppinsFont(size: 16, weight: .bold))
                         .foregroundColor(Color.black)
                     if address.isDefault {
@@ -106,7 +106,7 @@ struct AddressitemSwiftUIView: View {
                 .font(.poppinsFont(size: 16, weight: .regular))
                 .foregroundColor(Color.black)
             
-            Text(address.address)
+            Text(address.address ?? "")
                 .lineLimit(nil)
                 .multilineTextAlignment(.leading)
                 .font(.poppinsFont(size: 14, weight: .regular))

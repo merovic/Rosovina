@@ -23,7 +23,11 @@ class CheckoutView: UIViewController {
 
     @IBOutlet weak var backbutton: UIButton!
     
-    @IBOutlet weak var customSwitch: UISwitch!
+    @IBOutlet weak var customSwitch: UISwitch! {
+        didSet {
+            customSwitch.isOn = false
+        }
+    }
     
     @IBOutlet weak var addAddressStack: UIStackView!
     
@@ -117,13 +121,30 @@ class CheckoutView: UIViewController {
         }
     }
     
+    var datePicker: UIDatePicker?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupDatePicker()
         BindViews()
         AttachViews()
         MFSettings.shared.delegate = self
         // Add observer for the custom notification
         NotificationCenter.default.addObserver(self, selector: #selector(handleDidUpdateValue(_:)), name: .didUpdateValue, object: nil)
+    }
+    
+    func setupDatePicker(){
+        datePicker = UIDatePicker()
+        datePicker?.datePickerMode = .date
+        
+        deliveryDateTextField.inputView = datePicker
+        
+        // Add toolbar with "Done" button to dismiss date picker
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 44))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissPicker))
+        toolbar.setItems([flexibleSpace, doneButton], animated: false)
+        deliveryDateTextField.inputAccessoryView = toolbar
     }
     
     func AttachViews() {
@@ -156,6 +177,23 @@ class CheckoutView: UIViewController {
         backbutton.tapPublisher
             .sink { _ in
                 self.navigationController?.popViewController(animated: true)
+            }
+            .store(in: &bindings)
+        
+        datePicker?.datePublisher
+            .sink { date in
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MM-dd-yyyy"
+                self.deliveryDateTextField.text = dateFormatter.string(from: date)
+                self.viewModel?.deliveryDate = date
+                self.viewModel?.deliveryDateText = dateFormatter.string(from: date)
+                self.viewModel?.getSlots()
+            }
+            .store(in: &bindings)
+        
+        customSwitch.isOnPublisher
+            .sink { state in
+                self.addAddressStack.isHidden = state
             }
             .store(in: &bindings)
         
@@ -249,6 +287,14 @@ class CheckoutView: UIViewController {
             
         }.store(in: &bindings)
         
+        viewModel!.$availableSlots.sink { slots in
+            if !slots.isEmpty {
+                self.slotsContainer.isHidden = false
+            }else{
+                self.slotsContainer.isHidden = true
+            }
+        }.store(in: &bindings)
+        
         viewModel!.$errorMessage.sink { message in
             if message != "" {
                 Alert.show("Order Failed", message: message, context: self)
@@ -284,12 +330,18 @@ class CheckoutView: UIViewController {
         }.store(in: &bindings)
         
     }
+    
+    @objc func dismissPicker() {
+        deliveryDateTextField.resignFirstResponder()
+    }
 
 }
 
 extension CheckoutView: SelectLocationDelegate {
     func didLocationSelected(location: UserAddress) {
         self.viewModel?.selectedLocation = location
+        self.viewModel?.recipientNameText = location.receiverName
+        self.viewModel?.recipientPhoneText = location.receiverPhone
         self.viewModel?.updateCart()
     }
 }
@@ -307,11 +359,13 @@ struct SlotsSwiftUIView: View {
     @ObservedObject var viewModel: CheckoutViewModel
     
     var body: some View {
-        HStack{
-            ForEach(self.viewModel.availableSlots) { slot in
-                SlotsItemSwiftUIView(slot: slot, viewModel: viewModel)
+        ScrollView(.horizontal, showsIndicators: false){
+            HStack{
+                ForEach(self.viewModel.availableSlots) { slot in
+                    SlotsItemSwiftUIView(slot: slot, viewModel: viewModel)
+                }
+                Spacer()
             }
-            Spacer()
         }
     }
 }
@@ -324,14 +378,14 @@ struct SlotsItemSwiftUIView: View {
     var body: some View {
         ZStack {
             VStack(alignment: .leading, spacing: 10) {
-                Text("20 FEB")
+                Text(getFirstDate())
                     .lineLimit(1)
                     .font(.system(size: 15, weight: .semibold, design: .default))
                     .foregroundColor(SwiftUI.Color("AccentColor"))
                 
                 Spacer().frame(height: 5)
                 
-                Text("Tuesday")
+                Text(getSecondDate())
                     .lineLimit(1)
                     .font(.system(size: 15, weight: .semibold, design: .default))
                     .foregroundColor(SwiftUI.Color.black)
@@ -341,7 +395,7 @@ struct SlotsItemSwiftUIView: View {
                     .font(.system(size: 15, weight: .medium, design: .default))
                     .foregroundColor(SwiftUI.Color.gray)
                 
-            }.padding()
+            }.padding(5)
         }
         .frame(minWidth: 120, maxWidth: 120, minHeight: 120, maxHeight: 120, alignment: .center)
         .overlay(
@@ -352,5 +406,17 @@ struct SlotsItemSwiftUIView: View {
         .onTapGesture {
             viewModel.selectedSlot = slot
         }
+    }
+    
+    func getFirstDate() -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMM"
+        return dateFormatter.string(from: self.viewModel.deliveryDate)
+    }
+    
+    func getSecondDate() -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        return dateFormatter.string(from: self.viewModel.deliveryDate)
     }
 }

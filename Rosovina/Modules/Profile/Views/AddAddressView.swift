@@ -17,6 +17,8 @@ class AddAddressView: UIViewController {
     
     var viewModel: AddAddressViewModel?
     
+    var countryPickerViewModel: CountryPickerViewModel = CountryPickerViewModel()
+    
     private let loadingView = LoadingAnimation()
     
     var delegate: SelectLocationDelegate!
@@ -31,6 +33,28 @@ class AddAddressView: UIViewController {
     
     @IBOutlet weak var backButton: UIButton!
     
+    @IBOutlet weak var recipientNameView: UIView! {
+        didSet {
+            recipientNameView.roundedGrayHareefView()
+        }
+    }
+    
+    @IBOutlet weak var recipientNameTextField: UITextField!
+    
+    @IBOutlet weak var recipientNameErrorMessage: UILabel!
+    
+    @IBOutlet weak var countryPickerView: UIView!
+    
+    @IBOutlet weak var phoneView: UIView! {
+        didSet {
+            phoneView.roundedGrayHareefView()
+        }
+    }
+    
+    @IBOutlet weak var phoneTextField: UITextField!
+    
+    @IBOutlet weak var phoneErrorMessage: UILabel!
+    
     @IBOutlet weak var addAddressView: UIView! {
         didSet {
             addAddressView.roundedGrayHareefView()
@@ -39,6 +63,8 @@ class AddAddressView: UIViewController {
     
     @IBOutlet weak var addAddressTextField: UITextField!
     
+    @IBOutlet weak var addAddressErrorMessage: UILabel!
+    
     @IBOutlet weak var addressContentView: UIView! {
         didSet {
             addressContentView.roundedGrayHareefView()
@@ -46,6 +72,8 @@ class AddAddressView: UIViewController {
     }
     
     @IBOutlet weak var addressContentTextField: UITextField!
+    
+    @IBOutlet weak var addressContentErrorMessage: UILabel!
     
     @IBOutlet weak var countryView: UIView! {
         didSet {
@@ -65,14 +93,6 @@ class AddAddressView: UIViewController {
         }
     }
     
-    @IBOutlet weak var postCodeView: UIView! {
-        didSet {
-            postCodeView.roundedGrayHareefView()
-        }
-    }
-    
-    @IBOutlet weak var postCodeTextField: UITextField!
-    
     @IBOutlet weak var defaultSwitch: UISwitch! {
         didSet {
             defaultSwitch.isOn = viewModel!.isDefault
@@ -81,6 +101,7 @@ class AddAddressView: UIViewController {
     
     @IBOutlet weak var addNewButton: UIButton! {
         didSet {
+            addNewButton.disable()
             addNewButton.prettyHareefButton(radius: 16)
             if self.viewModel?.addressToUpdate != nil {
                 addNewButton.setTitle("Update Address", for: .normal)
@@ -118,6 +139,7 @@ class AddAddressView: UIViewController {
     }
     
     func AttachViews() {
+        self.countryPickerView.EmbedSwiftUIView(view: CountryPicker(viewModel: countryPickerViewModel), parent: self)
         self.countryView.EmbedSwiftUIView(view: Dropdown(selection: .countries, placeholder: "Select Country", viewModel: self.viewModel!), parent: self)
         self.cityView.EmbedSwiftUIView(view: Dropdown(selection: .cities, placeholder: "Select City", viewModel: self.viewModel!), parent: self)
         self.areaView.EmbedSwiftUIView(view: Dropdown(selection: .areas, placeholder: "Select Area", viewModel: self.viewModel!), parent: self)
@@ -139,24 +161,157 @@ class AddAddressView: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.addAddressTextField.text = self.viewModel?.addressName
             self.addressContentTextField.text = self.viewModel?.addressContent
-            self.postCodeTextField.text = self.viewModel?.postalCode
             self.defaultSwitch.isOn = self.viewModel!.isDefault
         }
+        
+        countryPickerViewModel.$phoneCode.sink { code in
+            self.viewModel?.recipientPhoneCode = code
+        }.store(in: &bindings)
+        
+        recipientNameTextField.textPublisher
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.recipientNameText, on: viewModel!)
+        .store(in: &bindings)
+        
+        recipientNameTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .password)
+            .assign(to: \.recipientNameValidationState, on: viewModel!)
+        .store(in: &bindings)
+        
+        viewModel!.$recipientNameValidationState
+            .sink { [self] state in
+                switch state {
+                case .error(let error):
+                    self.recipientNameErrorMessage.isHidden = false
+                    self.recipientNameErrorMessage.text = error.description
+                    self.recipientNameView.roundedRedHareefView()
+                default:
+                    self.recipientNameErrorMessage.isHidden = true
+                    self.recipientNameErrorMessage.text = ""
+                    self.recipientNameView.roundedGrayHareefView()
+                }
+                
+                let validationStates = [
+                    state,
+                    viewModel!.recipientPhoneValidationState,
+                    viewModel!.addressNameValidationState,
+                    viewModel!.addressContentValidationState,
+                ]
+                
+                validationStates.allSatisfy({ $0 == .valid }) ? addNewButton.enable() : addNewButton.disable()
+            }
+            .store(in: &bindings)
+        
+        
+        phoneTextField.textPublisher
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.recipientPhoneText, on: viewModel!)
+        .store(in: &bindings)
+        
+        phoneTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .phone(country: .egypt))
+            .assign(to: \.recipientPhoneValidationState, on: viewModel!)
+        .store(in: &bindings)
+        
+        viewModel!.$recipientPhoneValidationState
+            .sink { [self] state in
+                switch state {
+                case .error(let error):
+                    self.phoneErrorMessage.isHidden = false
+                    self.phoneErrorMessage.text = error.description
+                    self.phoneView.roundedRedHareefView()
+                default:
+                    self.phoneErrorMessage.isHidden = true
+                    self.phoneErrorMessage.text = ""
+                    self.phoneView.roundedGrayHareefView()
+                }
+                
+                let validationStates = [
+                    viewModel!.recipientNameValidationState,
+                    state,
+                    viewModel!.addressNameValidationState,
+                    viewModel!.addressContentValidationState,
+                ]
+                
+                validationStates.allSatisfy({ $0 == .valid }) ? addNewButton.enable() : addNewButton.disable()
+            }
+            .store(in: &bindings)
         
         addAddressTextField.textPublisher
             .receive(on: DispatchQueue.main)
             .assign(to: \.addressName, on: viewModel!)
         .store(in: &bindings)
         
+        addAddressTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .password)
+            .assign(to: \.addressNameValidationState, on: viewModel!)
+        .store(in: &bindings)
+        
+        viewModel!.$addressNameValidationState
+            .sink { [self] state in
+                switch state {
+                case .error(let error):
+                    self.addAddressErrorMessage.isHidden = false
+                    self.addAddressErrorMessage.text = error.description
+                    self.addAddressView.roundedRedHareefView()
+                default:
+                    self.addAddressErrorMessage.isHidden = true
+                    self.phoneErrorMessage.text = ""
+                    self.addAddressView.roundedGrayHareefView()
+                }
+                
+                let validationStates = [
+                    viewModel!.recipientNameValidationState,
+                    viewModel!.recipientPhoneValidationState,
+                    state,
+                    viewModel!.addressContentValidationState,
+                ]
+                
+                validationStates.allSatisfy({ $0 == .valid }) ? addNewButton.enable() : addNewButton.disable()
+            }
+            .store(in: &bindings)
+        
         addressContentTextField.textPublisher
             .receive(on: DispatchQueue.main)
             .assign(to: \.addressContent, on: viewModel!)
         .store(in: &bindings)
         
-        postCodeTextField.textPublisher
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.postalCode, on: viewModel!)
+        addressContentTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .password)
+            .assign(to: \.addressContentValidationState, on: viewModel!)
         .store(in: &bindings)
+        
+        viewModel!.$addressContentValidationState
+            .sink { [self] state in
+                switch state {
+                case .error(let error):
+                    self.addressContentErrorMessage.isHidden = false
+                    self.addressContentErrorMessage.text = error.description
+                    self.addressContentView.roundedRedHareefView()
+                default:
+                    self.addressContentErrorMessage.isHidden = true
+                    self.addressContentErrorMessage.text = ""
+                    self.addressContentView.roundedGrayHareefView()
+                }
+                
+                let validationStates = [
+                    viewModel!.recipientNameValidationState,
+                    viewModel!.recipientPhoneValidationState,
+                    viewModel!.addressNameValidationState,
+                    state,
+                ]
+                
+                validationStates.allSatisfy({ $0 == .valid }) ? addNewButton.enable() : addNewButton.disable()
+            }
+            .store(in: &bindings)
         
         defaultSwitch.isOnPublisher
             .receive(on: DispatchQueue.main)

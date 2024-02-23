@@ -46,6 +46,8 @@ class LoginDataService {
     
     private let animationD = "animationD"
     
+    private let userCountry = "userCity"
+    
     private let userCity = "userCity"
         
     func setLogin(){
@@ -76,6 +78,28 @@ class LoginDataService {
         return isFirstLaunch
     }
     
+    func setUserCountry(country: GeoLocationAPIResponseElement){
+        let defaults = UserDefaults.standard
+        do {
+            let encodedData = try JSONEncoder().encode(country)
+            defaults.set(encodedData, forKey: self.userCountry)
+        } catch {
+            print("Error encoding object: \(error)")
+        }
+    }
+    
+    func getUserCountry() -> GeoLocationAPIResponseElement{
+        if let savedData = UserDefaults.standard.data(forKey: self.userCountry) {
+            do {
+                let decodedObject = try JSONDecoder().decode(GeoLocationAPIResponseElement.self, from: savedData)
+                return decodedObject
+            } catch {
+                return GeoLocationAPIResponseElement(id: 1, name: "Saudi Arabia", image_path: "")
+            }
+        }else{
+            return GeoLocationAPIResponseElement(id: 1, name: "Saudi Arabia", image_path: "")
+        }
+    }
     
     func setUserCity(city: GeoLocationAPIResponseElement){
         let defaults = UserDefaults.standard
@@ -93,10 +117,10 @@ class LoginDataService {
                 let decodedObject = try JSONDecoder().decode(GeoLocationAPIResponseElement.self, from: savedData)
                 return decodedObject
             } catch {
-                return GeoLocationAPIResponseElement(id: 1, name: "Saudi Arabia", image_path: "")
+                return GeoLocationAPIResponseElement(id: 1, name: "Jeddah", image_path: "")
             }
         }else{
-            return GeoLocationAPIResponseElement(id: 1, name: "Saudi Arabia", image_path: "")
+            return GeoLocationAPIResponseElement(id: 1, name: "Jeddah", image_path: "")
         }
     }
     

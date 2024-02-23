@@ -15,6 +15,17 @@ class AddAddressViewModel: ObservableObject {
     
     //---------------------
     
+    @Published var recipientNameValidationState: ValidationState = .idle
+    
+    @Published var recipientPhoneValidationState: ValidationState = .idle
+    
+    @Published var addressNameValidationState: ValidationState = .valid
+    
+    @Published var addressContentValidationState: ValidationState = .valid
+        
+    @Published var recipientNameText = ""
+    @Published var recipientPhoneCode = "+966"
+    @Published var recipientPhoneText = ""
     @Published var addressName = ""
     @Published var addressContent = ""
     @Published var addressCoordinates = "20.434634634634, 21.3463463463"
@@ -50,15 +61,15 @@ class AddAddressViewModel: ObservableObject {
         self.geolocationService = geolocationService
         self.addressToUpdate = addressToUpdate
         self.mapLocation = mapLocation
-        self.getCountries()
+        self.getAreas(cityID: String(LoginDataService.shared.getUserCity().id))
         
         if let address = addressToUpdate{
-            self.addressName = address.name
-            self.addressContent = address.address
+            self.addressName = address.name ?? ""
+            self.addressContent = address.address ?? ""
             self.addressCoordinates = address.coordinates
-            self.selectedCountry = GeoLocationAPIResponseElement(id: address.countryID, name: address.countryName, image_path: "")
-            self.selectedCity = GeoLocationAPIResponseElement(id: address.cityID, name: address.cityName, image_path: "")
-            self.selectedArea = GeoLocationAPIResponseElement(id: address.areaID, name: address.areaName, image_path: "")
+            self.selectedCountry = GeoLocationAPIResponseElement(id: Int(address.countryID) ?? 0, name: address.countryName, image_path: "")
+            self.selectedCity = GeoLocationAPIResponseElement(id: Int(address.cityID) ?? 0, name: address.cityName, image_path: "")
+            self.selectedArea = GeoLocationAPIResponseElement(id: Int(address.areaID) ?? 0, name: address.areaName, image_path: "")
             self.buildingNo = address.buildingNo
             self.floorNo = address.floorNo ?? ""
             self.flatNo = address.flatNo ?? ""
@@ -72,13 +83,22 @@ class AddAddressViewModel: ObservableObject {
             self.addressContent = location.locationAddress ?? ""
         }
     }
+    
+    func checkForPhone(phone: String, code: String) -> String{
+        let fCode = code.replacingOccurrences(of: "+", with: "")
+        if !phone.starts(with: "0"){
+            return fCode + phone
+        }else{
+            return fCode + phone.dropFirst()
+        }
+    }
         
     func addAddress() {
         
         if !addressName.isEmpty && !addressContent.isEmpty && !addressContent.isEmpty {
             self.isAnimating = true
             
-            dataService.addAddress(request: AddUserAddress(name: addressName, address: addressContent, coordinates: addressCoordinates, countryID: selectedCountry!.id, cityID: selectedCity!.id, areaID: selectedArea!.id, buildingNo: buildingNo, floorNo: floorNo, flatNo: flatNo, postalCode: postalCode, notes: "", isDefault: isDefault))
+            dataService.addAddress(request: AddUserAddress(name: addressName, address: addressContent, coordinates: addressCoordinates, countryID: LoginDataService.shared.getUserCountry().id, cityID: LoginDataService.shared.getUserCity().id, areaID: selectedArea!.id, buildingNo: buildingNo, receiverName: recipientNameText, receiverPhone: checkForPhone(phone: recipientPhoneText, code: recipientPhoneCode), floorNo: floorNo, flatNo: flatNo, postalCode: postalCode, notes: "", isDefault: isDefault))
                 .receive(on: DispatchQueue.main)
                 .sink(
                     receiveCompletion: { (completion) in
@@ -105,7 +125,7 @@ class AddAddressViewModel: ObservableObject {
         
         self.isAnimating = true
         
-        dataService.updateAddress(addressID: String(addressToUpdate!.id ?? 0), request: AddUserAddress(name: addressName, address: addressContent, coordinates: addressCoordinates, countryID: selectedCountry!.id, cityID: selectedCity!.id, areaID: selectedArea!.id, buildingNo: buildingNo, floorNo: floorNo, flatNo: flatNo, postalCode: postalCode, notes: "", isDefault: isDefault))
+        dataService.updateAddress(addressID: String(addressToUpdate!.id ?? 0), request: AddUserAddress(name: addressName, address: addressContent, coordinates: addressCoordinates, countryID: LoginDataService.shared.getUserCountry().id, cityID: LoginDataService.shared.getUserCity().id, areaID: selectedArea!.id, buildingNo: buildingNo, receiverName: recipientNameText, receiverPhone: checkForPhone(phone: recipientPhoneText, code: recipientPhoneCode), floorNo: floorNo, flatNo: flatNo, postalCode: postalCode, notes: "", isDefault: isDefault))
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in
@@ -209,7 +229,9 @@ class AddAddressViewModel: ObservableObject {
                 receiveValue: { response in
                     self.isAnimating = false
                     self.areas = response.data ?? []
-                    self.selectedArea = response.data![0]
+                    if !response.data!.isEmpty{
+                        self.selectedArea = response.data![0]
+                    }
                 }
             )
             .store(in: &cancellables)

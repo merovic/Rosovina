@@ -24,6 +24,7 @@ class InitCountryView: UIViewController {
         
         viewModel.$continueClicked.sink { response in
             if response {
+                LoginDataService.shared.setUserCountry(country: self.viewModel.selectedCountry!)
                 LoginDataService.shared.setUserCity(city: self.viewModel.selectedCity!)
                 let newViewController = LoginView()
                 self.navigationController?.pushViewController(newViewController, animated: true)

@@ -165,11 +165,12 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: CitySelectorBottomSheetDelegate {
-    func clickAssigned(selectedCity: GeoLocationAPIResponseElement) {
+    func clickAssigned(selectedCountry: GeoLocationAPIResponseElement, selectedCity: GeoLocationAPIResponseElement) {
+        LoginDataService.shared.setUserCountry(country: selectedCountry)
         LoginDataService.shared.setUserCity(city: selectedCity)
+        self.flagImage.sd_setImage(with: URL(string: selectedCountry.image_path ?? ""), placeholderImage: UIImage(named: "placeholder.png"))
         self.cityName.text = selectedCity.name
         self.viewModel.home()
-        //self.flagImage.sd_setImage(with: URL(string: selectedCity.image_path), placeholderImage: UIImage(named: "placeholder.png"))
     }
 }
 

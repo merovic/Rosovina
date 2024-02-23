@@ -233,6 +233,9 @@
 		07C7F5922B32644100A4168A /* LoginAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C7F5902B32643F00A4168A /* LoginAPIRequest.swift */; };
 		07C7F5932B32644100A4168A /* LoginAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C7F5912B32644100A4168A /* LoginAPIResponse.swift */; };
 		3A692EF3042D428028024C02 /* Pods_Rosovina.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8394E22A24554979D44D5862 /* Pods_Rosovina.framework */; };
+		FB4D9C472B84E033007E8460 /* WalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4D9C452B84E033007E8460 /* WalletView.swift */; };
+		FB4D9C482B84E033007E8460 /* WalletView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB4D9C462B84E033007E8460 /* WalletView.xib */; };
+		FB4D9C4A2B84E2EC007E8460 /* WalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB4D9C492B84E2EC007E8460 /* WalletViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -465,6 +468,9 @@
 		8394E22A24554979D44D5862 /* Pods_Rosovina.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rosovina.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDECE32C612B1DEF6D32E5E7 /* Pods-Rosovina.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rosovina.release.xcconfig"; path = "Target Support Files/Pods-Rosovina/Pods-Rosovina.release.xcconfig"; sourceTree = "<group>"; };
 		F3680909829E5397D86F60BB /* Pods-Rosovina.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rosovina.debug.xcconfig"; path = "Target Support Files/Pods-Rosovina/Pods-Rosovina.debug.xcconfig"; sourceTree = "<group>"; };
+		FB4D9C452B84E033007E8460 /* WalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletView.swift; sourceTree = "<group>"; };
+		FB4D9C462B84E033007E8460 /* WalletView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletView.xib; sourceTree = "<group>"; };
+		FB4D9C492B84E2EC007E8460 /* WalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1095,6 +1101,7 @@
 				07B3794F2B589FBF00F49DC3 /* MyProfileViewModel.swift */,
 				07BEE1AA2B461D7E0065C559 /* AddressesViewModel.swift */,
 				07BEE1AC2B461E300065C559 /* AddAddressViewModel.swift */,
+				FB4D9C492B84E2EC007E8460 /* WalletViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1118,6 +1125,8 @@
 				077CC6CD2B7689F90014E5A0 /* LongTextView.xib */,
 				077CC6D02B7691A80014E5A0 /* ContactusView.swift */,
 				077CC6D12B7691A90014E5A0 /* ContactusView.xib */,
+				FB4D9C452B84E033007E8460 /* WalletView.swift */,
+				FB4D9C462B84E033007E8460 /* WalletView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1437,6 +1446,7 @@
 				07B6F6E12AF69DF300BE5BA6 /* Poppins-MediumItalic.ttf in Resources */,
 				07BBA9AC2B0031B4006AE9F7 /* AddAddressView.xib in Resources */,
 				07C77AFC2B5C044A00FCA240 /* SearchView.xib in Resources */,
+				FB4D9C482B84E033007E8460 /* WalletView.xib in Resources */,
 				077CC6DF2B82C5190014E5A0 /* CitySelectorView.xib in Resources */,
 				07BEE1C82B48B2A80065C559 /* SelectAddressView.xib in Resources */,
 				07BBA94A2AFE87B0006AE9F7 /* CommentsView.xib in Resources */,
@@ -1591,6 +1601,7 @@
 				07C77B042B5C41B300FCA240 /* AddReviewAPIRequest.swift in Sources */,
 				07BBA9942B002757006AE9F7 /* SettingsView.swift in Sources */,
 				0707575E2B375E5000A24CAE /* PhoneNumberViewModel.swift in Sources */,
+				FB4D9C4A2B84E2EC007E8460 /* WalletViewModel.swift in Sources */,
 				07C77B132B684AB700FCA240 /* ValidationStates.swift in Sources */,
 				07BBA9572AFECCA7006AE9F7 /* OrderTrackingView.swift in Sources */,
 				07C7F5882B32641E00A4168A /* PhoneAPIRequest.swift in Sources */,
@@ -1625,6 +1636,7 @@
 				07C77AFB2B5C044A00FCA240 /* SearchView.swift in Sources */,
 				077CC6D52B76D7FA0014E5A0 /* HapticFeedBackEngine.swift in Sources */,
 				07BBA9992B002A05006AE9F7 /* SupportView.swift in Sources */,
+				FB4D9C472B84E033007E8460 /* WalletView.swift in Sources */,
 				07B3793D2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift in Sources */,
 				07C77B002B5C1F9F00FCA240 /* GetCategoriesAPIResponse.swift in Sources */,
 				07C77B062B5C432F00FCA240 /* AddReviewViewModel.swift in Sources */,

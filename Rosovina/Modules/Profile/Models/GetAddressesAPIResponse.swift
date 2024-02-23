@@ -10,13 +10,14 @@ import Foundation
 // MARK: - UserAddress
 struct UserAddress: Codable, Identifiable {
     let id: Int?
-    let name, address, coordinates: String
-    let countryID: Int
+    let name, address: String?
+    let coordinates: String
+    let countryID: String
     let countryName: String
-    let cityID: Int
+    let cityID: String
     let cityName: String
-    let areaID: Int
-    let areaName, subAreaID, subAreaName, buildingNo: String
+    let areaID: String
+    let email, receiverPhone, receiverName, areaName, subAreaID, subAreaName, buildingNo: String
     let floorNo, flatNo, postalCode, notes: String?
     let isDefault: Bool
 
@@ -35,6 +36,9 @@ struct UserAddress: Codable, Identifiable {
         case flatNo = "flat_no"
         case postalCode = "postal_code"
         case notes
+        case email
+        case receiverPhone = "receiver_phone"
+        case receiverName = "receiver_name"
         case isDefault = "is_default"
     }
 }
@@ -48,6 +52,8 @@ struct AddUserAddress: Codable {
     let cityID: Int
     let areaID: Int
     let buildingNo: String
+    let receiverName: String
+    let receiverPhone: String
     let floorNo, flatNo, postalCode, notes: String
     let isDefault: Bool
 
@@ -57,6 +63,8 @@ struct AddUserAddress: Codable {
         case cityID = "city_id"
         case areaID = "area_id"
         case buildingNo = "building_no"
+        case receiverName = "receiver_name"
+        case receiverPhone = "receiver_phone"
         case floorNo = "floor_no"
         case flatNo = "flat_no"
         case postalCode = "postal_code"

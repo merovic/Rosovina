@@ -26,6 +26,8 @@ class CheckoutViewModel: ObservableObject {
     
     @Published var recipientPhoneText = ""
     
+    @Published var deliveryDate = Date()
+    
     @Published var deliveryDateText = ""
     
     @Published var availableSlots: [GetSlotsAPIResponseElement] = []
@@ -73,9 +75,6 @@ class CheckoutViewModel: ObservableObject {
     }
     
     func getSlots() {
-        
-        self.isAnimating = true
-
         dataService.getSlots(date: deliveryDateText)
             .receive(on: DispatchQueue.main)
             .sink(
@@ -90,6 +89,9 @@ class CheckoutViewModel: ObservableObject {
                 receiveValue: { response in
                     self.isAnimating = false
                     self.availableSlots = response.data ?? []
+                    if !self.availableSlots.isEmpty {
+                        self.selectedSlot = response.data![0]
+                    }
                 }
             )
             .store(in: &cancellables)
@@ -99,7 +101,7 @@ class CheckoutViewModel: ObservableObject {
         
         self.isAnimating = true
 
-        dataService.createOrder(request: CreateOrderAPIRequest(mobileToken: token))
+        dataService.createOrder(request: CreateOrderAPIRequest(mobileToken: token, slotID: selectedSlot!.id, slotDate: deliveryDateText, slotText: selectedSlot!.text))
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in
