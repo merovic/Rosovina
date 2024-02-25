@@ -45,6 +45,11 @@ class WalletView: UIViewController {
             }
             .store(in: &bindings)
         
+        viewModel.$userBalance
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.text!, on: currentBalance)
+            .store(in: &bindings)
+        
     }
 
 }
@@ -56,35 +61,76 @@ struct WalletViewSwiftUIView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false){
             VStack{
-                
+                HStack{
+                    Spacer().frame(width: 20)
+                    
+                    Text("Operation")
+                        .frame(width: .infinity)
+                        .font(.poppinsFont(size: 12, weight: .regular))
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(Color.black)
+                    
+                    Spacer()
+                    
+                    Text("Description")
+                        .frame(width: .infinity)
+                        .font(.poppinsFont(size: 12, weight: .regular))
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(Color.black)
+                    
+                    Spacer()
+                    
+                    Text("Amount")
+                        .frame(width: .infinity)
+                        .font(.poppinsFont(size: 12, weight: .regular))
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(Color.black)
+                       
+                    Spacer().frame(width: 20)
+                }
+                Divider()
+                ForEach(self.viewModel.userTransactions) { transaction in
+                    TransactionItemViewSwiftUIView(transaction: transaction, viewModel: viewModel)
+                    Divider()
+                }
             }
-        }
+        }.padding()
     }
 }
 
 struct TransactionItemViewSwiftUIView: View {
     
+    var transaction: UserTransaction
     @ObservedObject var viewModel: WalletViewModel
         
     var body: some View {
         HStack{
-            Text("Hello, SwiftUI!")
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
+            Spacer().frame(width: 20)
+            
+            Text(transaction.type == "payment" ? "Payment" : "Refund")
+                .font(.poppinsFont(size: 12, weight: .regular))
+                .padding(5)
+                .background(Color(transaction.type == "payment" ? "OnionColor" : "LightGray"))
+                .foregroundColor(Color(transaction.type == "payment" ? "LightBrown" : "DarkGray"))
                 .cornerRadius(10)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.red, lineWidth: 2)
+                        .stroke(Color(transaction.type == "payment" ? "LightBrown" : "DarkGray"), lineWidth: 2)
                         )
             
-            Text("address.name")
-                .font(.poppinsFont(size: 16, weight: .bold))
-                .foregroundColor(Color.black)
+            Spacer()
             
-            Text("address.name")
-                .font(.poppinsFont(size: 16, weight: .bold))
-                .foregroundColor(Color.black)
+            Text(transaction.description == "" ? "Payment for new order" : transaction.description)
+                .font(.poppinsFont(size: 12, weight: .regular))
+                .foregroundColor(Color.gray)
+            
+            Spacer()
+            
+            Text(String(transaction.amount) + " SAR")
+                .font(.poppinsFont(size: 12, weight: .regular))
+                .foregroundColor(Color.gray)
+            
+            Spacer().frame(width: 20)
         }
     }
 }

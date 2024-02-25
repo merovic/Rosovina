@@ -42,6 +42,8 @@ class CheckoutViewModel: ObservableObject {
     
     @Published var selectedLocation: UserAddress?
     
+    @Published var selectedLocationForAPI: UserAddress?
+    
     @Published var orderCreatedID = 0
     
     @Published var orderConfirmed = false
@@ -61,7 +63,6 @@ class CheckoutViewModel: ObservableObject {
         self.dataService = dataService
         self.cartService = cartService
         self.cartResponse = cartResponse
-        
         self.invoiceValue = cartResponse.total
     }
     
@@ -150,10 +151,9 @@ class CheckoutViewModel: ObservableObject {
     }
     
     func updateCart() {
+        self.selectedLocationForAPI = selectedLocation
         
-        self.isAnimating = true
-        
-        cartService.updateCart(request: UpdateCartAPIRequest(addressID: self.selectedLocation?.id))
+        cartService.updateCart(request: UpdateCartAPIRequest(addressID: self.selectedLocationForAPI?.id))
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in

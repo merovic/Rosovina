@@ -46,7 +46,7 @@ class LoginDataService {
     
     private let animationD = "animationD"
     
-    private let userCountry = "userCity"
+    private let userCountry = "userCountry"
     
     private let userCity = "userCity"
         

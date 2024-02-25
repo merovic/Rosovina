@@ -125,8 +125,7 @@ class AddAddressView: UIViewController {
         AttachViews()
     }
     
-    func updateValueAndNavigateBack(address: UserAddress) {
-        
+    func updateValueAndNavigateBack(address: UserAddress?) {
         // Post the notification
         NotificationCenter.default.post(name: .didUpdateValue, object: address)
         
@@ -337,6 +336,12 @@ class AddAddressView: UIViewController {
         viewModel!.$addedAddress.sink { response in
             if response != nil{
                 self.updateValueAndNavigateBack(address: response!)
+            }
+        }.store(in: &bindings)
+        
+        viewModel!.$addressDeleted.sink { state in
+            if state {
+                self.updateValueAndNavigateBack(address: nil)
             }
         }.store(in: &bindings)
         

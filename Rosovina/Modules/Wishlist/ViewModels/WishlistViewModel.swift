@@ -70,6 +70,10 @@ class WishlistViewModel: ObservableObject {
                 receiveValue: { response in
                     self.isAnimating = false
                     self.wishlistItems = response.data?.items ?? []
+                    if response.success{
+                        // Post notification
+                        NotificationCenter.default.post(name: .favoriteStatusChanged, object: nil)
+                    }
                 }
             )
             .store(in: &cancellables)

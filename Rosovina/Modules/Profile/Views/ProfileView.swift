@@ -172,7 +172,8 @@ class ProfileView: UIViewController {
         
         walletGest.tapPublisher
             .sink(receiveValue:{_ in
-                
+                let newViewController = WalletView()
+                self.navigationController?.pushViewController(newViewController, animated: true)
             })
             .store(in: &bindings)
         

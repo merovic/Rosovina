@@ -59,9 +59,11 @@ class HomeViewController: UIViewController {
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
         AttachViews()
         BindViews()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleFavoriteStatusChanged(_:)), name: .favoriteStatusChanged, object: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    @objc func handleFavoriteStatusChanged(_ notification: Notification) {
         self.viewModel.home()
     }
     

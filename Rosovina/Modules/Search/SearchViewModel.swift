@@ -112,6 +112,10 @@ class SearchViewModel: ObservableObject {
                 },
                 receiveValue: { response in
                     self.isAnimating = false
+                    if response.success{
+                        // Post notification
+                        NotificationCenter.default.post(name: .favoriteStatusChanged, object: nil)
+                    }
                 }
             )
             .store(in: &cancellables)

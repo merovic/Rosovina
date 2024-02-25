@@ -45,6 +45,7 @@ class HomeViewModel: ObservableObject {
     init(dataService: HomeService = AppHomeService(), wishListService: WishlistService = AppWishlistService()) {
         self.dataService = dataService
         self.wishListService = wishListService
+        self.home()
     }
     
     func home() {
@@ -118,4 +119,8 @@ enum ViewMoreType: Identifiable {
     var id: Int {
         self.hashValue
     }
+}
+
+extension Notification.Name {
+    static let favoriteStatusChanged = Notification.Name("FavoriteStatusChanged")
 }

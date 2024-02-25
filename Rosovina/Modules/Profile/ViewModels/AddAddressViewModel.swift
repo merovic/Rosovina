@@ -42,6 +42,7 @@ class AddAddressViewModel: ObservableObject {
     @Published var selectedCity: GeoLocationAPIResponseElement?
     @Published var selectedArea: GeoLocationAPIResponseElement?
     
+    @Published var addressDeleted = false
     @Published var addedAddress: UserAddress?
                                             
     @Published var errorMessage = ""
@@ -67,13 +68,10 @@ class AddAddressViewModel: ObservableObject {
             self.addressName = address.name ?? ""
             self.addressContent = address.address ?? ""
             self.addressCoordinates = address.coordinates
-            self.selectedCountry = GeoLocationAPIResponseElement(id: Int(address.countryID) ?? 0, name: address.countryName, image_path: "")
-            self.selectedCity = GeoLocationAPIResponseElement(id: Int(address.cityID) ?? 0, name: address.cityName, image_path: "")
-            self.selectedArea = GeoLocationAPIResponseElement(id: Int(address.areaID) ?? 0, name: address.areaName, image_path: "")
+            self.selectedCountry = GeoLocationAPIResponseElement(id: Int(address.countryID), name: address.countryName, image_path: "")
+            self.selectedCity = GeoLocationAPIResponseElement(id: Int(address.cityID), name: address.cityName, image_path: "")
+            self.selectedArea = GeoLocationAPIResponseElement(id: Int(address.areaID), name: address.areaName, image_path: "")
             self.buildingNo = address.buildingNo
-            self.floorNo = address.floorNo ?? ""
-            self.flatNo = address.flatNo ?? ""
-            self.postalCode = address.postalCode ?? ""
             self.isDefault = address.isDefault
         }
         
@@ -98,7 +96,7 @@ class AddAddressViewModel: ObservableObject {
         if !addressName.isEmpty && !addressContent.isEmpty && !addressContent.isEmpty {
             self.isAnimating = true
             
-            dataService.addAddress(request: AddUserAddress(name: addressName, address: addressContent, coordinates: addressCoordinates, countryID: LoginDataService.shared.getUserCountry().id, cityID: LoginDataService.shared.getUserCity().id, areaID: selectedArea!.id, buildingNo: buildingNo, receiverName: recipientNameText, receiverPhone: checkForPhone(phone: recipientPhoneText, code: recipientPhoneCode), floorNo: floorNo, flatNo: flatNo, postalCode: postalCode, notes: "", isDefault: isDefault))
+            dataService.addAddress(request: AddUserAddress(name: addressName, address: addressContent, coordinates: addressCoordinates, countryID: LoginDataService.shared.getUserCountry().id, cityID: LoginDataService.shared.getUserCity().id, areaID: selectedArea!.id, receiverName: recipientNameText, receiverPhone: checkForPhone(phone: recipientPhoneText, code: recipientPhoneCode), floorNo: floorNo, flatNo: flatNo, postalCode: postalCode, notes: "", isDefault: isDefault))
                 .receive(on: DispatchQueue.main)
                 .sink(
                     receiveCompletion: { (completion) in
@@ -125,7 +123,7 @@ class AddAddressViewModel: ObservableObject {
         
         self.isAnimating = true
         
-        dataService.updateAddress(addressID: String(addressToUpdate!.id ?? 0), request: AddUserAddress(name: addressName, address: addressContent, coordinates: addressCoordinates, countryID: LoginDataService.shared.getUserCountry().id, cityID: LoginDataService.shared.getUserCity().id, areaID: selectedArea!.id, buildingNo: buildingNo, receiverName: recipientNameText, receiverPhone: checkForPhone(phone: recipientPhoneText, code: recipientPhoneCode), floorNo: floorNo, flatNo: flatNo, postalCode: postalCode, notes: "", isDefault: isDefault))
+        dataService.updateAddress(addressID: String(addressToUpdate!.id ?? 0), request: AddUserAddress(name: addressName, address: addressContent, coordinates: addressCoordinates, countryID: LoginDataService.shared.getUserCountry().id, cityID: LoginDataService.shared.getUserCity().id, areaID: selectedArea!.id, receiverName: recipientNameText, receiverPhone: checkForPhone(phone: recipientPhoneText, code: recipientPhoneCode), floorNo: floorNo, flatNo: flatNo, postalCode: postalCode, notes: "", isDefault: isDefault))
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in
@@ -161,7 +159,7 @@ class AddAddressViewModel: ObservableObject {
                 },
                 receiveValue: { response in
                     self.isAnimating = false
-                    self.addedAddress = response.data?[0]
+                    self.addressDeleted = true
                 }
             )
             .store(in: &cancellables)

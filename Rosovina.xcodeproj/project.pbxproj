@@ -47,6 +47,8 @@
 		077CC6DE2B82C5190014E5A0 /* CitySelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CC6DC2B82C5190014E5A0 /* CitySelectorView.swift */; };
 		077CC6DF2B82C5190014E5A0 /* CitySelectorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 077CC6DD2B82C5190014E5A0 /* CitySelectorView.xib */; };
 		077CC6E12B841FA40014E5A0 /* GetSlotsAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CC6E02B841FA40014E5A0 /* GetSlotsAPIResponse.swift */; };
+		077CC6E32B893D850014E5A0 /* GetUserTransactionsAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CC6E22B893D850014E5A0 /* GetUserTransactionsAPIResponse.swift */; };
+		077CC6E52B893DA80014E5A0 /* GetUserWalletAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CC6E42B893DA80014E5A0 /* GetUserWalletAPIResponse.swift */; };
 		07B3793B2B49ABE900F49DC3 /* MyOrdersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3793A2B49ABE900F49DC3 /* MyOrdersService.swift */; };
 		07B3793D2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3793C2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift */; };
 		07B3793F2B49ACB300F49DC3 /* MyOrdersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3793E2B49ACB300F49DC3 /* MyOrdersViewModel.swift */; };
@@ -279,6 +281,8 @@
 		077CC6DC2B82C5190014E5A0 /* CitySelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySelectorView.swift; sourceTree = "<group>"; };
 		077CC6DD2B82C5190014E5A0 /* CitySelectorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CitySelectorView.xib; sourceTree = "<group>"; };
 		077CC6E02B841FA40014E5A0 /* GetSlotsAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSlotsAPIResponse.swift; sourceTree = "<group>"; };
+		077CC6E22B893D850014E5A0 /* GetUserTransactionsAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserTransactionsAPIResponse.swift; sourceTree = "<group>"; };
+		077CC6E42B893DA80014E5A0 /* GetUserWalletAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserWalletAPIResponse.swift; sourceTree = "<group>"; };
 		07B3793A2B49ABE900F49DC3 /* MyOrdersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersService.swift; sourceTree = "<group>"; };
 		07B3793C2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersAPIResponse.swift; sourceTree = "<group>"; };
 		07B3793E2B49ACB300F49DC3 /* MyOrdersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersViewModel.swift; sourceTree = "<group>"; };
@@ -1137,6 +1141,8 @@
 				07BEE1A42B4619340065C559 /* GeoLocationAPIResponse.swift */,
 				07BEE1A62B46198D0065C559 /* GetAddressesAPIResponse.swift */,
 				07B379682B5B292000F49DC3 /* UpdateAccountAPIResponse.swift */,
+				077CC6E22B893D850014E5A0 /* GetUserTransactionsAPIResponse.swift */,
+				077CC6E42B893DA80014E5A0 /* GetUserWalletAPIResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1525,6 +1531,7 @@
 				07B6F6EE2AF6BDEE00BE5BA6 /* HomeViewController.swift in Sources */,
 				07B3793F2B49ACB300F49DC3 /* MyOrdersViewModel.swift in Sources */,
 				07B6F6AA2AF69D6100BE5BA6 /* SwiftUIEx.swift in Sources */,
+				077CC6E32B893D850014E5A0 /* GetUserTransactionsAPIResponse.swift in Sources */,
 				07B6F6A52AF69D6100BE5BA6 /* TextFieldEx.swift in Sources */,
 				07C7F5922B32644100A4168A /* LoginAPIRequest.swift in Sources */,
 				07BBA96C2AFEDF1F006AE9F7 /* RegistrationView.swift in Sources */,
@@ -1653,6 +1660,7 @@
 				07BEE1A52B4619340065C559 /* GeoLocationAPIResponse.swift in Sources */,
 				07BEE1992B45FFBA0065C559 /* WishlistViewModel.swift in Sources */,
 				07B6F6BE2AF69D6E00BE5BA6 /* ViewFragmentation.swift in Sources */,
+				077CC6E52B893DA80014E5A0 /* GetUserWalletAPIResponse.swift in Sources */,
 				0707576E2B3F225B00A24CAE /* HomeViewModel.swift in Sources */,
 				07B6F6E62AF6A40900BE5BA6 /* OnboardingViewController.swift in Sources */,
 				07B6F6A32AF69D6100BE5BA6 /* FontEx.swift in Sources */,

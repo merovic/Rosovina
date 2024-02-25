@@ -163,7 +163,6 @@ class CheckoutView: UIViewController {
             // Handle the updated value as needed
             print("Updated value received : \(updatedValue)")
             self.viewModel?.selectedLocation = updatedValue
-            self.viewModel?.updateCart()
         }
     }
     
@@ -183,7 +182,7 @@ class CheckoutView: UIViewController {
         datePicker?.datePublisher
             .sink { date in
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "MM-dd-yyyy"
+                dateFormatter.dateFormat = "yyyy-MM-dd"
                 self.deliveryDateTextField.text = dateFormatter.string(from: date)
                 self.viewModel?.deliveryDate = date
                 self.viewModel?.deliveryDateText = dateFormatter.string(from: date)
@@ -194,6 +193,21 @@ class CheckoutView: UIViewController {
         customSwitch.isOnPublisher
             .sink { state in
                 self.addAddressStack.isHidden = state
+                if state{
+                    self.viewModel?.selectedLocation = nil
+                }else{
+                    if self.viewModel?.cartResponse.addressID != nil {
+                        self.viewModel?.selectedLocation = self.viewModel?.cartResponse.address
+                        
+                        self.addAddressInitButton.isHidden = true
+                        self.addAddressButton.isHidden = false
+                        self.addressView.isHidden = false
+                        
+                        self.selectedAddressName.text = self.viewModel?.cartResponse.address?.name
+                        self.selectedAddressContent.text = self.viewModel?.cartResponse.address?.address
+                        self.selectedAddressPhone.text = self.viewModel?.cartResponse.address?.receiverPhone
+                    }
+                }
             }
             .store(in: &bindings)
         
@@ -267,13 +281,15 @@ class CheckoutView: UIViewController {
         
         viewModel!.$cartResponse.sink { response in
             if response.addressID != nil {
+                self.viewModel?.selectedLocation = response.address
+                
                 self.addAddressInitButton.isHidden = true
                 self.addAddressButton.isHidden = false
                 self.addressView.isHidden = false
                 
                 self.selectedAddressName.text = response.address?.name
                 self.selectedAddressContent.text = response.address?.address
-                self.selectedAddressPhone.text = response.address?.postalCode
+                self.selectedAddressPhone.text = response.address?.receiverPhone
             }else{
                 self.addAddressInitButton.isHidden = false
             }
@@ -340,9 +356,13 @@ class CheckoutView: UIViewController {
 extension CheckoutView: SelectLocationDelegate {
     func didLocationSelected(location: UserAddress) {
         self.viewModel?.selectedLocation = location
+        
+        self.selectedAddressName.text = location.name
+        self.selectedAddressContent.text = location.address
+        self.selectedAddressPhone.text = location.receiverPhone
+        
         self.viewModel?.recipientNameText = location.receiverName
         self.viewModel?.recipientPhoneText = location.receiverPhone
-        self.viewModel?.updateCart()
     }
 }
 
