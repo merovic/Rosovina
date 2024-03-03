@@ -175,7 +175,7 @@ class AddAddressView: UIViewController {
         recipientNameTextField.textPublisher
             .removeDuplicates()
             .debounce(for: 0.2, scheduler: RunLoop.main)
-            .validateText(validationType: .password)
+            .validateText(validationType: .simpleName)
             .assign(to: \.recipientNameValidationState, on: viewModel!)
         .store(in: &bindings)
         
@@ -248,7 +248,7 @@ class AddAddressView: UIViewController {
         addAddressTextField.textPublisher
             .removeDuplicates()
             .debounce(for: 0.2, scheduler: RunLoop.main)
-            .validateText(validationType: .password)
+            .validateText(validationType: .simpleName)
             .assign(to: \.addressNameValidationState, on: viewModel!)
         .store(in: &bindings)
         
@@ -284,7 +284,7 @@ class AddAddressView: UIViewController {
         addressContentTextField.textPublisher
             .removeDuplicates()
             .debounce(for: 0.2, scheduler: RunLoop.main)
-            .validateText(validationType: .password)
+            .validateText(validationType: .simpleName)
             .assign(to: \.addressContentValidationState, on: viewModel!)
         .store(in: &bindings)
         

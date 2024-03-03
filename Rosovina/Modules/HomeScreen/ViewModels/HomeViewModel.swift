@@ -66,6 +66,7 @@ class HomeViewModel: ObservableObject {
                 receiveValue: { response in
                     self.isAnimating = false
                     self.sections = response.data?.sections ?? []
+                    self.sections.sort { $0.order < $1.order }
                     self.badgeCount = String(response.data?.general.cartCount ?? 0)
                 }
             )
@@ -115,7 +116,7 @@ class HomeViewModel: ObservableObject {
 }
 
 enum ViewMoreType: Identifiable {
-    case category, occation, product
+    case category, occation, product, brand
     var id: Int {
         self.hashValue
     }

@@ -36,6 +36,10 @@ class SelectAddressView: UIViewController {
         self.container.EmbedSwiftUIView(view: SelectAddressSwiftUIView(viewModel: self.viewModel), parent: self)
     }
     
+    @IBAction func closeClicked(_ sender: Any) {
+        self.dismiss(animated: true)
+    }
+    
     func BindViews(){
         
         viewModel.$isAnimating

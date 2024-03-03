@@ -18,6 +18,8 @@ class HomeViewController: UIViewController {
     
     var viewModel: HomeViewModel = HomeViewModel()
     
+    private let loadingView = LoadingAnimation()
+    
     var cityGest: UITapGestureRecognizer = {
         let gest = UITapGestureRecognizer()
         gest.numberOfTapsRequired = 1
@@ -39,8 +41,6 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private let loadingView = LoadingAnimation()
-
     @IBOutlet weak var cartButton: UIButton!
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var cartBadge: UILabel! {
@@ -142,7 +142,7 @@ class HomeViewController: UIViewController {
         viewModel.$selectedCategory.sink { v in
             if v != nil{
                 let newViewController = GetProductsView()
-                newViewController.viewModel = GetProductsViewModel(productType: ((v?.isOccasion) != nil) ? .occation : .category, typeName: v?.title ?? "", typeID: v?.id ?? 0)
+                newViewController.viewModel = GetProductsViewModel(productType: ((v?.isOccasion) != nil) ? .occation : .category, typeName: (v?.title ?? v?.name) ?? "", typeID: v?.id ?? 0)
                 self.navigationController?.pushViewController(newViewController, animated: true)
             }
         }.store(in: &bindings)
@@ -222,7 +222,7 @@ struct HomeSwiftUIView: View {
                             .placeholder(Image("Banner 1").resizable())
                             .resizable()
                             .indicator(.activity)
-                            .frame(height: 145)
+                            .frame(height: 160)
                             .padding(.horizontal)
                         // MARK: - Popular products
                     case .popularProducts:

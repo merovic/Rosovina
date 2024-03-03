@@ -44,7 +44,9 @@ struct Country: Hashable {
                             }
                             
                             let country = Country(code: code, name: name, phoneCode: phoneCode)
-                            countries.append(country)
+                            if country.code == "SA" || country.code == "EG" {
+                                countries.append(country)
+                            }
                         }
                     }
                 }

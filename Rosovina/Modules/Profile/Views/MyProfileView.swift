@@ -75,7 +75,6 @@ class MyProfileView: UIViewController {
         }
     }
     
-    @IBOutlet weak var addressView: UIStackView!
     @IBOutlet weak var container: UIView!
     
     @IBOutlet weak var height: NSLayoutConstraint!
@@ -323,10 +322,10 @@ class MyProfileView: UIViewController {
         
         viewModel.$userAddresses.sink { v in
             if v.count != 0{
-                self.addressView.isHidden = false
+                self.container.isHidden = false
                 self.height.constant = CGFloat(v.count * 135)
             }else{
-                self.addressView.isHidden = true
+                self.container.isHidden = true
             }
         }.store(in: &bindings)
         

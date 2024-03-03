@@ -68,8 +68,8 @@ class AddAddressViewModel: ObservableObject {
             self.addressName = address.name ?? ""
             self.addressContent = address.address ?? ""
             self.addressCoordinates = address.coordinates
-            self.selectedCountry = GeoLocationAPIResponseElement(id: Int(address.countryID), name: address.countryName, image_path: "")
-            self.selectedCity = GeoLocationAPIResponseElement(id: Int(address.cityID), name: address.cityName, image_path: "")
+            self.selectedCountry = GeoLocationAPIResponseElement(id: address.countryIDInt(), name: address.countryName, image_path: "")
+            self.selectedCity = GeoLocationAPIResponseElement(id: address.cityIDInt(), name: address.cityName, image_path: "")
             self.selectedArea = GeoLocationAPIResponseElement(id: Int(address.areaID), name: address.areaName, image_path: "")
             self.buildingNo = address.buildingNo
             self.isDefault = address.isDefault

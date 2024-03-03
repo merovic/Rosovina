@@ -38,17 +38,17 @@ enum ValidationState: Equatable {
             case .invalidPhone:
                 return "Invalid phone number."
             case .tooShortPassword:
-                return "Your password is too short."
+                return "Password is too short."
             case .passwordNeedsNum:
-                return "Your password doesn't contain any numbers."
+                return "Password doesn't contain any numbers."
             case .passwordNeedsLetters:
-                return "Your password doesn't contain any letters."
+                return "Password doesn't contain any letters."
             case .nameCantContainNumbers:
                 return "Name can't contain numbers."
             case .nameCantContainSpecialChars:
                 return "Name can't contain special characters."
             case .tooShortName:
-                return "Your name can't be less than two characters."
+                return "Name can't be less than two characters."
             case .custom(let text):
                 return text
             }

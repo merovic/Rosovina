@@ -21,6 +21,7 @@ enum ValidatorType {
     case password
     case phone(country: PhoneNumberCountry)
     case name
+    case simpleName
 }
 
 enum ValidatorFactory {
@@ -32,6 +33,8 @@ enum ValidatorFactory {
             return PasswordValidator()
         case .name:
             return NameValidator()
+        case .simpleName:
+            return SimpleNameValidator()
         case .phone(let country):
             return PhoneValidator(country: country)
         }

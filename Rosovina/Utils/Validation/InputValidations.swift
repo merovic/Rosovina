@@ -8,6 +8,27 @@
 import Foundation
 import Combine
 
+struct SimpleNameValidator: Validatable {
+    func validate(
+        publisher: AnyPublisher<String, Never>
+    ) -> AnyPublisher<ValidationState, Never> {
+
+        Publishers.CombineLatest(
+            isEmpty(publisher: publisher),
+            isTooShort(publisher: publisher, count: 2)
+        )
+        .removeDuplicates(by: { prev, curr in
+            prev == curr
+        })
+        .map { isEmpty, tooShort in
+            if isEmpty { return .error(.empty) }
+            if tooShort { return .error(.tooShortName) }
+            return .valid
+        }
+        .eraseToAnyPublisher()
+    }
+}
+
 struct NameValidator: Validatable {
     func validate(
         publisher: AnyPublisher<String, Never>

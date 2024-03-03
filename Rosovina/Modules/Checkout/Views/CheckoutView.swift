@@ -50,6 +50,7 @@ class CheckoutView: UIViewController {
     @IBOutlet weak var selectedAddressPhone: UILabel!
     @IBOutlet weak var selectedAddressContent: UILabel!
     
+    @IBOutlet weak var recipientView: UIView!
     
     @IBOutlet weak var recipientNameView: UIView! {
         didSet {
@@ -136,6 +137,7 @@ class CheckoutView: UIViewController {
     func setupDatePicker(){
         datePicker = UIDatePicker()
         datePicker?.datePickerMode = .date
+        datePicker?.preferredDatePickerStyle = .wheels
         
         deliveryDateTextField.inputView = datePicker
         
@@ -193,10 +195,14 @@ class CheckoutView: UIViewController {
         customSwitch.isOnPublisher
             .sink { state in
                 self.addAddressStack.isHidden = state
+                self.recipientView.isHidden = !state
                 if state{
                     self.viewModel?.selectedLocation = nil
                 }else{
+                    self.viewModel?.recipientNameText = ""
+                    self.viewModel?.recipientPhoneText = ""
                     if self.viewModel?.cartResponse.addressID != nil {
+                        
                         self.viewModel?.selectedLocation = self.viewModel?.cartResponse.address
                         
                         self.addAddressInitButton.isHidden = true
@@ -211,14 +217,14 @@ class CheckoutView: UIViewController {
             }
             .store(in: &bindings)
         
-        countryPickerViewModel.$phoneCode.sink { code in
-            self.viewModel!.recipientPhoneCode = code
-        }.store(in: &bindings)
-        
         recipientNameTextField.textPublisher
             .receive(on: DispatchQueue.main)
             .assign(to: \.recipientNameText, on: viewModel!)
         .store(in: &bindings)
+        
+        countryPickerViewModel.$phoneCode.sink { code in
+            self.viewModel!.recipientPhoneCode = code
+        }.store(in: &bindings)
         
         recipientPhoneTextField.textPublisher
             .receive(on: DispatchQueue.main)
@@ -271,10 +277,18 @@ class CheckoutView: UIViewController {
         
         payButton.tapPublisher
             .sink { _ in
-                if self.viewModel?.cartResponse.address != nil{
-                    self.viewModel?.createOrder()
+                if self.customSwitch.isOn {
+                    if self.viewModel?.recipientNameText != "" && self.viewModel?.recipientPhoneText != ""{
+                        self.viewModel?.createOrder()
+                    }else{
+                        Alert.show("Cant Complete Order", message: "Fill the Recipient Name and Phone First", context: self)
+                    }
                 }else{
-                    Alert.show("Cant Complete Order", message: "Select a Delivery Address First", context: self)
+                    if self.viewModel?.cartResponse.address != nil{
+                        self.viewModel?.createOrder()
+                    }else{
+                        Alert.show("Cant Complete Order", message: "Select a Delivery Address First", context: self)
+                    }
                 }
             }
             .store(in: &bindings)

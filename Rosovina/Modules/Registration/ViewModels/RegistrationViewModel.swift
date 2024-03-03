@@ -109,6 +109,44 @@ class RegistrationViewModel: ObservableObject {
             )
             .store(in: &cancellables)
     }
+    
+    func register() {
+        
+        dataService.register(request: RegistrationAPIRequest(name: firstNameText + " " + lastNameText, countryCode: phoneCode, phone: phoneText, password: passwordText, email: emailText, mobileToken: ""))
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { (completion) in
+                    switch completion {
+                    case .finished:
+                        print("Publisher stopped observing")
+                    case .failure(_):
+                        self.isAnimating = false
+                    }
+                },
+                receiveValue: { response in
+                    self.isAnimating = false
+                    if response.success {
+                        LoginDataService.shared.setAuthToken(token: response.data!.token)
+                        LoginDataService.shared.setID(id: (response.data?.userInfo.id)!)
+                        LoginDataService.shared.setFullName(name: response.data?.userInfo.name ?? "")
+                        LoginDataService.shared.setImageURL(url: response.data?.userInfo.imageURL ?? "")
+                        LoginDataService.shared.setMobileNumber(number: response.data?.userInfo.phone ?? "")
+                        LoginDataService.shared.setDateOfBirth(date: response.data?.userInfo.dateOfBirth ?? "")
+                        LoginDataService.shared.setPassword(password: self.passwordText)
+                        LoginDataService.shared.setEmail(email: response.data?.userInfo.email ?? "")
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            LoginDataService.shared.setLogin()
+                        }
+                        
+                        self.otpSentStatus = .success
+                    }else{
+                        self.otpSentStatus = .error
+                    }
+                }
+            )
+            .store(in: &cancellables)
+    }
       
     func switchPasswordEye(){
         self.passwordEyeOn.toggle()

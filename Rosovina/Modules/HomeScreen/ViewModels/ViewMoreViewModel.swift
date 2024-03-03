@@ -39,6 +39,8 @@ class ViewMoreViewModel: ObservableObject {
             self.categoryName = "Occations"
         case .product:
             self.categoryName = "Products"
+        case .brand:
+            self.categoryName = "Brands"
         }
     }
             

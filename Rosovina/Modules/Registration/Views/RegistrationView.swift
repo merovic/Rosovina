@@ -320,15 +320,23 @@ class RegistrationView: UIViewController {
         
         createButton.tapPublisher
             .sink { _ in
-                self.viewModel.checkPhone()
+                //self.viewModel.checkPhone()
+                self.viewModel.register()
             }
             .store(in: &bindings)
         
         viewModel.$otpSentStatus.sink { v in
             if v == .success{
-                let newViewController = VerificationViewController()
-                newViewController.viewModel = VerificationViewModel(phoneText: self.viewModel.checkForPhone(phone: self.viewModel.phoneText, code: self.viewModel.phoneCode), phoneCode: self.viewModel.phoneCode, nameText: self.viewModel.firstNameText + " " + self.viewModel.lastNameText, emailText: self.viewModel.emailText, passwordText: self.viewModel.passwordText)
-                self.navigationController?.pushViewController(newViewController, animated: true)
+                let nav1 = UINavigationController()
+                let vc = DashboardTabBarController()
+                nav1.isNavigationBarHidden = true
+                nav1.viewControllers = [vc]
+                nav1.modalPresentationStyle = .fullScreen
+                self.present(nav1, animated: true)
+                
+//                let newViewController = VerificationViewController()
+//                newViewController.viewModel = VerificationViewModel(phoneText: self.viewModel.checkForPhone(phone: self.viewModel.phoneText, code: self.viewModel.phoneCode), phoneCode: self.viewModel.phoneCode, nameText: self.viewModel.firstNameText + " " + self.viewModel.lastNameText, emailText: self.viewModel.emailText, passwordText: self.viewModel.passwordText)
+//                self.navigationController?.pushViewController(newViewController, animated: true)
             }else if v == .failed{
                 Alert.show("Registration Error", message: "Something Error Happined Please Try Again", context: self)
             }else if v == .error{

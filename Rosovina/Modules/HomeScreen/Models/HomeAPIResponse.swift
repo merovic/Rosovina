@@ -59,7 +59,7 @@ enum SectionDataType: String, Codable {
 struct DynamicHomeModel: Codable, Identifiable {
     let id: Int?
     let imagePath: String?
-    let title, description: String?
+    let title, name, description: String?
     let listOrder: Int?
     let slug: String?
     let currencyCode: String?
@@ -81,7 +81,7 @@ struct DynamicHomeModel: Codable, Identifiable {
     enum CodingKeys: String, CodingKey {
         case id
         case imagePath = "image_path"
-        case title, description
+        case title, name, description
         case listOrder = "list_order"
         case slug
         case currencyCode = "currency_code"

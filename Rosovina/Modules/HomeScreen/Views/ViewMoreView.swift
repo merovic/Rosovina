@@ -82,7 +82,7 @@ struct ViewMoreSwiftUIView: View {
             ZStack(alignment: .center){
                 if self.viewModel.viewMoreItems.count > 0{
                     ScrollView(.vertical, showsIndicators: false){
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 10) {
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: viewModel.viewMoreType == .occation ? 100 : 150))], spacing: 10) {
                             ForEach(self.viewModel.viewMoreItems) { item in
                                 VStack(alignment: .center){
                                     ZStack(alignment: .center){
@@ -92,15 +92,16 @@ struct ViewMoreSwiftUIView: View {
                                                 .frame(width: 60, height: 60)
                                         }else{
                                             RoundedRectangle(cornerRadius: 10)
-                                                .fill(Color("DarkRed"))
-                                                .frame(width: 61, height: 61)
+                                                .fill(Color.white)
+                                                .frame(width: 100, height: 100)
                                         }
                                         
-                                        WebImage(url: URL(string: item.thumbURL ?? ""))
+                                        WebImage(url: URL(string: item.imagePath ?? ""))
                                             .resizable()
                                             .indicator(.activity)
                                             .scaledToFit()
-                                            .frame(width: 32, height: 32)
+                                            .cornerRadius(10)
+                                            .frame(width: item.isOccasion == 1 ? 32 : 90, height: item.isOccasion == 1 ? 32 : 90)
                                     }
                                     
                                     Text(item.title ?? "")

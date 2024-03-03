@@ -104,10 +104,10 @@ struct ProductItem: View {
                         Text((product.currencyCode ?? "SAR") + " " + String(product.price?.rounded() ?? 0))
                             .font(.poppinsFont(size: 14, weight: .bold))
                             .foregroundColor(Color.black)
-                        Text((product.currencyCode ?? "SAR") + " " + String(product.discountAmount ?? 0))
-                            .font(.poppinsFont(size: 8, weight: .medium))
-                            .foregroundColor(Color.gray)
-                            .strikethrough()
+//                        Text((product.currencyCode ?? "SAR") + " " + String(product.discountAmount ?? 0))
+//                            .font(.poppinsFont(size: 8, weight: .medium))
+//                            .foregroundColor(Color.gray)
+//                            .strikethrough()
                         
                         Spacer()
                         

@@ -15,6 +15,7 @@
                 <outlet property="backButton" destination="uej-45-jgF" id="wh3-xm-vrJ"/>
                 <outlet property="cardsContainer" destination="AfI-aH-ITV" id="Vk2-1U-hAg"/>
                 <outlet property="charsCounter" destination="PUn-nb-Qgt" id="gk0-en-CWn"/>
+                <outlet property="fromTextField" destination="yf3-cO-zJP" id="EZA-4w-gvE"/>
                 <outlet property="linkTextView" destination="sG7-Yy-sez" id="L6s-v9-hdL"/>
                 <outlet property="linkView" destination="Jdx-pU-J8T" id="232-It-mJq"/>
                 <outlet property="messageTextView" destination="t16-I3-9Cu" id="dmM-qj-ZUc"/>
@@ -94,7 +95,7 @@
                         <constraint firstAttribute="height" constant="56" id="UZB-5a-HXO"/>
                     </constraints>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Preview Message">
+                    <buttonConfiguration key="configuration" style="plain" title="Continue">
                         <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </buttonConfiguration>
                 </button>
@@ -177,21 +178,39 @@
                             </constraints>
                         </view>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="card message" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="t16-I3-9Cu">
-                            <rect key="frame" x="16" y="59.666666666666629" width="313" height="285.66666666666669"/>
+                            <rect key="frame" x="16" y="59.666666666666629" width="313" height="234"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nFz-cz-H1i">
+                            <rect key="frame" x="16" y="301.66666666666669" width="313" height="1"/>
+                            <color key="backgroundColor" systemColor="systemGray5Color"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="Dai-P1-WSW"/>
+                            </constraints>
+                        </view>
+                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="From" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yf3-cO-zJP">
+                            <rect key="frame" x="16" y="318.66666666666669" width="313" height="18.666666666666686"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemGray6Color"/>
                     <constraints>
+                        <constraint firstItem="yf3-cO-zJP" firstAttribute="top" secondItem="nFz-cz-H1i" secondAttribute="bottom" constant="16" id="CdN-US-1IH"/>
+                        <constraint firstItem="nFz-cz-H1i" firstAttribute="top" secondItem="t16-I3-9Cu" secondAttribute="bottom" constant="8" id="Cut-uH-Yvs"/>
                         <constraint firstItem="t16-I3-9Cu" firstAttribute="top" secondItem="ApT-Rw-dLg" secondAttribute="bottom" constant="8" id="GLF-YQ-gRE"/>
                         <constraint firstItem="ApT-Rw-dLg" firstAttribute="leading" secondItem="weu-yN-6g6" secondAttribute="leading" constant="16" id="Jv3-0F-ILp"/>
                         <constraint firstAttribute="trailing" secondItem="t16-I3-9Cu" secondAttribute="trailing" constant="16" id="Ndt-Eg-3cq"/>
                         <constraint firstAttribute="trailing" secondItem="lln-ab-mGS" secondAttribute="trailing" constant="16" id="Pkp-ej-gaC"/>
-                        <constraint firstAttribute="bottom" secondItem="t16-I3-9Cu" secondAttribute="bottom" constant="8" id="aCY-ZZ-xIX"/>
+                        <constraint firstAttribute="trailing" secondItem="nFz-cz-H1i" secondAttribute="trailing" constant="16" id="Qbr-9b-tTR"/>
+                        <constraint firstAttribute="trailing" secondItem="yf3-cO-zJP" secondAttribute="trailing" constant="16" id="RTT-ot-vB1"/>
+                        <constraint firstItem="nFz-cz-H1i" firstAttribute="leading" secondItem="weu-yN-6g6" secondAttribute="leading" constant="16" id="e2J-8T-Cud"/>
+                        <constraint firstAttribute="bottom" secondItem="yf3-cO-zJP" secondAttribute="bottom" constant="16" id="irR-GK-m6w"/>
                         <constraint firstItem="lln-ab-mGS" firstAttribute="leading" secondItem="weu-yN-6g6" secondAttribute="leading" constant="16" id="k8l-RM-Ts5"/>
+                        <constraint firstItem="yf3-cO-zJP" firstAttribute="leading" secondItem="weu-yN-6g6" secondAttribute="leading" constant="16" id="lhF-Av-8tr"/>
                         <constraint firstItem="lln-ab-mGS" firstAttribute="top" secondItem="weu-yN-6g6" secondAttribute="top" constant="16" id="mm3-vp-r7h"/>
                         <constraint firstItem="ApT-Rw-dLg" firstAttribute="top" secondItem="lln-ab-mGS" secondAttribute="bottom" constant="16" id="pyI-Xw-Ary"/>
                         <constraint firstAttribute="trailing" secondItem="ApT-Rw-dLg" secondAttribute="trailing" constant="16" id="s54-NC-h59"/>

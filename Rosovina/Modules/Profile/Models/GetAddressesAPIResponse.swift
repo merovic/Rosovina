@@ -12,13 +12,29 @@ struct UserAddress: Codable, Identifiable {
     let id: Int?
     let name, address: String?
     let buildingNo: String
-    let cityID, countryID: Int
+    let cityID, countryID: IntOrString
     let areaName, subAreaID, flatNo: String
     let isDefault: Bool
     let coordinates, notes: String
     let areaID: Int
     let receiverPhone, receiverName, countryName: String
     let cityName, postalCode, subAreaName: String
+    
+    func cityIDString() -> String {
+        return cityID.stringValue()
+    }
+    
+    func countryIDString() -> String {
+        return countryID.stringValue()
+    }
+    
+    func cityIDInt() -> Int {
+        return cityID.intValue() ?? 0
+    }
+    
+    func countryIDInt() -> Int {
+        return countryID.intValue() ?? 0
+    }
 
     enum CodingKeys: String, CodingKey {
         case buildingNo = "building_no"
@@ -73,3 +89,49 @@ extension AddUserAddress: Equatable {}
 
 typealias GetAddressesAPIResponse = [UserAddress]
 
+
+enum IntOrString: Codable {
+    case intVal(Int)
+    case stringVal(String)
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let intValue = try? container.decode(Int.self) {
+            self = .intVal(intValue)
+        } else if let stringValue = try? container.decode(String.self) {
+            self = .stringVal(stringValue)
+        } else {
+            throw DecodingError.typeMismatch(IntOrString.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Int or String value expected."))
+        }
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .intVal(let intValue):
+            try container.encode(intValue)
+        case .stringVal(let stringValue):
+            try container.encode(stringValue)
+        }
+    }
+    
+    func stringValue() -> String {
+            switch self {
+            case .intVal(let intValue):
+                return "\(intValue)"
+            case .stringVal(let stringValue):
+                return stringValue
+            }
+        }
+    
+    func intValue() -> Int? {
+        switch self {
+        case .intVal(let intValue):
+            return intValue
+        case .stringVal(let stringValue):
+            return Int(stringValue)
+        }
+    }
+}
+
+extension IntOrString: Equatable {}

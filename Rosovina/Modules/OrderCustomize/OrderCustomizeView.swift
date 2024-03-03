@@ -41,6 +41,8 @@ class OrderCustomizeView: UIViewController {
         }
     }
     
+    @IBOutlet weak var fromTextField: UITextField!
+    
     @IBOutlet weak var linkView: UIView! {
         didSet {
             linkView.roundedGrayHareefView()
@@ -140,7 +142,9 @@ extension OrderCustomizeView: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        textView.text = ""
+        if textView.text == "card message" {
+            textView.text = ""
+        }
         textView.textColor = .black
     }
 
@@ -208,13 +212,13 @@ struct GiftCardItemSwiftUIView: View {
             //.placeholder(Image("flower5").resizable())
             .resizable()
             .indicator(.activity)
+            .frame(width: 95, height: 95)
             .scaledToFit()
             .cornerRadius(10)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Color("AccentColor"), lineWidth: viewModel.selectedGiftCardID == giftCard.id ? 2 : 0)
             )
-            .frame(width: 95, height: 90)
             .padding()
     }
 }

@@ -38,7 +38,7 @@ struct OccasionsSwiftUIView: View {
                     .foregroundColor(Color.black)
                     .onTapGesture {
                         self.viewMoreItems = occasions
-                        self.selectedViewMoreType = occasions[0].isOccasion == 1 ? .occation : .category
+                        self.selectedViewMoreType = occasions[0].title == "Brands" ? .brand : (occasions[0].isOccasion == 1 ? .occation : .category)
                         self.viewMoreClicked = true
                     }
             }
@@ -62,7 +62,7 @@ struct OccasionsSwiftUIView: View {
 //                                        .frame(width: 61, height: 61)
                                 }
                                 
-                                WebImage(url: URL(string: occasions[index].thumbURL ?? ""))
+                                WebImage(url: URL(string: occasions[index].imagePath ?? ""))
                                     //.placeholder(Image("jacket").resizable())
                                     .resizable()
                                     .indicator(.activity)
@@ -71,7 +71,7 @@ struct OccasionsSwiftUIView: View {
                                     .frame(width: occasions[index].isOccasion == 1 ? 32 : 90, height: occasions[index].isOccasion == 1 ? 32 : 90)
                             }
                             
-                            Text(occasions[index].title ?? "")
+                            Text((occasions[index].title ?? occasions[index].name) ?? "")
                                 .lineLimit(nil)
                                 .multilineTextAlignment(.center)
                                 .font(.poppinsFont(size: 10, weight: .regular))

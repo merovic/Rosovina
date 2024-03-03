@@ -70,6 +70,17 @@ class ContactusView: UIViewController, MFMailComposeViewControllerDelegate {
         }
     }
     
+    @IBAction func whatsapp(_ sender: Any) {
+        let phoneNumber =  "‪+966541939689‬"
+        let appURL = URL(string: "https://api.whatsapp.com/send?phone=\(phoneNumber)")!
+        if UIApplication.shared.canOpenURL(appURL) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(appURL, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(appURL)
+            }
+        }
+    }
     
     @IBAction func backpressed(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
