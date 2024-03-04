@@ -59,6 +59,14 @@ class MyOrdersView: UIViewController {
             }
             .store(in: &bindings)
         
+        viewModel.$unauthenticated.sink { state in
+            if state {
+                LoginDataService.shared.setLogout()
+                let newViewController = LoginView()
+                self.navigationController?.pushViewController(newViewController, animated: true)
+            }
+        }.store(in: &bindings)
+        
     }
 
 }

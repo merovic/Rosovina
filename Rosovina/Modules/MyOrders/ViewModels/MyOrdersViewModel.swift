@@ -19,7 +19,8 @@ class MyOrdersViewModel: ObservableObject {
     @Published var myHistoryOrders: [MyOrder] = []
     
     @Published var selectedOrderID: Int?
-                                            
+                                           
+    @Published var unauthenticated = false
     @Published var isAnimating = false
                 
     //---------------------
@@ -44,6 +45,7 @@ class MyOrdersViewModel: ObservableObject {
                         print("Publisher stopped observing")
                     case .failure(_):
                         self.isAnimating = false
+                        self.unauthenticated = true
                     }
                 },
                 receiveValue: { response in

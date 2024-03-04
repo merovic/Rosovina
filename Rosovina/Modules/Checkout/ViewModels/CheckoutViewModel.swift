@@ -16,6 +16,9 @@ class CheckoutViewModel: ObservableObject {
     
     //---------------------
     
+    var egyptValidationSubscription: AnyCancellable?
+    var saudiArabiaValidationSubscription: AnyCancellable?
+    
     @Published var recipientNameValidationState: ValidationState = .idle
     
     @Published var recipientPhoneValidationState: ValidationState = .idle

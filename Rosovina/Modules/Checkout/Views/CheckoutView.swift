@@ -70,6 +70,8 @@ class CheckoutView: UIViewController {
     
     @IBOutlet weak var recipientPhoneTextField: UITextField!
     
+    @IBOutlet weak var recipientPhoneErrorMessage: UILabel!
+    
     var creditCardGest: UITapGestureRecognizer = {
         let gest = UITapGestureRecognizer()
         gest.numberOfTapsRequired = 1
@@ -223,7 +225,20 @@ class CheckoutView: UIViewController {
         .store(in: &bindings)
         
         countryPickerViewModel.$phoneCode.sink { code in
-            self.viewModel!.recipientPhoneCode = code
+            self.viewModel?.recipientPhoneCode = code
+            self.viewModel?.recipientPhoneText = ""
+            self.recipientPhoneTextField.text = ""
+            self.viewModel?.recipientPhoneValidationState = .idle
+            self.recipientPhoneErrorMessage.text = ""
+            
+            self.viewModel?.egyptValidationSubscription?.cancel()
+            self.viewModel?.saudiArabiaValidationSubscription?.cancel()
+            
+            if code == "+966"{
+                self.subscripeSaudiArabia()
+            }else{
+                self.subscripeEgypt()
+            }
         }.store(in: &bindings)
         
         recipientPhoneTextField.textPublisher
@@ -359,6 +374,22 @@ class CheckoutView: UIViewController {
             }
         }.store(in: &bindings)
         
+    }
+    
+    func subscripeEgypt(){
+        viewModel!.egyptValidationSubscription = recipientPhoneTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .phone(country: .egypt))
+            .assign(to: \.recipientPhoneValidationState, on: viewModel!)
+    }
+    
+    func subscripeSaudiArabia(){
+        viewModel!.saudiArabiaValidationSubscription = recipientPhoneTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .phone(country: .saudiArabia))
+            .assign(to: \.recipientPhoneValidationState, on: viewModel!)
     }
     
     @objc func dismissPicker() {

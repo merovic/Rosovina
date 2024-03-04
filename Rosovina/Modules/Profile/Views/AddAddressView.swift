@@ -165,6 +165,19 @@ class AddAddressView: UIViewController {
         
         countryPickerViewModel.$phoneCode.sink { code in
             self.viewModel?.recipientPhoneCode = code
+            self.viewModel?.recipientPhoneText = ""
+            self.phoneTextField.text = ""
+            self.viewModel?.recipientPhoneValidationState = .idle
+            self.phoneErrorMessage.text = ""
+            
+            self.viewModel?.egyptValidationSubscription?.cancel()
+            self.viewModel?.saudiArabiaValidationSubscription?.cancel()
+            
+            if code == "+966"{
+                self.subscripeSaudiArabia()
+            }else{
+                self.subscripeEgypt()
+            }
         }.store(in: &bindings)
         
         recipientNameTextField.textPublisher
@@ -209,12 +222,7 @@ class AddAddressView: UIViewController {
             .assign(to: \.recipientPhoneText, on: viewModel!)
         .store(in: &bindings)
         
-        phoneTextField.textPublisher
-            .removeDuplicates()
-            .debounce(for: 0.2, scheduler: RunLoop.main)
-            .validateText(validationType: .phone(country: .egypt))
-            .assign(to: \.recipientPhoneValidationState, on: viewModel!)
-        .store(in: &bindings)
+        self.subscripeSaudiArabia()
         
         viewModel!.$recipientPhoneValidationState
             .sink { [self] state in
@@ -345,11 +353,35 @@ class AddAddressView: UIViewController {
             }
         }.store(in: &bindings)
         
+        viewModel!.$unauthenticated.sink { state in
+            if state {
+                LoginDataService.shared.setLogout()
+                let newViewController = LoginView()
+                self.navigationController?.pushViewController(newViewController, animated: true)
+            }
+        }.store(in: &bindings)
+        
         viewModel!.$errorMessage.sink { error in
             if error != ""{
                 Alert.show("Error Saving an Address", message: error, context: self)
             }
         }.store(in: &bindings)
+    }
+    
+    func subscripeEgypt(){
+        viewModel!.egyptValidationSubscription = phoneTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .phone(country: .egypt))
+            .assign(to: \.recipientPhoneValidationState, on: viewModel!)
+    }
+    
+    func subscripeSaudiArabia(){
+        viewModel!.saudiArabiaValidationSubscription = phoneTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .phone(country: .saudiArabia))
+            .assign(to: \.recipientPhoneValidationState, on: viewModel!)
     }
 
 }

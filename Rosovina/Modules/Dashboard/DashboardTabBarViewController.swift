@@ -15,15 +15,6 @@ class DashboardTabBarController: UITabBarController, UITabBarControllerDelegate 
         super.viewDidLoad()
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
         delegate = self
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        middleButton?.center.y = tabBar.bounds.height - 30 - tabBar.safeAreaInsets.bottom
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
         let isLoggiedIn = LoginDataService.shared.isLogedIn()
         
@@ -47,14 +38,13 @@ class DashboardTabBarController: UITabBarController, UITabBarControllerDelegate 
         let icon4 = UITabBarItem(title: "", image: UIImage(named: "profile 1.png"), selectedImage: UIImage(named: "otherImage.png"))
         item4.tabBarItem = icon4
         
-        let controllers = [item1, item2, item0, item3, item4]  //array of the root view controllers displayed by the tab bar interface
+        let controllers = [item1, item2, item0, item3, item4]
         self.viewControllers = controllers
         
         middleButton?.removeFromSuperview()
         middleButton = nil
         
         if middleButton == nil {
-            
             middleButton = UIButton(type: .custom)
             middleButton?.frame.size = CGSize(width: 120, height: 120)
             middleButton?.center = CGPoint(x: tabBar.bounds.width / 2, y: tabBar.bounds.height - 30)
@@ -66,6 +56,11 @@ class DashboardTabBarController: UITabBarController, UITabBarControllerDelegate 
         }
         
         tabBar.backgroundColor = UIColor.white
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        middleButton?.center.y = tabBar.bounds.height - 30 - tabBar.safeAreaInsets.bottom
     }
     
     //Delegate methods

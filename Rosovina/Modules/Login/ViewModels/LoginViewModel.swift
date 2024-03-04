@@ -19,6 +19,9 @@ class LoginViewModel: ObservableObject {
     //var token = LoginDataService.shared.getFirebaseToken()
     var token = "asjdfbajhbsfabsjfhbajsb"
     
+    var egyptValidationSubscription: AnyCancellable?
+    var saudiArabiaValidationSubscription: AnyCancellable?
+    
     @Published var phoneValidationState: ValidationState = .idle
     
     @Published var emailValidationState: ValidationState = .idle

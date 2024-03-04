@@ -16,6 +16,9 @@ class PhoneNumberViewModel: ObservableObject {
     
     //---------------------
     
+    var egyptValidationSubscription: AnyCancellable?
+    var saudiArabiaValidationSubscription: AnyCancellable?
+    
     @Published var phoneValidationState: ValidationState = .idle
             
     @Published var backPressed = false

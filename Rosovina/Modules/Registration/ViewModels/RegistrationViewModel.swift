@@ -16,6 +16,9 @@ class RegistrationViewModel: ObservableObject {
     
     //---------------------
     
+    var egyptValidationSubscription: AnyCancellable?
+    var saudiArabiaValidationSubscription: AnyCancellable?
+    
     @Published var firstNameValidationState: ValidationState = .idle
     
     @Published var lastNameValidationState: ValidationState = .idle

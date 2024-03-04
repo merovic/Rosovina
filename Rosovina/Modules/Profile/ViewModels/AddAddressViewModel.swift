@@ -15,6 +15,9 @@ class AddAddressViewModel: ObservableObject {
     
     //---------------------
     
+    var egyptValidationSubscription: AnyCancellable?
+    var saudiArabiaValidationSubscription: AnyCancellable?
+    
     @Published var recipientNameValidationState: ValidationState = .idle
     
     @Published var recipientPhoneValidationState: ValidationState = .idle
@@ -44,7 +47,8 @@ class AddAddressViewModel: ObservableObject {
     
     @Published var addressDeleted = false
     @Published var addedAddress: UserAddress?
-                                            
+                                   
+    @Published var unauthenticated = false
     @Published var errorMessage = ""
     @Published var isAnimating = false
         
@@ -105,6 +109,7 @@ class AddAddressViewModel: ObservableObject {
                             print("Publisher stopped observing")
                         case .failure(_):
                             self.isAnimating = false
+                            self.unauthenticated = true
                         }
                     },
                     receiveValue: { response in

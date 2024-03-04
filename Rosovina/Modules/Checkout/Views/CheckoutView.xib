@@ -27,6 +27,7 @@
                 <outlet property="payButton" destination="Yhi-7t-V0j" id="4QP-Xh-hYr"/>
                 <outlet property="recipientNameTextField" destination="w3d-s4-RUx" id="x7v-Iq-Vrw"/>
                 <outlet property="recipientNameView" destination="7PP-mE-z6F" id="ctF-2E-H1I"/>
+                <outlet property="recipientPhoneErrorMessage" destination="NXc-4W-x4Q" id="uiz-FB-B1b"/>
                 <outlet property="recipientPhoneTextField" destination="vK9-qx-KFy" id="Gw0-0U-Cne"/>
                 <outlet property="recipientPhoneView" destination="40V-wH-dpz" id="MSi-MT-sPw"/>
                 <outlet property="recipientView" destination="vXG-GG-yzG" id="7AM-Fx-8cA"/>

@@ -42,7 +42,9 @@ class MyProfileViewModel: ObservableObject {
     @Published var isAccountDeleted = false
     
     @Published var errorMessage = ""
-            
+    
+    @Published var unauthenticated = false
+    
     @Published var isAnimating = false
     
     //---------------------------------
@@ -71,6 +73,7 @@ class MyProfileViewModel: ObservableObject {
                     case .failure(let error):
                         self.isAnimating = false
                         CustomPrint.swiftyAPIPrintError(message: error.localizedDescription)
+                        self.unauthenticated = true
                     }
                 },
                 receiveValue: { response in
@@ -100,6 +103,7 @@ class MyProfileViewModel: ObservableObject {
                     case .failure(let error):
                         self.isAnimating = false
                         CustomPrint.swiftyAPIPrintError(message: error.localizedDescription)
+                        self.unauthenticated = true
                     }
                 },
                 receiveValue: { response in
@@ -123,6 +127,7 @@ class MyProfileViewModel: ObservableObject {
                         print("Publisher stopped observing")
                     case .failure(_):
                         self.isAnimating = false
+                        self.unauthenticated = true
                     }
                 },
                 receiveValue: { response in

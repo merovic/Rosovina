@@ -12,6 +12,13 @@ import Alamofire
 class APIClient {
     private static var cancellables: Set<AnyCancellable> = []
     
+    static let sessionManager: Session = {
+        let configuration = URLSessionConfiguration.af.default
+        configuration.timeoutIntervalForRequest = 30
+        configuration.waitsForConnectivity = true
+        return Session(configuration: configuration, interceptor: AuthenticationInterceptor())
+    }()
+    
     @discardableResult
     static func performDecodableRequest<T: Decodable>(route: APIRouter, decoder: JSONDecoder = JSONDecoder()) -> AnyPublisher<T, AFError> where T : Decodable {
         return Future<T, AFError> { promise in
@@ -106,3 +113,24 @@ class APIClient {
     }
 }
 
+// Custom interceptor to handle authentication
+class AuthenticationInterceptor: RequestInterceptor {
+    func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
+        completion(.success(urlRequest))
+    }
+    
+    func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
+        if error.asAFError?.responseCode == 401 {
+            DispatchQueue.main.async {
+                if let window = UIApplication.shared.windows.first {
+                    let loginViewController = LoginView()
+                    window.rootViewController = loginViewController
+                    window.makeKeyAndVisible()
+                }
+            }
+            completion(.doNotRetry)
+        } else {
+            completion(.retry)
+        }
+    }
+}

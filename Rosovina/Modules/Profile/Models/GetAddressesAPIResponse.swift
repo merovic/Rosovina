@@ -17,7 +17,8 @@ struct UserAddress: Codable, Identifiable {
     let isDefault: Bool
     let coordinates, notes: String
     let areaID: Int
-    let receiverPhone, receiverName, countryName: String
+    let receiverPhone, receiverName: String?
+    let countryName: String
     let cityName, postalCode, subAreaName: String
     
     func cityIDString() -> String {

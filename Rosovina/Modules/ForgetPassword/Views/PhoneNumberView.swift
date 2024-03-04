@@ -61,12 +61,7 @@ class PhoneNumberView: UIViewController {
             .assign(to: \.phoneText, on: viewModel)
         .store(in: &bindings)
         
-        phoneNumberTextField.textPublisher
-            .removeDuplicates()
-            .debounce(for: 0.2, scheduler: RunLoop.main)
-            .validateText(validationType: .phone(country: .egypt))
-            .assign(to: \.phoneValidationState, on: viewModel)
-        .store(in: &bindings)
+        self.subscripeSaudiArabia()
         
         viewModel.$phoneValidationState
             .sink { [self] state in
@@ -97,6 +92,19 @@ class PhoneNumberView: UIViewController {
         
         countryPickerViewModel.$phoneCode.sink { code in
             self.viewModel.phoneCode = code
+            self.viewModel.phoneText = ""
+            self.phoneNumberTextField.text = ""
+            self.viewModel.phoneValidationState = .idle
+            self.phoneErrorMessage.text = ""
+            
+            self.viewModel.egyptValidationSubscription?.cancel()
+            self.viewModel.saudiArabiaValidationSubscription?.cancel()
+            
+            if code == "+966"{
+                self.subscripeSaudiArabia()
+            }else{
+                self.subscripeEgypt()
+            }
         }.store(in: &bindings)
         
         doneButton.tapPublisher
@@ -123,4 +131,19 @@ class PhoneNumberView: UIViewController {
         
     }
 
+    func subscripeEgypt(){
+        viewModel.egyptValidationSubscription = phoneNumberTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .phone(country: .egypt))
+            .assign(to: \.phoneValidationState, on: viewModel)
+    }
+    
+    func subscripeSaudiArabia(){
+        viewModel.saudiArabiaValidationSubscription = phoneNumberTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .phone(country: .saudiArabia))
+            .assign(to: \.phoneValidationState, on: viewModel)
+    }
 }
