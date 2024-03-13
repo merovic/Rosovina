@@ -90,7 +90,7 @@ class SearchView: UIViewController, UITextFieldDelegate {
         
         filterButton.tapPublisher
             .sink(receiveValue:{_ in //600
-                let vc = FilterView(initialHeight: 520)
+                let vc = FilterView(initialHeight: 600)
                 vc.delegate = self
                 self.presentBottomSheetInsideNavigationController(
                     viewController: vc,

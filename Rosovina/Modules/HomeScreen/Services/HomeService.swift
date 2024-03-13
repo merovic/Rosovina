@@ -13,6 +13,7 @@ protocol HomeService {
     func home(deviceToken: String, cityID: Int) -> AnyPublisher<BaseResponseAnother<HomeAPIResponse>, AFError>
     func getProducts(request: GetProductsAPIRequest) -> AnyPublisher<BaseResponseAnother<GetProductsAPIResponse>, AFError>
     func getCategories(isOccations: Bool)  -> AnyPublisher<BaseResponseAnother<GetCategoriesAPIResponse>, AFError>
+    func getBrands() -> AnyPublisher<BaseResponseAnother<BrandsAPIResponse>, AFError>
 }
 
 class AppHomeService: HomeService {
@@ -26,6 +27,10 @@ class AppHomeService: HomeService {
     
     func home(deviceToken: String, cityID: Int) -> AnyPublisher<BaseResponseAnother<HomeAPIResponse>, AFError> {
         return APIClient.performDecodableRequest(route: APIRouter.home(deviceToken: deviceToken, cityID: cityID))
+    }
+    
+    func getBrands() -> AnyPublisher<BaseResponseAnother<BrandsAPIResponse>, Alamofire.AFError> {
+        return APIClient.performDecodableRequest(route: APIRouter.getBrands)
     }
 }
 

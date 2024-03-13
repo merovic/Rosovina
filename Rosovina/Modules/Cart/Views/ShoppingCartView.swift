@@ -122,18 +122,20 @@ struct ShoppingCartSwiftUIView: View {
                     .font(.poppinsFont(size: 16, weight: .bold))
                     .foregroundColor(Color.black)
                 
-                HStack{
+                HStack(spacing: 5){
                     TextField("Enter voucher code", text: $viewModel.promocodeText)
+                        .font(.poppinsFont(size: 12, weight: .regular))
                         .padding()
                         .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color("LightGray"), style: StrokeStyle(lineWidth: 1.0)))
-                        .padding()
+                    
+                    Spacer()
                     
                     Button {
                         self.viewModel.checkPromoCode()
                     } label: {
                         Text("Apply")
-                            .font(.poppinsFont(size: 16, weight: .medium))
-                            .frame(width: 93, height: 15)
+                            .font(.poppinsFont(size: 12, weight: .regular))
+                            .frame(width: 65, height: 15)
                             .padding()
                             .foregroundColor(.white)
                             .background(Color("AccentColor"))
@@ -144,31 +146,31 @@ struct ShoppingCartSwiftUIView: View {
                 VStack{
                     HStack{
                         Text("Total items")
-                            .font(.poppinsFont(size: 16, weight: .regular))
+                            .font(.poppinsFont(size: 12, weight: .regular))
                             .foregroundColor(Color("DarkGray"))
                         Spacer()
                         Text(String(viewModel.cartResponse?.itemsQuantity ?? 0))
-                            .font(.poppinsFont(size: 16, weight: .bold))
+                            .font(.poppinsFont(size: 12, weight: .bold))
                             .foregroundColor(Color("AccentColor"))
                     }.padding()
                     
                     HStack{
                         Text("Price")
-                            .font(.poppinsFont(size: 16, weight: .regular))
+                            .font(.poppinsFont(size: 12, weight: .regular))
                             .foregroundColor(Color("DarkGray"))
                         Spacer()
                         Text(String(viewModel.cartResponse?.subTotal ?? 0) + " " + (viewModel.cartResponse?.currencyCode ?? "SAR"))
-                            .font(.poppinsFont(size: 16, weight: .bold))
+                            .font(.poppinsFont(size: 12, weight: .bold))
                             .foregroundColor(Color("AccentColor"))
                     }.padding(.horizontal)
                     
                     HStack{
                         Text("Discount")
-                            .font(.poppinsFont(size: 16, weight: .regular))
+                            .font(.poppinsFont(size: 12, weight: .regular))
                             .foregroundColor(Color("DarkGray"))
                         Spacer()
                         Text(String(viewModel.cartResponse?.discountPercentage ?? 0) + " " + (viewModel.cartResponse?.currencyCode ?? "SAR"))
-                            .font(.poppinsFont(size: 16, weight: .bold))
+                            .font(.poppinsFont(size: 12, weight: .bold))
                             .foregroundColor(Color("AccentColor"))
                     }.padding()
                     
@@ -176,11 +178,11 @@ struct ShoppingCartSwiftUIView: View {
                     
                     HStack{
                         Text("Total price")
-                            .font(.poppinsFont(size: 16, weight: .regular))
+                            .font(.poppinsFont(size: 12, weight: .regular))
                             .foregroundColor(Color("DarkGray"))
                         Spacer()
                         Text(String(viewModel.cartResponse?.total ?? 0) + " " + (viewModel.cartResponse?.currencyCode ?? "SAR"))
-                            .font(.poppinsFont(size: 16, weight: .bold))
+                            .font(.poppinsFont(size: 12, weight: .bold))
                             .foregroundColor(Color("AccentColor"))
                     }.padding()
                 }.background(

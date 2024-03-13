@@ -112,6 +112,9 @@ class OrderCustomizeView: UIViewController {
                 
         skipButton.tapPublisher
             .sink { _ in
+                //let newViewController = MFApplePayButtonViewController()
+                //self.navigationController?.pushViewController(newViewController, animated: true)
+                
                 let newViewController = CheckoutView()
                 newViewController.viewModel = CheckoutViewModel(cartResponse: self.viewModel!.cartResponse)
                 self.navigationController?.pushViewController(newViewController, animated: true)

@@ -23,6 +23,8 @@ class HomeViewModel: ObservableObject {
     
     @Published var selectedCity: GeoLocationAPIResponseElement = LoginDataService.shared.getUserCity()
     
+    @Published var selectedSliderImage: DynamicHomeModel?
+    
     @Published var selectedCategory: DynamicHomeModel?
     
     @Published var selectedViewMoreType: ViewMoreType?

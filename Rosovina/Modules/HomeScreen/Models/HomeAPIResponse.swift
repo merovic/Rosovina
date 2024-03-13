@@ -53,6 +53,8 @@ enum SectionDataType: String, Codable {
     case featuredProducts = "featuredProducts"
     case advertise = "advertise"
     case popularProducts = "popularProducts"
+    case sliderAds = "sliderads"
+    case newArrival = "newArrival"
 }
 
 // MARK: - DynamicHomeModel
@@ -63,7 +65,7 @@ struct DynamicHomeModel: Codable, Identifiable {
     let listOrder: Int?
     let slug: String?
     let currencyCode: String?
-    let showInHome, isOccasion: Int?
+    let showInHome, isOccasion, isBrand: Int?
     let imageURL: String?
     let thumbURL: String?
     let isActive: Bool?
@@ -87,6 +89,7 @@ struct DynamicHomeModel: Codable, Identifiable {
         case currencyCode = "currency_code"
         case showInHome = "show_in_home"
         case isOccasion = "is_occasion"
+        case isBrand = "is_brand"
         case imageURL = "image_url"
         case thumbURL = "thumb_url"
         case isActive = "is_active"

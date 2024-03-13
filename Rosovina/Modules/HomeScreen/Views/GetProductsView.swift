@@ -76,8 +76,15 @@ struct GetProductsSwiftUIView: View {
             if self.viewModel.productItems.count > 0{
                 ScrollView(.vertical, showsIndicators: false){
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 10) {
-                        ForEach(self.viewModel.productItems) { item in
-                            CategoryProductItem(viewModel: viewModel, product: item, selectedProductID: $viewModel.selectedProductID)
+                        ForEach(self.viewModel.productItems.indices, id: \.self) { index in
+                            CategoryProductItem(viewModel: viewModel, product: self.viewModel.productItems[index], selectedProductID: $viewModel.selectedProductID)
+                                .onAppear(perform: {
+                                    if index == viewModel.productItems.count - 1 {
+                                        if viewModel.productsListFull == false {
+                                            viewModel.getProducts()
+                                        }
+                                    }
+                                })
                         }
                     }
                 }
@@ -118,6 +125,7 @@ struct CategoryProductItem: View {
             
             VStack(alignment: .leading){
                 Text(product.title)
+                    .lineLimit(1)
                     .font(.poppinsFont(size: 10, weight: .regular))
                     .foregroundColor(Color.black)
                 HStack{
@@ -142,6 +150,7 @@ struct CategoryProductItem: View {
             }
             
         }
+        .frame(height: 200)
         .padding(10)
         .multilineTextAlignment(.center)
         .cardBackground()

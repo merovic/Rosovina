@@ -47,7 +47,7 @@ class ContactusView: UIViewController, MFMailComposeViewControllerDelegate {
     }
     
     @IBAction func facebook(_ sender: Any) {
-        if let url = URL(string: "https://www.facebook.com/rosovinaksa") {
+        if let url = URL(string: "https://www.facebook.com/rosovina.sa") {
             UIApplication.shared.open(url)
         }
     }
@@ -71,15 +71,23 @@ class ContactusView: UIViewController, MFMailComposeViewControllerDelegate {
     }
     
     @IBAction func whatsapp(_ sender: Any) {
-        let phoneNumber =  "‪+966541939689‬"
-        let appURL = URL(string: "https://api.whatsapp.com/send?phone=\(phoneNumber)")!
-        if UIApplication.shared.canOpenURL(appURL) {
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(appURL, options: [:], completionHandler: nil)
-            } else {
-                UIApplication.shared.openURL(appURL)
+        let phoneNumber = "whatsapp://send?phone=966541939689‬"
+        if let urlString = phoneNumber.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed){
+            if let whatsappURL = URL(string: urlString) {
+                if UIApplication.shared.canOpenURL(whatsappURL) {
+                    UIApplication.shared.open(whatsappURL, options: [:], completionHandler: nil)
+                } else {
+                    showWhatsAppNotInstalledAlert()
+                }
             }
         }
+    }
+    
+    func showWhatsAppNotInstalledAlert() {
+        let alert = UIAlertController(title: "WhatsApp Not Installed", message: "WhatsApp is not installed on your device.", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func backpressed(_ sender: Any) {

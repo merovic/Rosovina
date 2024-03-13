@@ -223,6 +223,9 @@ final class ContentViewModel: ObservableObject {
 struct ImageCarouselView: View {
     var data: [DynamicHomeModel]
     
+    @Binding
+    var selectedSliderImage: DynamicHomeModel?
+    
     @State private var currentIndex: Int = 0
     
     var body: some View {
@@ -236,6 +239,9 @@ struct ImageCarouselView: View {
                           .aspectRatio(contentMode: .fill)
                           .frame(width: UIScreen.main.bounds.width - 50)
                           .superCardGrayBackground()
+                          .onTapGesture {
+                              self.selectedSliderImage = data[index]
+                          }
                         
 //                        VStack(alignment: .leading, spacing: 5){
 //                            Text(data[index].title ?? "")

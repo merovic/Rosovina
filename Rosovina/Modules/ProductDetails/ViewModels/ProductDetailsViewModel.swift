@@ -98,7 +98,7 @@ class ProductDetailsViewModel: ObservableObject {
         
         if let items = self.cartResponse{
             for cartItem in items.items{
-                apiArray.append(APICartItem(productID: cartItem.productID, quantity: Int(Double(cartItem.quantity) ?? 0.0), attributeValueIDS: [cartItem.productAttributeValueID ?? 0]))
+                apiArray.append(APICartItem(productID: cartItem.productID, quantity: Int(Double(cartItem.quantity) ?? 0.0), attributeValueIDS: [cartItem.productAttributeValueID ?? cartItem.itemAttributeValues[0].productAttributeValueID]))
             }
         }
         

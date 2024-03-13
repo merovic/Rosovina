@@ -32,6 +32,12 @@ class ProductDetailsView: UIViewController {
         return gest
     }()
     
+    @IBOutlet weak var mainImageHeight: NSLayoutConstraint! {
+        didSet{
+            mainImageHeight.constant = UIScreen.main.bounds.height / 3
+        }
+    }
+    
     @IBOutlet weak var mainImage: UIImageView! {
         didSet{
             mainImage.isUserInteractionEnabled = true

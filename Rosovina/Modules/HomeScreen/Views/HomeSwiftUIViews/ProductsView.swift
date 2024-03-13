@@ -47,12 +47,11 @@ struct ProductsSwiftUIView: View {
                 HStack{
                     ForEach(0..<products.count, id: \.self) { index in
                         ProductItem(viewModel: viewModel, product: products[index], selectedProductID: $selectedProduct).padding(.vertical,5)
-                            .padding(.horizontal, 10)
                     }
                     
                     Spacer()
                 }
-            }.padding(.horizontal, -10)
+            }
         }.padding(.horizontal, 15)
     }
 }
@@ -74,7 +73,7 @@ struct ProductItem: View {
                     .indicator(.activity)
                     .scaledToFit()
                     .cornerRadius(4.0)
-                    .frame(width: 130, height: 148)
+                    .frame(width: 140, height: 148)
                     .applyBlackAndWhite(isBlackAndWhite: product.isReadyForSale == 0)
                     .onTapGesture {
                         if product.isReadyForSale != 0 {
@@ -95,8 +94,9 @@ struct ProductItem: View {
             }.frame(width: 130, height: 148)
             
             
-            VStack(alignment: .leading){
+            VStack(alignment: .leading, spacing: 4){
                 Text(product.title ?? "")
+                    .lineLimit(1)
                     .font(.poppinsFont(size: 10, weight: .regular))
                     .foregroundColor(Color.black)
                 HStack{
@@ -125,6 +125,7 @@ struct ProductItem: View {
                 self.isAddedToWishList = product.addedToWishlist ?? false
             }
         }
+        .frame(width: 150, height: 190)
         .padding(10)
         .multilineTextAlignment(.center)
         .cardBackground()

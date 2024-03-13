@@ -139,10 +139,18 @@ class HomeViewController: UIViewController {
             }
         }.store(in: &bindings)
         
+        viewModel.$selectedSliderImage.sink { v in
+            if v != nil{
+                let newViewController = GetProductsView()
+                newViewController.viewModel = GetProductsViewModel(productType: .category, typeName: v!.title ?? "", typeID: v?.id ?? 0)
+                self.navigationController?.pushViewController(newViewController, animated: true)
+            }
+        }.store(in: &bindings)
+        
         viewModel.$selectedCategory.sink { v in
             if v != nil{
                 let newViewController = GetProductsView()
-                newViewController.viewModel = GetProductsViewModel(productType: ((v?.isOccasion) != nil) ? .occation : .category, typeName: (v?.title ?? v?.name) ?? "", typeID: v?.id ?? 0)
+                newViewController.viewModel = GetProductsViewModel(productType: v!.isBrand != nil ? .brand : v!.isOccasion != nil ? .occation : .category, typeName: (v?.title ?? v?.name) ?? "", typeID: v?.id ?? 0)
                 self.navigationController?.pushViewController(newViewController, animated: true)
             }
         }.store(in: &bindings)
@@ -200,9 +208,9 @@ struct HomeSwiftUIView: View {
                 
                 ForEach(self.viewModel.sections) { section in
                     switch section.code{
-                    case .slider:
+                    case .slider, .sliderAds:
                         // MARK: - Slider
-                        ImageCarouselView(data: section.data)
+                        ImageCarouselView(data: section.data, selectedSliderImage: $viewModel.selectedSliderImage)
                             .frame(height: 200)
                     case .occasionCategories:
                         // MARK: - Occasions
@@ -213,7 +221,7 @@ struct HomeSwiftUIView: View {
                     case .brands:
                         // MARK: - brands
                         OccasionsSwiftUIView(title: section.title, occasions: section.data, selectedCategory: $viewModel.selectedCategory, viewMoreClicked: $viewModel.viewMoreCategoriesClicked, viewMoreItems: $viewModel.selectedViewMoreItems, selectedViewMoreType: $viewModel.selectedViewMoreType)
-                    case .featuredProducts:
+                    case .featuredProducts, .newArrival:
                         // MARK: - Featured products
                         ProductsSwiftUIView(viewModel: viewModel, selectedProduct: $viewModel.selectedProduct, sectionName: section.title, products: section.data, viewMoreClicked: $viewModel.viewMoreProductsClicked, viewMoreItems: $viewModel.selectedViewMoreItems, selectedViewMoreType: $viewModel.selectedViewMoreType)
                     case .advertise:

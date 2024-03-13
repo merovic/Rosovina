@@ -75,7 +75,7 @@ class FilterView: UIViewController {
     }
     
     @IBAction func applyFilterClicked(_ sender: Any) {
-        self.delegate.filterAssigned(categories: self.viewModel.selectedCategories, priceRange: [self.viewModel.minimumPriceRange, self.viewModel.maximumPriceRange], brands: [], rating: [self.viewModel.currentRate])
+        self.delegate.filterAssigned(categories: self.viewModel.selectedCategories, priceRange: [self.viewModel.minimumPriceRange, self.viewModel.maximumPriceRange], brands: self.viewModel.selectedBrands, rating: [self.viewModel.currentRate])
         self.dismiss(animated: true)
     }
     
@@ -142,27 +142,27 @@ struct FilterSwiftUIView: View {
                 }
             }
             
-//            VStack(alignment: .leading){
-//                Text("Brands")
-//                    .font(.poppinsFont(size: 16, weight: .bold))
-//                    .foregroundColor(Color("AccentColor"))
-//
-//                TextField("Search", text: $searchText)
-//                    .padding()
-//                    .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color("LightGray"), style: StrokeStyle(lineWidth: 1.0)))
-//                    .onChange(of: searchText) { newSearchText in
-//                        filterArray()
-//                    }
-//
-//                ScrollView(.horizontal, showsIndicators: false){
-//                    HStack{
-//                        ForEach(0..<viewModel.filteredBrands.count, id: \.self) { index in
-//                            BrandItem(item: viewModel.brands[index], selectedBrands: $viewModel.brands)
-//                        }
-//                        Spacer()
-//                    }
-//                }
-//            }
+            VStack(alignment: .leading){
+                Text("Brands")
+                    .font(.poppinsFont(size: 16, weight: .bold))
+                    .foregroundColor(Color("AccentColor"))
+
+                TextField("Search", text: $searchText)
+                    .padding()
+                    .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color("LightGray"), style: StrokeStyle(lineWidth: 1.0)))
+                    .onChange(of: searchText) { newSearchText in
+                        filterArray()
+                    }
+
+                ScrollView(.horizontal, showsIndicators: false){
+                    HStack{
+                        ForEach(0..<viewModel.filteredBrands.count, id: \.self) { index in
+                            BrandItem(item: viewModel.filteredBrands[index], selectedBrands: $viewModel.selectedBrands)
+                        }
+                        Spacer()
+                    }
+                }
+            }
             
             VStack(alignment: .leading){
                 Text("Rating")
@@ -216,7 +216,7 @@ struct FilterSwiftUIView: View {
             if searchText.isEmpty {
                 self.viewModel.filteredBrands = self.viewModel.brands
             } else {
-                self.viewModel.filteredBrands = self.viewModel.brands.filter { $0.lowercased().contains(searchText.lowercased()) }
+                self.viewModel.filteredBrands = self.viewModel.brands.filter { $0.name.lowercased().contains(searchText.lowercased()) }
             }
         }
     
@@ -248,15 +248,24 @@ struct FilterItem: View {
 
 struct BrandItem: View {
     
-    var item: String
+    var item: Brand
     @Binding
-    var selectedBrands: [String]
+    var selectedBrands: [Int]
     
     var body: some View {
-        Text(item)
+        Text(item.name)
             .font(.poppinsFont(size: 16, weight: .medium))
             .padding()
-            .background(selectedBrands.contains(item) ? Color("RoseColor") : Color("LightGray"))
+            .background(selectedBrands.contains(item.id) ? Color("RoseColor") : Color("LightGray"))
             .cornerRadius(12)
+            .onTapGesture {
+                if selectedBrands.contains(item.id){
+                    if let index = selectedBrands.firstIndex(of: item.id) {
+                        selectedBrands.remove(at: index)
+                    }
+                }else{
+                    selectedBrands.append(item.id)
+                }
+            }
     }
 }

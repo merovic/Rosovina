@@ -49,6 +49,7 @@
 		077CC6E12B841FA40014E5A0 /* GetSlotsAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CC6E02B841FA40014E5A0 /* GetSlotsAPIResponse.swift */; };
 		077CC6E32B893D850014E5A0 /* GetUserTransactionsAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CC6E22B893D850014E5A0 /* GetUserTransactionsAPIResponse.swift */; };
 		077CC6E52B893DA80014E5A0 /* GetUserWalletAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CC6E42B893DA80014E5A0 /* GetUserWalletAPIResponse.swift */; };
+		077F4E272B9B760A00363CDF /* BrandsAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077F4E262B9B760A00363CDF /* BrandsAPIResponse.swift */; };
 		07B3793B2B49ABE900F49DC3 /* MyOrdersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3793A2B49ABE900F49DC3 /* MyOrdersService.swift */; };
 		07B3793D2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3793C2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift */; };
 		07B3793F2B49ACB300F49DC3 /* MyOrdersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3793E2B49ACB300F49DC3 /* MyOrdersViewModel.swift */; };
@@ -283,6 +284,8 @@
 		077CC6E02B841FA40014E5A0 /* GetSlotsAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSlotsAPIResponse.swift; sourceTree = "<group>"; };
 		077CC6E22B893D850014E5A0 /* GetUserTransactionsAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserTransactionsAPIResponse.swift; sourceTree = "<group>"; };
 		077CC6E42B893DA80014E5A0 /* GetUserWalletAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserWalletAPIResponse.swift; sourceTree = "<group>"; };
+		077F4E1F2B9A73C800363CDF /* Rosovina.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Rosovina.entitlements; sourceTree = "<group>"; };
+		077F4E262B9B760A00363CDF /* BrandsAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandsAPIResponse.swift; sourceTree = "<group>"; };
 		07B3793A2B49ABE900F49DC3 /* MyOrdersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersService.swift; sourceTree = "<group>"; };
 		07B3793C2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersAPIResponse.swift; sourceTree = "<group>"; };
 		07B3793E2B49ACB300F49DC3 /* MyOrdersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersViewModel.swift; sourceTree = "<group>"; };
@@ -525,6 +528,7 @@
 				07BEE1922B45F9560065C559 /* GetProductsAPIRequest.swift */,
 				07BEE1942B45F9F70065C559 /* GetProductsAPIResponse.swift */,
 				07C77AFF2B5C1F9F00FCA240 /* GetCategoriesAPIResponse.swift */,
+				077F4E262B9B760A00363CDF /* BrandsAPIResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -668,6 +672,7 @@
 		07B6F6772AF68A3800BE5BA6 /* Rosovina */ = {
 			isa = PBXGroup;
 			children = (
+				077F4E1F2B9A73C800363CDF /* Rosovina.entitlements */,
 				07B6F68C2AF69CEF00BE5BA6 /* Extentions */,
 				07B6F68D2AF69CFE00BE5BA6 /* Utils */,
 				07B6F68E2AF69D0B00BE5BA6 /* Fonts */,
@@ -1569,6 +1574,7 @@
 				07BEE1CE2B499B660065C559 /* DashboardTabBarViewController.swift in Sources */,
 				076C2DD92B336E18005ED1C7 /* RegistrationViewModel.swift in Sources */,
 				07BEE1C02B489B600065C559 /* CheckoutService.swift in Sources */,
+				077F4E272B9B760A00363CDF /* BrandsAPIResponse.swift in Sources */,
 				07BBA94E2AFEB0C8006AE9F7 /* ShoppingCartView.swift in Sources */,
 				07BEE19C2B4605800065C559 /* GetProductsView.swift in Sources */,
 				07B3795D2B59D53400F49DC3 /* GetGiftCardsAPIResponse.swift in Sources */,
@@ -1832,9 +1838,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Rosovina/Rosovina.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 55F3N2WBNQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Rosovina/Info.plist;
@@ -1851,7 +1858,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.3;
+				MARKETING_VERSION = 1.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rosovina.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1867,9 +1874,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Rosovina/Rosovina.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 55F3N2WBNQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Rosovina/Info.plist;
@@ -1886,7 +1894,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.3;
+				MARKETING_VERSION = 1.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rosovina.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

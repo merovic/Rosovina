@@ -125,6 +125,7 @@ class CheckoutView: UIViewController {
     }
     
     var datePicker: UIDatePicker?
+    var applePayButtonC = MFApplePayButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -351,7 +352,7 @@ class CheckoutView: UIViewController {
                 if self.viewModel?.paymentMethodID == .cash {
                     self.viewModel?.confirmOrder(orderID: response, paymentReference: String(response))
                 }else{
-                    self.viewModel!.initiateSDK()
+                    self.initiateSDK()
                 }
             }
         }.store(in: &bindings)
@@ -395,7 +396,52 @@ class CheckoutView: UIViewController {
     @objc func dismissPicker() {
         deliveryDateTextField.resignFirstResponder()
     }
+}
 
+extension CheckoutView{
+    func initiateSDK(){
+        
+        let initiatePayment = MFInitiatePaymentRequest(invoiceAmount: Decimal(viewModel!.invoiceValue), currencyIso: .saudiArabia_SAR)
+        
+        MFPaymentRequest.shared.initiatePayment(request: initiatePayment, apiLanguage: .english) { [weak self] (response) in
+            switch response {
+            case .success(let initiatePaymentResponse):
+                if let paymentMethods = initiatePaymentResponse.paymentMethods, !paymentMethods.isEmpty {
+                    self?.excutePayment()
+                }
+            case .failure(let failError):
+                print(failError.localizedDescription)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    Alert.show("Payment Error", message: failError.localizedDescription, context: self!)
+                }
+            }
+        }
+    }
+    
+    func excutePayment(){
+        let request = MFExecutePaymentRequest(invoiceValue: Decimal(viewModel!.invoiceValue), paymentMethod: 2)
+         
+        MFPaymentRequest.shared.executePayment(request: request, apiLanguage: .english) { [weak self] (response,invoiceId) in
+            switch response {
+            case .success(let executePaymentResponse):
+                for item in executePaymentResponse.invoiceTransactions ?? []{
+                    print(item.referenceID ?? "")
+                }
+                print(executePaymentResponse.invoiceID ?? 0)
+                print("\(executePaymentResponse.invoiceStatus ?? "")")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    self?.viewModel!.confirmOrder(orderID: self?.viewModel!.orderCreatedID ?? 0, paymentReference: String(executePaymentResponse.invoiceID ?? 0))
+                }
+            case .failure(let failError):
+                print(failError.localizedDescription)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    Alert.show("Payment Error", message: failError.localizedDescription, context: self!)
+                }
+                
+            }
+        }
+
+    }
 }
 
 extension CheckoutView: SelectLocationDelegate {
@@ -406,8 +452,8 @@ extension CheckoutView: SelectLocationDelegate {
         self.selectedAddressContent.text = location.address
         self.selectedAddressPhone.text = location.receiverPhone
         
-        self.viewModel?.recipientNameText = location.receiverName
-        self.viewModel?.recipientPhoneText = location.receiverPhone
+        self.viewModel?.recipientNameText = location.receiverName ?? ""
+        self.viewModel?.recipientPhoneText = location.receiverPhone ?? ""
     }
 }
 

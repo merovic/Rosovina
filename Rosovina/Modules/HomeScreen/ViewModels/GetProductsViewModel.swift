@@ -20,6 +20,10 @@ class GetProductsViewModel: ObservableObject {
     @Published var selectedProductID: Int = 0
     
     @Published var categoryName: String = ""
+    
+    @Published var currentPage: Int = 1
+    
+    @Published var productsListFull: Bool = false
                         
     @Published var isAnimating = false
         
@@ -52,9 +56,11 @@ class GetProductsViewModel: ObservableObject {
         
         switch productType{
         case .category:
-            request = GetProductsAPIRequest(deviceToken: token, categories: [typeID], page: 1)
+            request = GetProductsAPIRequest(deviceToken: token, categories: [typeID], page: currentPage)
         case .occation:
-            request = GetProductsAPIRequest(deviceToken: token, filter: Filter(occassions: [typeID]), page: 1)
+            request = GetProductsAPIRequest(deviceToken: token, filter: Filter(occassions: [typeID]), page: currentPage)
+        case .brand:
+            request = GetProductsAPIRequest(deviceToken: token, filter: Filter(brands: [typeID]), page: currentPage)
         }
         
         dataService.getProducts(request: request!)
@@ -69,8 +75,13 @@ class GetProductsViewModel: ObservableObject {
                     }
                 },
                 receiveValue: { response in
-                    self.isAnimating = false
-                    self.productItems = response.data?.data ?? []
+                    self.isAnimating = false                    
+                    self.productItems.append(contentsOf: response.data?.data ?? [])
+                    if (response.data?.meta?.currentPage ?? 0) < (response.data?.meta?.lastPage ?? 0){
+                        self.currentPage += 1
+                    }else{
+                        self.productsListFull = true
+                    }
                 }
             )
             .store(in: &cancellables)
@@ -123,7 +134,7 @@ class GetProductsViewModel: ObservableObject {
 }
 
 enum ProductType: Identifiable {
-    case category, occation
+    case category, occation, brand
     var id: Int {
         self.hashValue
     }

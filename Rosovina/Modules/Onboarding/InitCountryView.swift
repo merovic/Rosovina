@@ -94,7 +94,6 @@ struct CountryListItem: View {
             VStack(spacing: 10) {
                 WebImage(url: URL(string: country.image_path ?? ""))
                     .resizable()
-                    .placeholder(Image("EGX"))
                     .frame(width: 48, height: 48)
                 
                 Text(country.name)
@@ -129,7 +128,6 @@ struct CityListItem: View {
                 HStack(spacing: 10) {
                     WebImage(url: URL(string: viewModel.selectedCountry?.image_path ?? ""))
                         .resizable()
-                        .placeholder(Image("EGX"))
                         .frame(width: 48, height: 48)
                     
                     Text(city.name)

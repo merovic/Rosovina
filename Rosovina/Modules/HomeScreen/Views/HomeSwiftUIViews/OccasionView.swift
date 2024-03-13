@@ -38,7 +38,7 @@ struct OccasionsSwiftUIView: View {
                     .foregroundColor(Color.black)
                     .onTapGesture {
                         self.viewMoreItems = occasions
-                        self.selectedViewMoreType = occasions[0].title == "Brands" ? .brand : (occasions[0].isOccasion == 1 ? .occation : .category)
+                        self.selectedViewMoreType = title == "Brands" ? .brand : (occasions[0].isOccasion == 1 ? .occation : .category)
                         self.viewMoreClicked = true
                     }
             }

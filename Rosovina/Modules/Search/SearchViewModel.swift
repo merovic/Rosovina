@@ -59,7 +59,7 @@ class SearchViewModel: ObservableObject {
                 receiveValue: { response in
                     self.isAnimating = false
                     self.productItems.append(contentsOf: response.data?.data ?? [])
-                    if (response.data?.meta.currentPage ?? 0) < (response.data?.meta.lastPage ?? 0){
+                    if (response.data?.meta?.currentPage ?? 0) < (response.data?.meta?.lastPage ?? 0){
                         self.currentPage += 1
                     }else{
                         self.productsListFull = true
@@ -87,7 +87,7 @@ class SearchViewModel: ObservableObject {
                 receiveValue: { response in
                     self.isAnimating = false
                     self.productItems.append(contentsOf: response.data?.data ?? [])
-                    if (response.data?.meta.currentPage ?? 0) < (response.data?.meta.lastPage ?? 0){
+                    if (response.data?.meta?.currentPage ?? 0) < (response.data?.meta?.lastPage ?? 0){
                         self.currentPage += 1
                     }else{
                         self.productsListFull = true

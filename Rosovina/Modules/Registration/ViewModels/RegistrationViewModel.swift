@@ -19,6 +19,9 @@ class RegistrationViewModel: ObservableObject {
     var egyptValidationSubscription: AnyCancellable?
     var saudiArabiaValidationSubscription: AnyCancellable?
     
+    //var token = LoginDataService.shared.getFirebaseToken()
+    var token = "asjdfbajhbsfabsjfhbajsbjhgjgjhhgjhg"
+    
     @Published var firstNameValidationState: ValidationState = .idle
     
     @Published var lastNameValidationState: ValidationState = .idle
@@ -115,7 +118,7 @@ class RegistrationViewModel: ObservableObject {
     
     func register() {
         
-        dataService.register(request: RegistrationAPIRequest(name: firstNameText + " " + lastNameText, countryCode: phoneCode, phone: phoneText, password: passwordText, email: emailText, mobileToken: ""))
+        dataService.register(request: RegistrationAPIRequest(name: firstNameText + " " + lastNameText, countryCode: phoneCode, phone: phoneText, password: passwordText, email: emailText, mobileToken: token))
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in
@@ -138,9 +141,7 @@ class RegistrationViewModel: ObservableObject {
                         LoginDataService.shared.setPassword(password: self.passwordText)
                         LoginDataService.shared.setEmail(email: response.data?.userInfo.email ?? "")
                         
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                            LoginDataService.shared.setLogin()
-                        }
+                        LoginDataService.shared.setLogin()
                         
                         self.otpSentStatus = .success
                     }else{

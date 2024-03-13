@@ -177,44 +177,7 @@ class CheckoutViewModel: ObservableObject {
             )
             .store(in: &cancellables)
     }
-    
-    func initiateSDK(){
-        
-        let initiatePayment = MFInitiatePaymentRequest(invoiceAmount: Decimal(invoiceValue), currencyIso: .saudiArabia_SAR)
-        
-        MFPaymentRequest.shared.initiatePayment(request: initiatePayment, apiLanguage: .english) { [weak self] (response) in
-            switch response {
-            case .success(let initiatePaymentResponse):
-                if let paymentMethods = initiatePaymentResponse.paymentMethods, !paymentMethods.isEmpty {
-                    self?.excutePayment()
-                }
-            case .failure(let failError):
-                print(failError.localizedDescription)
-                self?.errorMessage = failError.localizedDescription
-            }
-        }
-    }
-    
-    func excutePayment(){
-        let request = MFExecutePaymentRequest(invoiceValue: Decimal(invoiceValue), paymentMethod: 2)
-         
-        MFPaymentRequest.shared.executePayment(request: request, apiLanguage: .english) { [weak self] (response,invoiceId) in
-            switch response {
-            case .success(let executePaymentResponse):
-                for item in executePaymentResponse.invoiceTransactions ?? []{
-                    print(item.referenceID ?? "")
-                }
-                print(executePaymentResponse.invoiceID ?? 0)
-                print("\(executePaymentResponse.invoiceStatus ?? "")")
-                self?.confirmOrder(orderID: self?.orderCreatedID ?? 0, paymentReference: String(executePaymentResponse.invoiceID ?? 0))
-            case .failure(let failError):
-                print(failError.localizedDescription)
-                self?.errorMessage = failError.localizedDescription
-            }
-        }
-
-    }
-            
+           
 }
 
 

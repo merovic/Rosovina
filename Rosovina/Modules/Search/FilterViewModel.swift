@@ -19,9 +19,11 @@ class FilterViewModel: ObservableObject {
     
     @Published var selectedCategories: [Int] = []
     
-    @Published var brands: [String] = ["Rose Garden", "Tulip Paradise", "Daisy Delight", "Lily Blossoms", "Sunflower Haven", "Orchid Oasis", "Carnation Elegance", "Peony Palace"]
+    @Published var brands: [Brand] = []
     
-    @Published var filteredBrands: [String] = ["Rose Garden", "Tulip Paradise", "Daisy Delight", "Lily Blossoms", "Sunflower Haven", "Orchid Oasis", "Carnation Elegance", "Peony Palace"]
+    @Published var filteredBrands: [Brand] = []
+    
+    @Published var selectedBrands: [Int] = []
     
     @Published var minimumPriceRange: Int = 0
     
@@ -60,6 +62,29 @@ class FilterViewModel: ObservableObject {
                 receiveValue: { response in
                     self.isAnimating = false
                     self.categories = response.data?.data ?? []
+                    self.getBrands()
+                }
+            )
+            .store(in: &cancellables)
+    }
+    
+    func getBrands() {
+                
+        dataService.getBrands()
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { (completion) in
+                    switch completion {
+                    case .finished:
+                        print("Publisher stopped observing")
+                    case .failure(_):
+                        self.isAnimating = false
+                    }
+                },
+                receiveValue: { response in
+                    self.isAnimating = false
+                    self.brands = response.data ?? []
+                    self.filteredBrands = response.data ?? []
                 }
             )
             .store(in: &cancellables)

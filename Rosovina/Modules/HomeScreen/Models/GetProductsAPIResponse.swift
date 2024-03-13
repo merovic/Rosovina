@@ -10,7 +10,7 @@ import Foundation
 // MARK: - GetProductsAPIResponse
 struct GetProductsAPIResponse: Codable {
     let data: [Product]
-    let meta: Meta
+    let meta: Meta?
 }
 
 extension GetProductsAPIResponse: Equatable {}

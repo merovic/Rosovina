@@ -65,7 +65,7 @@ class ViewMoreView: UIViewController {
         viewModel!.$selectedCategory.sink { v in
             if v != nil{
                 let newViewController = GetProductsView()
-                newViewController.viewModel = GetProductsViewModel(productType: ((v?.isOccasion) != nil) ? .occation : .category, typeName: v?.title ?? "", typeID: v?.id ?? 0)
+                newViewController.viewModel = GetProductsViewModel(productType: v!.isBrand != nil ? .brand : v!.isOccasion != nil ? .occation : .category, typeName: v?.title ?? "", typeID: v?.id ?? 0)
                 self.navigationController?.pushViewController(newViewController, animated: true)
             }
         }.store(in: &bindings)
@@ -144,6 +144,7 @@ struct ViewMoreSwiftUIView: View {
                                     
                                     VStack(alignment: .leading){
                                         Text(product.title ?? "")
+                                            .lineLimit(1)
                                             .font(.poppinsFont(size: 10, weight: .regular))
                                             .foregroundColor(Color.black)
                                         HStack{
@@ -151,10 +152,10 @@ struct ViewMoreSwiftUIView: View {
                                                 Text((product.currencyCode ?? "SAR") + " " + String(product.price?.rounded() ?? 0))
                                                     .font(.poppinsFont(size: 14, weight: .bold))
                                                     .foregroundColor(Color.black)
-                                                Text((product.currencyCode ?? "SAR") + " " + String((product.discountAmount ?? 0)))
-                                                    .font(.poppinsFont(size: 8, weight: .medium))
-                                                    .foregroundColor(Color.gray)
-                                                    .strikethrough()
+//                                                Text((product.currencyCode ?? "SAR") + " " + String((product.discountAmount ?? 0)))
+//                                                    .font(.poppinsFont(size: 8, weight: .medium))
+//                                                    .foregroundColor(Color.gray)
+//                                                    .strikethrough()
                                                 
                                                 Spacer()
                                                 
@@ -162,6 +163,7 @@ struct ViewMoreSwiftUIView: View {
                                         }
                                     }
                                 }
+                                .frame(height: 180)
                                 .padding(10)
                                 .multilineTextAlignment(.center)
                                 .cardBackground()
