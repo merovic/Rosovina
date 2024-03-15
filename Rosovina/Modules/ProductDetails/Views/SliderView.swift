@@ -34,7 +34,7 @@ struct SliderSwiftUIView: View {
         VStack {
             TabView(selection: $currentPage) {
                 ForEach(0..<imageNames.count, id: \.self) { index in
-                    WebImage(url: URL(string:imageNames[index]))
+                    WebImage(url: URL(string:imageNames[index].addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))
                         .placeholder(Image("logo").resizable())
                         .resizable()
                         .indicator(.activity)

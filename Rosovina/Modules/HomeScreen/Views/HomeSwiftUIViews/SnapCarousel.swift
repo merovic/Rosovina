@@ -233,43 +233,15 @@ struct ImageCarouselView: View {
             TabView(selection: $currentIndex) {
                 ForEach(0..<data.count, id: \.self) { index in
                     ZStack(alignment: .leading){
-                        WebImage(url: URL(string: data[index].imagePath ?? ""))
+                        WebImage(url: URL(string: data[index].imagePath?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))
                           .resizable()
                           .indicator(.activity)
-                          .aspectRatio(contentMode: .fill)
-                          .frame(width: UIScreen.main.bounds.width - 50)
+                          .aspectRatio(contentMode: .fit)
+                          .frame(width: UIScreen.main.bounds.width - 30)
                           .superCardGrayBackground()
                           .onTapGesture {
                               self.selectedSliderImage = data[index]
                           }
-                        
-//                        VStack(alignment: .leading, spacing: 5){
-//                            Text(data[index].title ?? "")
-//                                .font(.poppinsFont(size: 14, weight: .medium))
-//                                .foregroundColor(Color("AccentColor"))
-//
-//                            HStack(alignment: .top, spacing: 0){
-//                                Text("60%")
-//                                    .font(.poppinsFont(size: 34, weight: .bold))
-//                                    .foregroundColor(Color("AccentColor"))
-//                                Text("Up to")
-//                                    .font(.poppinsFont(size: 10, weight: .medium))
-//                                    .foregroundColor(Color("AccentColor"))
-//                                    .padding(.top, 8)
-//                            }
-//
-//                            Button(action: {
-//                                // Action to perform when button is tapped
-//                            }) {
-//                                Text("Get Now")
-//                                    .frame(width: 115, height: 31)
-//                                    .font(.poppinsFont(size: 12, weight: .semibold))
-//                                    .foregroundColor(Color("AccentColor"))
-//                                    .background(Color.white)
-//                                    .cornerRadius(20)
-//                            }
-//
-//                        }.padding(.horizontal)
                     }
                 }
             }

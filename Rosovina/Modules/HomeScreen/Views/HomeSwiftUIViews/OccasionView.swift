@@ -62,7 +62,7 @@ struct OccasionsSwiftUIView: View {
 //                                        .frame(width: 61, height: 61)
                                 }
                                 
-                                WebImage(url: URL(string: occasions[index].imagePath ?? ""))
+                                WebImage(url: URL(string: occasions[index].imagePath?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))
                                     //.placeholder(Image("jacket").resizable())
                                     .resizable()
                                     .indicator(.activity)

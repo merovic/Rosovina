@@ -71,7 +71,7 @@ class ContactusView: UIViewController, MFMailComposeViewControllerDelegate {
     }
     
     @IBAction func whatsapp(_ sender: Any) {
-        let phoneNumber = "whatsapp://send?phone=966541939689‬"
+        let phoneNumber = "whatsapp://send?phone=+966541939689‬"
         if let urlString = phoneNumber.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed){
             if let whatsappURL = URL(string: urlString) {
                 if UIApplication.shared.canOpenURL(whatsappURL) {

@@ -142,7 +142,7 @@ class HomeViewController: UIViewController {
         viewModel.$selectedSliderImage.sink { v in
             if v != nil{
                 let newViewController = GetProductsView()
-                newViewController.viewModel = GetProductsViewModel(productType: .category, typeName: v!.title ?? "", typeID: v?.id ?? 0)
+                newViewController.viewModel = GetProductsViewModel(productType: .occation, typeName: v!.title ?? "", typeID: v?.occassionsID ?? 0)
                 self.navigationController?.pushViewController(newViewController, animated: true)
             }
         }.store(in: &bindings)
@@ -226,7 +226,7 @@ struct HomeSwiftUIView: View {
                         ProductsSwiftUIView(viewModel: viewModel, selectedProduct: $viewModel.selectedProduct, sectionName: section.title, products: section.data, viewMoreClicked: $viewModel.viewMoreProductsClicked, viewMoreItems: $viewModel.selectedViewMoreItems, selectedViewMoreType: $viewModel.selectedViewMoreType)
                     case .advertise:
                         // MARK: - Advertise
-                        WebImage(url: URL(string: section.data[0].imagePath ?? ""))
+                        WebImage(url: URL(string: section.data[0].imagePath?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))
                             .placeholder(Image("Banner 1").resizable())
                             .resizable()
                             .indicator(.activity)

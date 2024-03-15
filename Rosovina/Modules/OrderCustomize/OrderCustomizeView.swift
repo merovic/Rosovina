@@ -211,7 +211,7 @@ struct GiftCardItemSwiftUIView: View {
     var giftCard: GiftCard
     
     var body: some View {
-        WebImage(url: URL(string: giftCard.imagePath))
+        WebImage(url: URL(string: giftCard.imagePath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))
             //.placeholder(Image("flower5").resizable())
             .resizable()
             .indicator(.activity)

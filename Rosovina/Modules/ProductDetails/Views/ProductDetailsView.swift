@@ -248,7 +248,7 @@ class ProductDetailsView: UIViewController {
                 
                 self.imageOne.makeRounded()
                 
-                self.mainImage.sd_setImage(with: URL(string: self.viewModel?.productDetails?.imageURL ?? ""))
+                self.mainImage.sd_setImage(with: URL(string: self.viewModel?.productDetails?.imageURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))
             })
             .store(in: &bindings)
         
@@ -260,7 +260,7 @@ class ProductDetailsView: UIViewController {
                 
                 self.imageTwo.makeRounded()
                 
-                self.mainImage.sd_setImage(with: URL(string: self.viewModel?.productDetails?.images[0] ?? ""))
+                self.mainImage.sd_setImage(with: URL(string: self.viewModel?.productDetails?.images[0].addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))
             })
             .store(in: &bindings)
         
@@ -272,7 +272,7 @@ class ProductDetailsView: UIViewController {
                 
                 self.imageThree.makeRounded()
                 
-                self.mainImage.sd_setImage(with: URL(string: self.viewModel?.productDetails?.images[1] ?? ""))
+                self.mainImage.sd_setImage(with: URL(string: self.viewModel?.productDetails?.images[1].addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))
             })
             .store(in: &bindings)
         
@@ -320,16 +320,16 @@ class ProductDetailsView: UIViewController {
         
         viewModel?.$productDetails.sink { product in
             if product != nil{
-                self.mainImage.sd_setImage(with: URL(string: product!.imageURL), placeholderImage: UIImage(named: "placeholder.png"))
+                self.mainImage.sd_setImage(with: URL(string: product!.imageURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""), placeholderImage: UIImage(named: "placeholder.png"))
                 
                 self.imageThree.isHidden = !(product!.images.count == 2)
                 
-                self.imageOne.sd_setImage(with: URL(string: product!.imageURL), placeholderImage: UIImage(named: "placeholder.png"))
+                self.imageOne.sd_setImage(with: URL(string: product!.imageURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""), placeholderImage: UIImage(named: "placeholder.png"))
                 
                 if !product!.images.isEmpty{
-                    self.imageTwo.sd_setImage(with: URL(string: product!.images[0]), placeholderImage: UIImage(named: "placeholder.png"))
+                    self.imageTwo.sd_setImage(with: URL(string: product!.images[0].addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""), placeholderImage: UIImage(named: "placeholder.png"))
                     if product!.images.count > 1 {
-                        self.imageThree.sd_setImage(with: URL(string: product!.images[1]), placeholderImage: UIImage(named: "placeholder.png"))
+                        self.imageThree.sd_setImage(with: URL(string: product!.images[1].addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""), placeholderImage: UIImage(named: "placeholder.png"))
                     } else{
                         self.imageTwo.isHidden = true
                     }
@@ -341,7 +341,7 @@ class ProductDetailsView: UIViewController {
                 self.titleLabel.text = product!.title
                 self.priceLabel.text = (product!.currencyCode ?? "SAR") + " " + String(product!.price.rounded())
                 
-                self.informationTextView.text = product!.description
+                self.informationTextView.text = product!.description.removePTags()
                 //heart
                 self.addToWishListButton.setImage(UIImage(systemName: product!.addedToWishlist ?? false ? "heart.fill" : "heart"), for: .normal)
             }

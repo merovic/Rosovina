@@ -112,7 +112,7 @@ struct CategoryProductItem: View {
     
     var body: some View {
         VStack {
-            WebImage(url: URL(string: product.imagePath))
+            WebImage(url: URL(string: product.imagePath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))
                 .placeholder(Image("logo").resizable())
                 .resizable()
                 .indicator(.activity)

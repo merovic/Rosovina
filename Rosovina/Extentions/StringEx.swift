@@ -69,3 +69,23 @@ public extension String {
         return htmlToAttributedString?.string ?? ""
     }
 }
+
+public extension String {
+    func removePTags() -> String {
+        // Define the regular expression pattern
+        let pattern = "<\\/?p[^>]*>"
+        
+        do {
+            // Create a regular expression object
+            let regex = try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
+            
+            // Replace matches with an empty string
+            let modifiedString = regex.stringByReplacingMatches(in: self, options: [], range: NSRange(location: 0, length: self.utf16.count), withTemplate: "")
+            
+            return modifiedString
+        } catch {
+            print("Error creating regular expression: \(error)")
+            return self // Return the original string if an error occurs
+        }
+    }
+}

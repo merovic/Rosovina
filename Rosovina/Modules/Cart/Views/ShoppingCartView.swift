@@ -205,7 +205,7 @@ struct ShoppingCartItemSwiftUIView: View {
     
     var body: some View {
         HStack {
-            WebImage(url: URL(string: cartItem.productImage))
+            WebImage(url: URL(string: cartItem.productImage.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))
                 .placeholder(Image("logo").resizable())
                 .resizable()
                 .indicator(.activity)

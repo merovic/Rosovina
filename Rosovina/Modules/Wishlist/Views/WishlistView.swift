@@ -105,7 +105,7 @@ struct WishlistProductItem: View {
     var body: some View {
         VStack {
             ZStack(alignment: .topTrailing){
-                WebImage(url: URL(string: product.productImage))
+                WebImage(url: URL(string: product.productImage.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))
                     .placeholder(Image("logo").resizable())
                     .resizable()
                     .indicator(.activity)

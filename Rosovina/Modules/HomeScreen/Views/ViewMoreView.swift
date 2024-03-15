@@ -96,7 +96,7 @@ struct ViewMoreSwiftUIView: View {
                                                 .frame(width: 100, height: 100)
                                         }
                                         
-                                        WebImage(url: URL(string: item.imagePath ?? ""))
+                                        WebImage(url: URL(string: item.imagePath?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))
                                             .resizable()
                                             .indicator(.activity)
                                             .scaledToFit()
@@ -134,7 +134,7 @@ struct ViewMoreSwiftUIView: View {
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))], spacing: 10) {
                             ForEach(self.viewModel.viewMoreItems) { product in
                                 VStack {
-                                    WebImage(url: URL(string: product.imagePath ?? ""))
+                                    WebImage(url: URL(string: product.imagePath?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))
                                         .placeholder(Image("logo").resizable())
                                         .resizable()
                                         .indicator(.activity)

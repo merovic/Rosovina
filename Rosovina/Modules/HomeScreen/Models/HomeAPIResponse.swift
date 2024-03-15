@@ -79,6 +79,7 @@ struct DynamicHomeModel: Codable, Identifiable {
     let discountAmount: Int?
     let isReadyForSale: Int?
     let isReadyForSaleText: String?
+    let occassionsID: Int?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -105,6 +106,7 @@ struct DynamicHomeModel: Codable, Identifiable {
         case discountPercentage = "discount_percentage"
         case isReadyForSale = "is_ready_for_sale"
         case isReadyForSaleText = "is_ready_for_sale_text"
+        case occassionsID = "occassionsid"
     }
 }
 

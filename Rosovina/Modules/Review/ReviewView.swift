@@ -142,7 +142,7 @@ class ReviewView: UIViewController {
             .assign(to: \.commentValue, on: viewModel!)
             .store(in: &bindings)
         
-        self.productImage.sd_setImage(with: URL(string: self.viewModel?.productImage ?? ""), placeholderImage: UIImage(named: "flower5.png"))
+        self.productImage.sd_setImage(with: URL(string: self.viewModel?.productImage.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""), placeholderImage: UIImage(named: "flower5.png"))
         self.productName.text = self.viewModel?.productName
         
         startOneGest.tapPublisher
