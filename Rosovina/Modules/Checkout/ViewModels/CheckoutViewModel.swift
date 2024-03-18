@@ -51,6 +51,8 @@ class CheckoutViewModel: ObservableObject {
     
     @Published var orderConfirmed = false
     
+    @Published var unauthenticated = false
+    
     @Published var errorMessage = ""
                                         
     @Published var isAnimating = false
@@ -114,6 +116,7 @@ class CheckoutViewModel: ObservableObject {
                         print("Publisher stopped observing")
                     case .failure(_):
                         self.isAnimating = false
+                        self.unauthenticated = true
                     }
                 },
                 receiveValue: { response in
@@ -182,7 +185,7 @@ class CheckoutViewModel: ObservableObject {
 
 
 enum PaymentMethod: Identifiable {
-    case cash, visa
+    case cash, visa, applePay, tamara
     var id: Int {
         self.hashValue
     }

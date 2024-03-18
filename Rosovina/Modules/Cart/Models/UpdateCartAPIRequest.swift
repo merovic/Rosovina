@@ -12,6 +12,7 @@ import UIKit
 struct UpdateCartAPIRequest: Codable {
     let addressID: Int?
     let deviceToken: String
+    let cityID: Int = LoginDataService.shared.getUserCity().id
     let promoCodeID: Int?
     let receiverName: String?
     let receiverPhone: String?
@@ -35,6 +36,7 @@ struct UpdateCartAPIRequest: Codable {
             case receiverName = "receiver_name"
             case receiverPhone = "receiver_phone"
             case customize, items
+            case cityID = "city_id"
         }
 }
 

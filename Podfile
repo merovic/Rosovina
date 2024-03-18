@@ -28,6 +28,7 @@ target 'Rosovina' do
   pod 'SwiftyCodeView'
   pod "WARangeSlider"
   pod 'MyFatoorah'
+  pod 'TamaraSDK'
 
 post_install do |installer|
     installer.generated_projects.each do |project|

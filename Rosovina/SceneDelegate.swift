@@ -29,6 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window?.rootViewController = nav1
             window?.makeKeyAndVisible()
         }
+ 
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -62,3 +63,110 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 }
 
+
+class ForceUpdateAppVersion {
+    class func isForceUpdateRequire(apiVersion:Int) -> Bool {
+        
+        func update() {
+            UserDefaults.standard.set(apiVersion, forKey: "ApiVersion")
+        }
+        
+        func appUpdateAvailable() -> Bool{
+            
+            guard let info = Bundle.main.infoDictionary,
+                let identifier = info["CFBundleIdentifier"] as? String else {
+                    return false
+            }
+            
+            let storeInfoURL: String = "http://itunes.apple.com/lookup?bundleId=\(identifier)&country=eg"
+            var upgradeAvailable = false
+            // Get the main bundle of the app so that we can determine the app's version number
+            let bundle = Bundle.main
+            if let infoDictionary = bundle.infoDictionary {
+                // The URL for this app on the iTunes store uses the Apple ID for the  This never changes, so it is a constant
+                let urlOnAppStore = NSURL(string: storeInfoURL)
+                if let dataInJSON = NSData(contentsOf: urlOnAppStore! as URL) {
+                    // Try to deserialize the JSON that we got
+                    if let dict: NSDictionary = try? JSONSerialization.jsonObject(with: dataInJSON as Data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: AnyObject] as NSDictionary? {
+                        if let results:NSArray = dict["results"] as? NSArray {
+                            if let version = (results[0] as! [String:Any])["version"] as? String {
+                                // Get the version number of the current version installed on device
+                                if let currentVersion = infoDictionary["CFBundleShortVersionString"] as? String {
+                                    
+                                    var cleanedValue = ""
+                                    var foundDecimalPoint = false
+                                    
+                                    for char in version {
+                                        if char == "." && !foundDecimalPoint {
+                                            cleanedValue.append(char)
+                                            foundDecimalPoint = true
+                                        } else if char.isNumber {
+                                            cleanedValue.append(char)
+                                        }
+                                    }
+                                    
+                                    var cleanedValue2 = ""
+                                    var foundDecimalPoint2 = false
+                                    
+                                    for char in currentVersion {
+                                        if char == "." && !foundDecimalPoint2 {
+                                            cleanedValue2.append(char)
+                                            foundDecimalPoint2 = true
+                                        } else if char.isNumber {
+                                            cleanedValue2.append(char)
+                                        }
+                                    }
+                                    
+                                    if Double(cleanedValue)! > Double(cleanedValue2)! {
+                                        upgradeAvailable = true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return upgradeAvailable
+        }
+
+        let isUpdateRequireed = appUpdateAvailable()
+        let apiVersionLocal = UserDefaults.standard.integer(forKey: "ApiVersion")
+        guard apiVersionLocal != 0 else {
+            update()
+            return false
+        }
+        
+        if isUpdateRequireed {
+            return true
+        } else {
+            update()
+            return false
+        }
+        
+    }
+    
+}
+
+
+extension Bundle {
+    public var appName: String           { getInfo("CFBundleName")  }
+    public var displayName: String       { getInfo("CFBundleDisplayName")}
+    public var language: String          { getInfo("CFBundleDevelopmentRegion")}
+    public var identifier: String        { getInfo("CFBundleIdentifier")}
+    public var copyright: String         { getInfo("NSHumanReadableCopyright").replacingOccurrences(of: "\\\\n", with: "\n") }
+    
+    public var appBuild: String          { getInfo("CFBundleVersion") }
+    public var appVersionLong: String    { getInfo("CFBundleShortVersionString") }
+    //public var appVersionShort: String { getInfo("CFBundleShortVersion") }
+    
+    fileprivate func getInfo(_ str: String) -> String { infoDictionary?[str] as? String ?? "⚠️" }
+}
+
+extension Bundle {
+    var releaseVersionNumber: String? {
+        return infoDictionary?["CFBundleShortVersionString"] as? String
+    }
+    var buildVersionNumber: String? {
+        return infoDictionary?["CFBundleVersion"] as? String
+    }
+}

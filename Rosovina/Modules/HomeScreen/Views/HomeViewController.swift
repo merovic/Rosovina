@@ -61,6 +61,36 @@ class HomeViewController: UIViewController {
         BindViews()
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleFavoriteStatusChanged(_:)), name: .favoriteStatusChanged, object: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
+            self.checkAppVersion()
+        }
+    }
+    
+    func checkAppVersion(){
+        if ForceUpdateAppVersion.isForceUpdateRequire(apiVersion: Int(Bundle.main.appBuild)!){
+            let alert = UIAlertController(title: "Your app is outdated", message: "Please download the latest version of our app first", preferredStyle: .alert)
+            
+            let updateAction = UIAlertAction(title: "Update", style: UIAlertAction.Style.default) {
+                UIAlertAction in
+                if let url = URL(string: "https://apps.apple.com/sa/app/rosovina/id6476466670") {
+                    UIApplication.shared.open(url)
+                }
+            }
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    
+            alert.addAction(updateAction)
+            alert.addAction(cancelAction)
+            
+            if let popoverController = alert.popoverPresentationController {
+                popoverController.sourceView = self.view
+                popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                popoverController.permittedArrowDirections = []
+            }
+            
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     @objc func handleFavoriteStatusChanged(_ notification: Notification) {
@@ -243,6 +273,8 @@ struct HomeSwiftUIView: View {
                 
                 Spacer()
             }
+        }.refreshable {
+            self.viewModel.home()
         }
     }
 }

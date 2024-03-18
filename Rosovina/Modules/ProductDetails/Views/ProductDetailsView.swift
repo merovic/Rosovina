@@ -341,7 +341,7 @@ class ProductDetailsView: UIViewController {
                 self.titleLabel.text = product!.title
                 self.priceLabel.text = (product!.currencyCode ?? "SAR") + " " + String(product!.price.rounded())
                 
-                self.informationTextView.text = product!.description.removePTags()
+                self.informationTextView.text = product!.description.removeHTMLTags()
                 //heart
                 self.addToWishListButton.setImage(UIImage(systemName: product!.addedToWishlist ?? false ? "heart.fill" : "heart"), for: .normal)
             }

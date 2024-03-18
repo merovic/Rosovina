@@ -57,12 +57,35 @@ extension UIView{
         self.layer.borderColor = #colorLiteral(red: 0.8107264638, green: 0.8107264638, blue: 0.8107264638, alpha: 1)
     }
     
+    func roundedWhiteHareefView(){
+        self.layer.masksToBounds = false
+        self.layer.cornerRadius = 10
+        self.layer.borderWidth = 1.5
+        self.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    }
+    
     func roundedExtraHareefView(){
         self.layer.masksToBounds = false
         self.layer.backgroundColor = UIColor.clear.cgColor
         self.layer.cornerRadius = 12
         self.layer.borderWidth = 1.5
         self.layer.borderColor = #colorLiteral(red: 0.1897802949, green: 0.6920717359, blue: 0.7039652467, alpha: 1)
+    }
+    
+    func roundedRosovinaLight(){
+        self.layer.masksToBounds = false
+        self.backgroundColor = UIColor.init(named: "LightGray")
+        self.layer.cornerRadius = 10
+        self.layer.borderWidth = 1.5
+        self.layer.borderColor = UIColor.clear.cgColor
+    }
+    
+    func roundedRosovinaDark(){
+        self.layer.masksToBounds = false
+        self.backgroundColor = UIColor.init(named: "OnionColor")
+        self.layer.cornerRadius = 10
+        self.layer.borderWidth = 1.5
+        self.layer.borderColor = #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1)
     }
     
     func rounded(){

@@ -10,6 +10,8 @@ import SwiftUI
 import Combine
 import CombineCocoa
 import MFSDK
+import PassKit
+import TamaraSDK
 
 class CheckoutView: UIViewController {
     
@@ -78,6 +80,18 @@ class CheckoutView: UIViewController {
         return gest
     }()
     
+    var applePayGest: UITapGestureRecognizer = {
+        let gest = UITapGestureRecognizer()
+        gest.numberOfTapsRequired = 1
+        return gest
+    }()
+    
+    var tamaraGest: UITapGestureRecognizer = {
+        let gest = UITapGestureRecognizer()
+        gest.numberOfTapsRequired = 1
+        return gest
+    }()
+    
     
     @IBOutlet weak var deliveryDateView: UIView! {
         didSet {
@@ -97,6 +111,20 @@ class CheckoutView: UIViewController {
         didSet {
             creditCardView.rounded()
             creditCardView.addGestureRecognizer(creditCardGest)
+        }
+    }
+    
+    @IBOutlet weak var applePayView: UIView! {
+        didSet {
+            applePayView.rounded()
+            applePayView.addGestureRecognizer(applePayGest)
+        }
+    }
+    
+    @IBOutlet weak var tamaraView: UIView! {
+        didSet {
+            tamaraView.roundedLightGrayHareefView()
+            tamaraView.addGestureRecognizer(tamaraGest)
         }
     }
     
@@ -125,7 +153,8 @@ class CheckoutView: UIViewController {
     }
     
     var datePicker: UIDatePicker?
-    var applePayButtonC = MFApplePayButton()
+    var tamaraSDK: TamaraSDKCheckout!
+    var response: TamaraInitResponse?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -183,6 +212,14 @@ class CheckoutView: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             }
             .store(in: &bindings)
+        
+        viewModel!.$unauthenticated.sink { state in
+            if state {
+                LoginDataService.shared.setLogout()
+                let newViewController = LoginView()
+                self.navigationController?.pushViewController(newViewController, animated: true)
+            }
+        }.store(in: &bindings)
         
         datePicker?.datePublisher
             .sink { date in
@@ -291,6 +328,18 @@ class CheckoutView: UIViewController {
             })
             .store(in: &bindings)
         
+        applePayGest.tapPublisher
+            .sink(receiveValue:{_ in
+                self.viewModel?.paymentMethodID = .applePay
+            })
+            .store(in: &bindings)
+        
+        tamaraGest.tapPublisher
+            .sink(receiveValue:{_ in
+                self.viewModel?.paymentMethodID = .tamara
+            })
+            .store(in: &bindings)
+        
         payButton.tapPublisher
             .sink { _ in
                 if self.customSwitch.isOn {
@@ -349,11 +398,19 @@ class CheckoutView: UIViewController {
         
         viewModel!.$orderCreatedID.sink { response in
             if response != 0 {
-                if self.viewModel?.paymentMethodID == .cash {
+                switch self.viewModel?.paymentMethodID {
+                case .cash:
                     self.viewModel?.confirmOrder(orderID: response, paymentReference: String(response))
-                }else{
-                    self.initiateSDK()
+                case .visa:
+                    self.initiateMyFatoorahSDK()
+                case .applePay:
+                    self.initiateApplePay()
+                case .tamara:
+                    self.initiateTamaraSDK()
+                default:
+                    print("")
                 }
+                
             }
         }.store(in: &bindings)
         
@@ -366,13 +423,29 @@ class CheckoutView: UIViewController {
         }.store(in: &bindings)
         
         viewModel!.$paymentMethodID.sink { paymentMethod in
-            if paymentMethod == .cash{
-                self.codView.backgroundColor = UIColor.init(named: "OnionColor")
+            switch paymentMethod {
+            case .cash:
+                self.codView.roundedLightGrayHareefView()
                 self.creditCardView.backgroundColor = UIColor.init(named: "LightGray")
-            }else{
-                self.creditCardView.backgroundColor = UIColor.init(named: "OnionColor")
+                self.applePayView.roundedLightGrayHareefView()
+                self.tamaraView.rounded()
+            case .visa:
+                self.creditCardView.roundedBlackHareefView()
                 self.codView.backgroundColor = UIColor.init(named: "LightGray")
+                self.applePayView.roundedLightGrayHareefView()
+                self.tamaraView.roundedLightGrayHareefView()
+            case .applePay:
+                self.creditCardView.roundedLightGrayHareefView()
+                self.codView.backgroundColor = UIColor.init(named: "LightGray")
+                self.applePayView.roundedBlackHareefView()
+                self.tamaraView.roundedLightGrayHareefView()
+            case .tamara:
+                self.creditCardView.roundedLightGrayHareefView()
+                self.codView.backgroundColor = UIColor.init(named: "LightGray")
+                self.applePayView.roundedLightGrayHareefView()
+                self.tamaraView.roundedBlackHareefView()
             }
+            
         }.store(in: &bindings)
         
     }
@@ -399,8 +472,7 @@ class CheckoutView: UIViewController {
 }
 
 extension CheckoutView{
-    func initiateSDK(){
-        
+    func initiateMyFatoorahSDK(){
         let initiatePayment = MFInitiatePaymentRequest(invoiceAmount: Decimal(viewModel!.invoiceValue), currencyIso: .saudiArabia_SAR)
         
         MFPaymentRequest.shared.initiatePayment(request: initiatePayment, apiLanguage: .english) { [weak self] (response) in
@@ -441,6 +513,136 @@ extension CheckoutView{
             }
         }
 
+    }
+}
+
+extension CheckoutView: TamaraCheckoutDelegate {
+    
+    func initiateTamaraSDK(){
+        let API_URL = "https://api-sandbox.tamara.co"
+        let AUTH_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhY2NvdW50SWQiOiJkMDcxZjFkOC1lMGJhLTQ4MzctYmRjOS01Zjc3MmIzZmJhMDMiLCJ0eXBlIjoibWVyY2hhbnQiLCJzYWx0IjoiYWU0NmNkYjZiMGY1MzAyNDdkN2VhOWNjMTlkZjZiMjUiLCJyb2xlcyI6WyJST0xFX01FUkNIQU5UIl0sImlhdCI6MTcwOTU0MjEyNCwiaXNzIjoiVGFtYXJhIn0.hKehcSvMM1E-rKzipu2s5ohPlIj51UksPvu7Br_fQh84IAS1MziBM4yY-HS7g81c-WUB25DdCNte-2QW671s0sFv5uCgCOEGzvXCkn1A547WIZKJutjNqk_bbqR-91_ZW0E6IZp_y9SuyZq5xCMOLXk2oYkozihNpH8HlEq6Iie9fEqeuTKcJnSHdrs_kwnWdgcCIaJP24-gAIQzVYlPtzL3JohwLD3YcmMA-Fol6dcvDey6DH5xfaEzj8qFSNDF51zM7uiEH6wXC1wmw3Geb_FYKlnOQygxZbtGE1Z52y3VEFE1mdLBoQTDZq7OFUoQM2aD5U1kruKMF09PKv-WRg"
+        let NOTIFICATION_WEB_HOOK_URL = "https://pro.rosovina.com/public/api/payment/tamara/webhook/q8DLKT8Bt3Yd1uDH52ej360?payment_method_id=3"
+        let PUBLISH_KEY = "9fd3e4dc-d3a1-4226-ac14-1b8d7c58c37d"
+        let NOTIFICATION_TOKEN = "1e16086f-05fe-443a-85d4-92748bad4267"
+        
+        let tamaraOrder = TamaraSDKPayment()
+        
+        tamaraOrder.initialize(token: AUTH_TOKEN, apiUrl: API_URL, pushUrl: NOTIFICATION_WEB_HOOK_URL, publishKey: PUBLISH_KEY, notificationToken: NOTIFICATION_TOKEN, isSandbox: true)
+        
+        tamaraOrder.createOrder(orderReferenceId: String(self.viewModel!.cartResponse.id), description: self.viewModel!.cartResponse.items[0].productName)
+        
+        let userFirstName = String(LoginDataService.shared.getFullName().split(separator: " ")[0])
+        
+        let userLastName = LoginDataService.shared.getFullName().split(separator: " ").count > 1 ? String(LoginDataService.shared.getFullName().split(separator: " ")[1]) : ""
+        
+        tamaraOrder.setCustomerInfo(firstName: userFirstName, lastName: userLastName, phoneNumber: LoginDataService.shared.getMobileNumber(), email: LoginDataService.shared.getEmail())
+        
+        for item in self.viewModel!.cartResponse.items {
+            tamaraOrder.addItem(name: item.productName, referenceId: item.id, sku: item.sku ?? "", type: "Rosovina Product", unitPrice: Double(item.unitPrice), tax: Double(item.taxAmount), discount: Double(item.discountAmount), quantity: Int(item.quantity) ?? 1)
+        }
+        
+        tamaraOrder.setShippingAddress(firstName: userFirstName, lastName: userLastName, phoneNumber: LoginDataService.shared.getMobileNumber(), addressLine1: self.viewModel!.cartResponse.address?.name ?? "", addressLine2: self.viewModel!.cartResponse.address?.name ?? "", country: "SA", region: self.viewModel!.cartResponse.address?.areaName ?? "", city: LoginDataService.shared.getUserCity().name)
+        tamaraOrder.setBillingAddress(firstName: userFirstName, lastName: userLastName, phoneNumber: LoginDataService.shared.getMobileNumber(), addressLine1: self.viewModel!.cartResponse.address?.name ?? "", addressLine2: self.viewModel!.cartResponse.address?.name ?? "", country: "SA", region: self.viewModel!.cartResponse.address?.areaName ?? "", city: LoginDataService.shared.getUserCity().name)
+        tamaraOrder.setShippingAmount(amount: 10)
+        tamaraOrder.setInstalments(instalments: 4)
+        
+        tamaraOrder.startPayment { (completion) in
+            switch completion {
+            case .success(let success):
+                guard let orderID = success.dictionary?["order_id"] as? String,
+                      let checkoutURL = success.dictionary?["checkout_url"] as? String else {
+                    fatalError("Invalid dictionary format")
+                }
+
+                self.response = TamaraInitResponse(order_id: orderID, checkout_url: checkoutURL)
+                print(self.response!)
+                self.TamaraSDKCheckout(response: self.response!)
+                
+//                tamaraOrder.orderDetail(orderId: response.order_id) { (completion) in
+//                    switch completion {
+//                    case .success(let details):
+//                        print(details.convertToJson())
+//                    case .failure(let error):
+//                        print(error)
+//                    }
+//                }
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
+    }
+    
+    func TamaraSDKCheckout(response: TamaraInitResponse){
+        let merchantUrl = TamaraMerchantURL(
+            success: "tamara://checkout/success",
+            failure: "tamara://checkout/failure",
+            cancel: "tamara://checkout/cancel",
+            notification: "tamara://checkout/notification"
+        )
+        
+        tamaraSDK = TamaraSDK.TamaraSDKCheckout(url: response.checkout_url, merchantURL: merchantUrl)
+        tamaraSDK.delegate = self
+        tamaraSDK.modalPresentationStyle = .fullScreen
+        self.present(tamaraSDK, animated: true, completion: nil)
+    }
+    
+    func onSuccessfull() {
+        tamaraSDK.dismiss(animated: true) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                self.viewModel!.confirmOrder(orderID: self.viewModel!.orderCreatedID, paymentReference: self.response!.order_id)
+            }
+        }
+    }
+    
+    func onFailured() {
+        tamaraSDK.dismiss(animated: true) {
+            Alert.show("Order Failed", message: "Payment Error, Please try again", context: self)
+        }
+    }
+    
+    func onCancel() {
+        tamaraSDK.dismiss(animated: true) {
+            Alert.show("Order Failed", message: "Order Cancelled", context: self)
+        }
+    }
+}
+
+extension CheckoutView: PKPaymentAuthorizationViewControllerDelegate {
+    func initiateApplePay(){
+        let paymentRequest: PKPaymentRequest = {
+            let request = PKPaymentRequest()
+            request.merchantIdentifier = "merchant.com.rosovina"
+            request.supportedNetworks = [.masterCard, .visa, .mada]
+            request.supportedCountries = ["SA", "EG"]
+            request.merchantCapabilities = .capability3DS
+            request.countryCode = "SA"
+            request.currencyCode = "SAR"
+             for item in self.viewModel!.cartResponse.items {
+                 request.paymentSummaryItems.append(PKPaymentSummaryItem(label: item.productName, amount: NSDecimalNumber(value: item.total)))
+             }
+            return request
+        }()
+        
+        let controller = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest)
+        if let controller = controller {
+            controller.delegate = self
+            present(controller, animated: true, completion: nil)
+        }
+    }
+    
+    func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController){
+            controller.dismiss(animated: true, completion: nil)
+        }
+
+    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
+        let transactionID = payment.token.transactionIdentifier
+        print("Transaction ID: \(transactionID)")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            self.viewModel!.confirmOrder(orderID: self.viewModel!.orderCreatedID, paymentReference: transactionID)
+        }
+        completion(PKPaymentAuthorizationResult(status: .success, errors: nil))
     }
 }
 
