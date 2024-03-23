@@ -51,6 +51,7 @@ enum APIRouter: URLRequestConvertible {
     case createOrder(request: CreateOrderAPIRequest)
     case confirmOrder(request: ConfirmOrderAPIRequest)
     case getSlots(date: String)
+    case getPaymentMethods
     
     // MARK: - ProfileModule
     case myOrders
@@ -74,7 +75,7 @@ enum APIRouter: URLRequestConvertible {
             return nil
         case .product_details, .removeAddress, .myOrderDetails:
             return .pathParam
-        case .getCities, .getAreas, .getCategories, .getSlots:
+        case .getCities, .getAreas, .getCategories, .getSlots, .getPaymentMethods:
             return .queryParam
         }
     }
@@ -82,7 +83,7 @@ enum APIRouter: URLRequestConvertible {
     // MARK: - contentType
     private var contentType: String {
         switch self {
-        case .login, .register, .otp_send, .otp_check, .reset_password, .check_phone, .generate_token, .logout, .home, .product_details, .getCart, .updateCart, .getWishlist, .addToWishList, .removeFromWishList, .getProducts, .addAddress, .updateAddress, .removeAddress, .getUserAddresses, .getCountries, .getCities, .getAreas, .createOrder, .myOrders, .myOrderDetails, .notifications, .getGiftCards, .checkPromoCode, .deleteAccount, .getCategories, .addReview, .confirmOrder, .getSlots, .getUserWallet, .getUserTransactions, .getBrands:
+        case .login, .register, .otp_send, .otp_check, .reset_password, .check_phone, .generate_token, .logout, .home, .product_details, .getCart, .updateCart, .getWishlist, .addToWishList, .removeFromWishList, .getProducts, .addAddress, .updateAddress, .removeAddress, .getUserAddresses, .getCountries, .getCities, .getAreas, .createOrder, .myOrders, .myOrderDetails, .notifications, .getGiftCards, .checkPromoCode, .deleteAccount, .getCategories, .addReview, .confirmOrder, .getSlots, .getUserWallet, .getUserTransactions, .getBrands, .getPaymentMethods:
             return "application/json"
         case .updateAccount:
             return "multipart/form-data"
@@ -94,7 +95,7 @@ enum APIRouter: URLRequestConvertible {
         switch self {
         case .home, .login,.register,.otp_send, .otp_check,.reset_password,.check_phone,.generate_token, .product_details, .getCart, .updateCart, .getWishlist, .addToWishList, .removeFromWishList, .getProducts, .addAddress, .updateAddress, .removeAddress, .createOrder, .notifications, .updateAccount, .checkPromoCode, .deleteAccount, .addReview, .confirmOrder, .getSlots:
             return .post
-        case .logout, .getUserAddresses, .getCountries, .getCities, .getAreas, .myOrders, .myOrderDetails, .getGiftCards, .getCategories, .getUserWallet, .getUserTransactions, .getBrands:
+        case .logout, .getUserAddresses, .getCountries, .getCities, .getAreas, .myOrders, .myOrderDetails, .getGiftCards, .getCategories, .getUserWallet, .getUserTransactions, .getBrands, .getPaymentMethods:
             return .get
         }
     }
@@ -102,7 +103,7 @@ enum APIRouter: URLRequestConvertible {
     // MARK: - EndPoint
     private var endpoint: String {
         switch self {
-        case .login,.register,.otp_send, .otp_check,.reset_password,.check_phone,.generate_token, .logout, .home, .product_details, .getCart, .updateCart, .getWishlist, .addToWishList, .removeFromWishList, .getProducts, .addAddress, .updateAddress, .removeAddress, .getUserAddresses, .getCountries, .getCities, .getAreas, .createOrder, .myOrders, .myOrderDetails, .notifications, .updateAccount, .getGiftCards, .checkPromoCode, .deleteAccount, .getCategories, .addReview, .confirmOrder, .getSlots, .getUserWallet, .getUserTransactions, .getBrands:
+        case .login,.register,.otp_send, .otp_check,.reset_password,.check_phone,.generate_token, .logout, .home, .product_details, .getCart, .updateCart, .getWishlist, .addToWishList, .removeFromWishList, .getProducts, .addAddress, .updateAddress, .removeAddress, .getUserAddresses, .getCountries, .getCities, .getAreas, .createOrder, .myOrders, .myOrderDetails, .notifications, .updateAccount, .getGiftCards, .checkPromoCode, .deleteAccount, .getCategories, .addReview, .confirmOrder, .getSlots, .getUserWallet, .getUserTransactions, .getBrands, .getPaymentMethods:
             return RemoteServers.ProductionServer.baseURL
         }
     }
@@ -186,6 +187,8 @@ enum APIRouter: URLRequestConvertible {
             return "/wallet/get-user-transactions"
         case .getBrands:
             return "/brand"
+        case .getPaymentMethods:
+            return "/payment/payment-method"
         }
     }
     
@@ -268,6 +271,8 @@ enum APIRouter: URLRequestConvertible {
             return nil
         case .getBrands:
             return nil
+        case .getPaymentMethods:
+            return ["platform": "ios"]
         }
     }
     

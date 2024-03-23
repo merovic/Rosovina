@@ -20,6 +20,8 @@ class VerificationViewController: UIViewController {
 
     @IBOutlet weak var backButton: UIButton!
     
+    @IBOutlet weak var pleaseText: UILabel!
+    
     @IBOutlet weak var phoneNumberText: UILabel!
     
     @IBOutlet weak var otpView: CustomCodeView!
@@ -53,11 +55,25 @@ class VerificationViewController: UIViewController {
             .assign(to: \.isVisible, on: loadingView)
             .store(in: &bindings)
         
-        phoneNumberText.text = "We texted you on " + viewModel.phoneText
+        if viewModel.isResetByEmail ?? false {
+            pleaseText.text = "Please verify your email address"
+            phoneNumberText.text = "We texted you on " + viewModel.emailText
+        }else{
+            pleaseText.text = "Please verify your mobile number"
+            phoneNumberText.text = "We texted you on " + viewModel.phoneText
+        }
         
         continueButton.tapPublisher
             .sink { _ in
-                self.viewModel.otpCheck()
+                if self.viewModel.isResetPassword {
+                    if self.viewModel.isResetByEmail ?? false{
+                        self.viewModel.emailOTPCheck()
+                    }else{
+                        self.viewModel.otpCheck()
+                    }
+                }else{
+                    self.viewModel.otpCheck()
+                }
             }
             .store(in: &bindings)
         
@@ -69,7 +85,11 @@ class VerificationViewController: UIViewController {
         
         resendButton.tapPublisher
             .sink { _ in
-                self.viewModel.sendOTP()
+                if self.viewModel.isResetByEmail ?? false {
+                    self.viewModel.retriveToken()
+                }else{
+                    self.viewModel.sendOTP()
+                }
                 self.startCountdown()
             }
             .store(in: &bindings)
@@ -77,7 +97,7 @@ class VerificationViewController: UIViewController {
         viewModel.$forgetPasswordStatus.sink { v in
             if v == .success{
                 let newViewController = ForgetPasswordView()
-                newViewController.viewModel = CreatePasswordViewModel(phoneText: self.viewModel.phoneText)
+                newViewController.viewModel = CreatePasswordViewModel(phoneText: self.viewModel.checkForPhone(phone: self.viewModel.phoneText, code: self.viewModel.phoneCode), emailText: self.viewModel.emailText, token: self.viewModel.tokenResponse?.token)
                 self.navigationController?.pushViewController(newViewController, animated: true)
             }else if v == .failed{
                 Alert.show("Forget Password Error", message: self.viewModel.errorMessage, context: self)

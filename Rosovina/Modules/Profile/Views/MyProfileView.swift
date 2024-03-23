@@ -153,7 +153,7 @@ class MyProfileView: UIViewController {
         changePassGest.tapPublisher
             .sink(receiveValue:{_ in
                 let newViewController = ForgetPasswordView()
-                newViewController.viewModel = CreatePasswordViewModel(phoneText: LoginDataService.shared.getMobileNumber())
+                newViewController.viewModel = CreatePasswordViewModel(phoneText: LoginDataService.shared.getMobileNumber(), emailText: LoginDataService.shared.getEmail())
                 self.navigationController?.pushViewController(newViewController, animated: true)
             })
             .store(in: &bindings)

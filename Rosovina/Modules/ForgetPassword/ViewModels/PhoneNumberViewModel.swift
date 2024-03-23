@@ -19,17 +19,25 @@ class PhoneNumberViewModel: ObservableObject {
     var egyptValidationSubscription: AnyCancellable?
     var saudiArabiaValidationSubscription: AnyCancellable?
     
+    @Published var emailValidationState: ValidationState = .idle
+    
     @Published var phoneValidationState: ValidationState = .idle
             
     @Published var backPressed = false
+    
+    @Published var emailText = ""
     
     @Published var phoneCode = "+966"
     
     @Published var phoneText: String = ""
     
+    @Published var selectedType = 1
+    
     @Published var checkedStatus: PhoneStatus = .idle
     
     @Published var otpSentStatus: PhoneStatus = .idle
+    
+    @Published var tokenResponse: GenerateTokenAPIResponse?
     
     @Published var canCheck = false
     
@@ -57,6 +65,34 @@ class PhoneNumberViewModel: ObservableObject {
         }else{
             return fCode + phone.dropFirst()
         }
+    }
+    
+    func retriveToken() {
+        
+        self.isAnimating = true
+                
+        dataService.generateToken(request: PhoneAPIRequest(email: emailText))
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { (completion) in
+                    switch completion {
+                    case .finished:
+                        print("Publisher stopped observing")
+                    case .failure(_):
+                        self.isAnimating = false
+                    }
+                },
+                receiveValue: { response in
+                    self.isAnimating = false
+                    if response.success{
+                        self.tokenResponse = response.data
+                        self.otpSentStatus = .success
+                    }else{
+                        self.otpSentStatus = .failed
+                    }
+                }
+            )
+            .store(in: &cancellables)
     }
     
     func checkPhone() {

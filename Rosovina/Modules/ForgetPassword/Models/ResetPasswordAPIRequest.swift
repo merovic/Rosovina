@@ -9,15 +9,18 @@ import Foundation
 
 // MARK: - ResetPasswordAPIRequest
 struct ResetPasswordAPIRequest: Codable {
-    let phone, newPassword: String
+    let phone, email: String?
+    let newPassword: String
     
-    init(phone: String, newPassword: String){
+    init(phone: String? = nil, email: String? = nil, newPassword: String){
         self.phone = phone
+        self.email = email
         self.newPassword = newPassword
     }
 
     enum CodingKeys: String, CodingKey {
         case phone
+        case email
         case newPassword = "new_password"
     }
 }

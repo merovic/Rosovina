@@ -21,6 +21,27 @@ class PhoneNumberView: UIViewController {
 
     @IBOutlet weak var backButton: UIButton!
     
+    @IBOutlet weak var typeSegmentation: UISegmentedControl! {
+        didSet {
+            typeSegmentation.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
+            typeSegmentation.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .normal)
+        }
+    }
+    
+    @IBOutlet weak var emailContainer: UIView!
+    
+    @IBOutlet weak var emailView: UIView! {
+        didSet {
+            emailView.roundedGrayHareefView()
+        }
+    }
+    
+    @IBOutlet weak var emailTextField: UITextField!
+    
+    @IBOutlet weak var emailErrorMessage: UILabel!
+    
+    @IBOutlet weak var phoneContainer: UIView!
+    
     @IBOutlet weak var countryPickerView: UIView!
     
     @IBOutlet weak var phoneView: UIView! {
@@ -107,22 +128,113 @@ class PhoneNumberView: UIViewController {
             }
         }.store(in: &bindings)
         
-        doneButton.tapPublisher
-            .sink { _ in
-                if !self.viewModel.phoneText.isEmpty && self.viewModel.phoneText.isValidPhone(forCountry: .egypt) {
-                    self.viewModel.otpSentStatus = .success
-                }else{
-                    self.viewModel.otpSentStatus = .failed
+        emailTextField.textPublisher
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.emailText, on: viewModel)
+        .store(in: &bindings)
+        
+        emailTextField.textPublisher
+            .removeDuplicates()
+            .debounce(for: 0.2, scheduler: RunLoop.main)
+            .validateText(validationType: .email)
+            .assign(to: \.emailValidationState, on: viewModel)
+        .store(in: &bindings)
+        
+        viewModel.$emailValidationState
+            .sink { [self] state in
+                switch state {
+                case .error(let error):
+                    self.emailErrorMessage.isHidden = false
+                    self.emailErrorMessage.text = error.description
+                    self.emailView.roundedRedHareefView()
+                default:
+                    self.emailErrorMessage.isHidden = true
+                    self.emailErrorMessage.text = ""
+                    self.emailView.roundedGrayHareefView()
                 }
                 
-                //self.viewModel.sendOTP()
+                let validationStates = [
+                    state
+                ]
+                
+                validationStates.allSatisfy({ $0 == .valid }) ? doneButton.enable() : doneButton.disable()
+            }
+            .store(in: &bindings)
+        
+//        typeSegmentation.selectedSegmentIndexPublisher
+//            .receive(on: DispatchQueue.main)
+//            .assign(to: \.selectedType, on: viewModel)
+//        .store(in: &bindings)
+        
+        viewModel.$selectedType.sink { selection in
+            if selection == 0 {
+                self.phoneContainer.isHidden = false
+                self.emailContainer.isHidden = true
+                
+                self.viewModel.emailText = ""
+                self.viewModel.phoneText = ""
+                
+                self.emailTextField.text = ""
+                self.phoneNumberTextField.text = ""
+                
+                self.emailErrorMessage.text = ""
+                self.phoneErrorMessage.text = ""
+                
+                self.emailErrorMessage.isHidden = true
+                self.phoneErrorMessage.isHidden = true
+                
+                self.viewModel.phoneValidationState = .idle
+                self.viewModel.emailValidationState = .idle
+            }else{
+                self.phoneContainer.isHidden = true
+                self.emailContainer.isHidden = false
+                
+                self.viewModel.emailText = ""
+                self.viewModel.phoneText = ""
+                
+                self.emailTextField.text = ""
+                self.phoneNumberTextField.text = ""
+                
+                self.emailErrorMessage.text = ""
+                self.phoneErrorMessage.text = ""
+                
+                self.emailErrorMessage.isHidden = true
+                self.phoneErrorMessage.isHidden = true
+                
+                self.viewModel.phoneValidationState = .idle
+                self.viewModel.emailValidationState = .idle
+            }
+        }.store(in: &bindings)
+        
+        doneButton.tapPublisher
+            .sink { _ in
+                if self.viewModel.selectedType == 0 {
+                    if !self.viewModel.phoneText.isEmpty && self.viewModel.phoneText.isValidPhone(forCountry: .egypt) {
+                        self.viewModel.sendOTP()
+                    }else{
+                        self.viewModel.otpSentStatus = .failed
+                    }
+                }else{
+                    if !self.viewModel.emailText.isEmpty && self.viewModel.emailText.isValidEmail() {
+                        self.viewModel.retriveToken()
+                    }else{
+                        self.viewModel.otpSentStatus = .failed
+                    }
+                }
+                
             }
             .store(in: &bindings)
         
         viewModel.$otpSentStatus.sink { v in
             if v == .success{
                 let newViewController = VerificationViewController()
-                newViewController.viewModel = VerificationViewModel(phoneText: self.viewModel.checkForPhone(phone: self.viewModel.phoneText, code: self.viewModel.phoneCode), phoneCode: self.viewModel.phoneCode, isResetPassword: true)
+                newViewController.viewModel = VerificationViewModel(
+                    phoneText: self.viewModel.phoneText,
+                    phoneCode: self.viewModel.phoneCode,
+                    emailText: self.viewModel.emailText,
+                    isResetPassword: true,
+                    isResetByEmail: self.viewModel.selectedType == 1,
+                    tokenResponse: self.viewModel.tokenResponse)
                 self.navigationController?.pushViewController(newViewController, animated: true)
             }else if v == .failed{
                 Alert.show("Reset Failed", message: "Please Try Again", context: self)

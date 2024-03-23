@@ -16,6 +16,7 @@
                 <outlet property="didntGetLabel" destination="XSR-Nm-gMO" id="Ykw-gW-jer"/>
                 <outlet property="otpView" destination="jDy-Pm-ude" id="TpI-K3-73h"/>
                 <outlet property="phoneNumberText" destination="FPO-Do-6xH" id="0p3-9p-0ty"/>
+                <outlet property="pleaseText" destination="YB4-Rk-9Qs" id="Pp1-XD-YlW"/>
                 <outlet property="resendButton" destination="SUc-Oi-7gm" id="Fz4-fE-vu1"/>
                 <outlet property="timerLabel" destination="QFd-pZ-bnk" id="d1N-aF-Ji6"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -53,8 +54,8 @@
                     <color key="textColor" red="0.1764705882" green="0.19215686269999999" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We texted you on +201003319530" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FPO-Do-6xH">
-                    <rect key="frame" x="71.000000000000014" y="223.33333333333334" width="251.33333333333337" height="19.333333333333343"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We texted you on 201140245737" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FPO-Do-6xH">
+                    <rect key="frame" x="16" y="223.33333333333334" width="361" height="19.333333333333343"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <color key="textColor" systemColor="systemGray2Color"/>
                     <nil key="highlightedColor"/>
@@ -109,7 +110,7 @@
                             </state>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFd-pZ-bnk">
-                            <rect key="frame" x="0.0" y="0.0" width="33.333333333333336" height="19.333333333333329"/>
+                            <rect key="frame" x="0.0" y="0.0" width="33.333333333333336" height="19.333333333333332"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                             <color key="textColor" name="DarkRed"/>
                             <nil key="highlightedColor"/>
@@ -125,11 +126,13 @@
                 <constraint firstItem="FPO-Do-6xH" firstAttribute="top" secondItem="YB4-Rk-9Qs" secondAttribute="bottom" constant="32" id="DOA-dT-3ap"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="jDy-Pm-ude" secondAttribute="trailing" constant="16" id="EDu-1s-PbQ"/>
                 <constraint firstItem="ERZ-NI-fFh" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="H9f-lS-sRO"/>
+                <constraint firstItem="FPO-Do-6xH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="Hgc-uB-617"/>
                 <constraint firstItem="ERZ-NI-fFh" firstAttribute="centerY" secondItem="7AA-h3-uch" secondAttribute="centerY" id="KRY-Jm-X6X"/>
                 <constraint firstItem="yce-Np-2Ie" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="Mfn-wg-929"/>
                 <constraint firstItem="yce-Np-2Ie" firstAttribute="top" secondItem="jDy-Pm-ude" secondAttribute="bottom" constant="112" id="MiV-vd-jjY"/>
                 <constraint firstItem="YB4-Rk-9Qs" firstAttribute="top" secondItem="ERZ-NI-fFh" secondAttribute="bottom" constant="40" id="Oak-6o-btQ"/>
                 <constraint firstItem="jDy-Pm-ude" firstAttribute="top" secondItem="FPO-Do-6xH" secondAttribute="bottom" constant="45" id="YiM-H8-t2n"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="FPO-Do-6xH" secondAttribute="trailing" constant="16" id="dMh-gN-j8X"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="yce-Np-2Ie" secondAttribute="trailing" constant="16" id="gxC-iD-O3v"/>
                 <constraint firstItem="ERZ-NI-fFh" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="n4o-dQ-ID4"/>
                 <constraint firstItem="oIR-Fg-0kK" firstAttribute="top" secondItem="jDy-Pm-ude" secondAttribute="bottom" constant="16" id="oOq-Rj-aIw"/>

@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftUI
+import SDWebImageSwiftUI
 import Combine
 import CombineCocoa
 import MFSDK
@@ -107,6 +108,8 @@ class CheckoutView: UIViewController {
         }
     }
     
+    @IBOutlet weak var paymentMethodsContainer: UIView!
+    
     @IBOutlet weak var creditCardView: UIView! {
         didSet {
             creditCardView.rounded()
@@ -184,6 +187,7 @@ class CheckoutView: UIViewController {
     func AttachViews() {
         self.countryPickerView.EmbedSwiftUIView(view: CountryPicker(viewModel: countryPickerViewModel), parent: self)
         self.slotsContainer.EmbedSwiftUIView(view: SlotsSwiftUIView(viewModel: viewModel!), parent: self)
+        self.paymentMethodsContainer.EmbedSwiftUIView(view: PaymentMethodsSwiftUIView(viewModel: viewModel!), parent: self)
     }
     
     deinit {
@@ -316,29 +320,29 @@ class CheckoutView: UIViewController {
             }
             .store(in: &bindings)
         
-        creditCardGest.tapPublisher
-            .sink(receiveValue:{_ in
-                self.viewModel?.paymentMethodID = .visa
-            })
-            .store(in: &bindings)
-        
-        codGest.tapPublisher
-            .sink(receiveValue:{_ in
-                self.viewModel?.paymentMethodID = .cash
-            })
-            .store(in: &bindings)
-        
-        applePayGest.tapPublisher
-            .sink(receiveValue:{_ in
-                self.viewModel?.paymentMethodID = .applePay
-            })
-            .store(in: &bindings)
-        
-        tamaraGest.tapPublisher
-            .sink(receiveValue:{_ in
-                self.viewModel?.paymentMethodID = .tamara
-            })
-            .store(in: &bindings)
+//        creditCardGest.tapPublisher
+//            .sink(receiveValue:{_ in
+//                self.viewModel?.paymentMethodID = .visa
+//            })
+//            .store(in: &bindings)
+//
+//        codGest.tapPublisher
+//            .sink(receiveValue:{_ in
+//                self.viewModel?.paymentMethodID = .cash
+//            })
+//            .store(in: &bindings)
+//
+//        applePayGest.tapPublisher
+//            .sink(receiveValue:{_ in
+//                self.viewModel?.paymentMethodID = .applePay
+//            })
+//            .store(in: &bindings)
+//
+//        tamaraGest.tapPublisher
+//            .sink(receiveValue:{_ in
+//                self.viewModel?.paymentMethodID = .tamara
+//            })
+//            .store(in: &bindings)
         
         payButton.tapPublisher
             .sink { _ in
@@ -398,14 +402,12 @@ class CheckoutView: UIViewController {
         
         viewModel!.$orderCreatedID.sink { response in
             if response != 0 {
-                switch self.viewModel?.paymentMethodID {
-                case .cash:
-                    self.viewModel?.confirmOrder(orderID: response, paymentReference: String(response))
-                case .visa:
+                switch self.viewModel?.selectedPaymentMethod?.paymentMethod {
+                case .CreditCard:
                     self.initiateMyFatoorahSDK()
-                case .applePay:
+                case .ApplePay:
                     self.initiateApplePay()
-                case .tamara:
+                case .Tamara:
                     self.initiateTamaraSDK()
                 default:
                     print("")
@@ -422,31 +424,31 @@ class CheckoutView: UIViewController {
             }
         }.store(in: &bindings)
         
-        viewModel!.$paymentMethodID.sink { paymentMethod in
-            switch paymentMethod {
-            case .cash:
-                self.codView.roundedLightGrayHareefView()
-                self.creditCardView.backgroundColor = UIColor.init(named: "LightGray")
-                self.applePayView.roundedLightGrayHareefView()
-                self.tamaraView.rounded()
-            case .visa:
-                self.creditCardView.roundedBlackHareefView()
-                self.codView.backgroundColor = UIColor.init(named: "LightGray")
-                self.applePayView.roundedLightGrayHareefView()
-                self.tamaraView.roundedLightGrayHareefView()
-            case .applePay:
-                self.creditCardView.roundedLightGrayHareefView()
-                self.codView.backgroundColor = UIColor.init(named: "LightGray")
-                self.applePayView.roundedBlackHareefView()
-                self.tamaraView.roundedLightGrayHareefView()
-            case .tamara:
-                self.creditCardView.roundedLightGrayHareefView()
-                self.codView.backgroundColor = UIColor.init(named: "LightGray")
-                self.applePayView.roundedLightGrayHareefView()
-                self.tamaraView.roundedBlackHareefView()
-            }
-            
-        }.store(in: &bindings)
+//        viewModel!.$paymentMethodID.sink { paymentMethod in
+//            switch paymentMethod {
+//            case .cash:
+//                self.codView.roundedLightGrayHareefView()
+//                self.creditCardView.backgroundColor = UIColor.init(named: "LightGray")
+//                self.applePayView.roundedLightGrayHareefView()
+//                self.tamaraView.rounded()
+//            case .visa:
+//                self.creditCardView.roundedBlackHareefView()
+//                self.codView.backgroundColor = UIColor.init(named: "LightGray")
+//                self.applePayView.roundedLightGrayHareefView()
+//                self.tamaraView.roundedLightGrayHareefView()
+//            case .applePay:
+//                self.creditCardView.roundedLightGrayHareefView()
+//                self.codView.backgroundColor = UIColor.init(named: "LightGray")
+//                self.applePayView.roundedBlackHareefView()
+//                self.tamaraView.roundedLightGrayHareefView()
+//            case .tamara:
+//                self.creditCardView.roundedLightGrayHareefView()
+//                self.codView.backgroundColor = UIColor.init(named: "LightGray")
+//                self.applePayView.roundedLightGrayHareefView()
+//                self.tamaraView.roundedBlackHareefView()
+//            }
+//
+//        }.store(in: &bindings)
         
     }
     
@@ -517,17 +519,16 @@ extension CheckoutView{
 }
 
 extension CheckoutView: TamaraCheckoutDelegate {
-    
     func initiateTamaraSDK(){
-        let API_URL = "https://api-sandbox.tamara.co"
-        let AUTH_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhY2NvdW50SWQiOiJkMDcxZjFkOC1lMGJhLTQ4MzctYmRjOS01Zjc3MmIzZmJhMDMiLCJ0eXBlIjoibWVyY2hhbnQiLCJzYWx0IjoiYWU0NmNkYjZiMGY1MzAyNDdkN2VhOWNjMTlkZjZiMjUiLCJyb2xlcyI6WyJST0xFX01FUkNIQU5UIl0sImlhdCI6MTcwOTU0MjEyNCwiaXNzIjoiVGFtYXJhIn0.hKehcSvMM1E-rKzipu2s5ohPlIj51UksPvu7Br_fQh84IAS1MziBM4yY-HS7g81c-WUB25DdCNte-2QW671s0sFv5uCgCOEGzvXCkn1A547WIZKJutjNqk_bbqR-91_ZW0E6IZp_y9SuyZq5xCMOLXk2oYkozihNpH8HlEq6Iie9fEqeuTKcJnSHdrs_kwnWdgcCIaJP24-gAIQzVYlPtzL3JohwLD3YcmMA-Fol6dcvDey6DH5xfaEzj8qFSNDF51zM7uiEH6wXC1wmw3Geb_FYKlnOQygxZbtGE1Z52y3VEFE1mdLBoQTDZq7OFUoQM2aD5U1kruKMF09PKv-WRg"
+        let API_URL = "https://api.tamara.co"
+        let AUTH_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhY2NvdW50SWQiOiI0NTBlODgxNS02YmE3LTQzYmQtOTQxNy1iZmQ4ODA5Y2FmNzkiLCJ0eXBlIjoibWVyY2hhbnQiLCJzYWx0IjoiNjkxZmU2ZGI3Mjc2MDg0NmQ4MmJlZmFjZjkwMjc2ZmMiLCJyb2xlcyI6WyJST0xFX01FUkNIQU5UIl0sImlhdCI6MTcwODYwMTEzMSwiaXNzIjoiVGFtYXJhIFBQIn0.C80pwc5niIm9DS-wn0aT3DzwLlJU4gNQjjvsR9vqt-fxFpIc7bopIwet9cSOO94XtVB7eXoApmSTEoSz7n7dtnJClAwaOMzsnHqVmj3uQXSIXufvbEdheLhEyfm7hs9E0azWfikvrSqSyJ4Qvxgvl0N88LUat0Ewg6MSlN-85jm2qY8__pmzTtuKLSIwmDAucizaxIELljQAymjlaBuPxfWB0KZx4PCuMgQjmZcXIXIb9h_hmR3IZr_wyn9syNKppxmNBlOZz7hmhz8sD71G9TE2ixvnIFt0bJwq6kXCuaGyiGdF2Fj63uMtiuOmGmzV6nk39-MZAz4wkb4VSvkGHA"
         let NOTIFICATION_WEB_HOOK_URL = "https://pro.rosovina.com/public/api/payment/tamara/webhook/q8DLKT8Bt3Yd1uDH52ej360?payment_method_id=3"
-        let PUBLISH_KEY = "9fd3e4dc-d3a1-4226-ac14-1b8d7c58c37d"
-        let NOTIFICATION_TOKEN = "1e16086f-05fe-443a-85d4-92748bad4267"
+        let PUBLISH_KEY = "22be66e5-65a4-48b1-a6d9-a9f9d803e8d0"
+        let NOTIFICATION_TOKEN = "1e61bba7-0993-4066-b858-cdb9b1ac91ee"
         
         let tamaraOrder = TamaraSDKPayment()
         
-        tamaraOrder.initialize(token: AUTH_TOKEN, apiUrl: API_URL, pushUrl: NOTIFICATION_WEB_HOOK_URL, publishKey: PUBLISH_KEY, notificationToken: NOTIFICATION_TOKEN, isSandbox: true)
+        tamaraOrder.initialize(token: AUTH_TOKEN, apiUrl: API_URL, pushUrl: NOTIFICATION_WEB_HOOK_URL, publishKey: PUBLISH_KEY, notificationToken: NOTIFICATION_TOKEN, isSandbox: false)
         
         tamaraOrder.createOrder(orderReferenceId: String(self.viewModel!.cartResponse.id), description: self.viewModel!.cartResponse.items[0].productName)
         
@@ -555,17 +556,7 @@ extension CheckoutView: TamaraCheckoutDelegate {
                 }
 
                 self.response = TamaraInitResponse(order_id: orderID, checkout_url: checkoutURL)
-                print(self.response!)
                 self.TamaraSDKCheckout(response: self.response!)
-                
-//                tamaraOrder.orderDetail(orderId: response.order_id) { (completion) in
-//                    switch completion {
-//                    case .success(let details):
-//                        print(details.convertToJson())
-//                    case .failure(let error):
-//                        print(error)
-//                    }
-//                }
                 
             case .failure(let error):
                 print(error.localizedDescription)
@@ -732,4 +723,61 @@ struct SlotsItemSwiftUIView: View {
         dateFormatter.dateFormat = "EEEE"
         return dateFormatter.string(from: self.viewModel.deliveryDate)
     }
+}
+
+struct PaymentMethodsSwiftUIView: View {
+    
+    @ObservedObject var viewModel: CheckoutViewModel
+    
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false){
+            HStack{
+                ForEach(self.viewModel.paymentMethods) { method in
+                    PaymentMethodItemSwiftUIView(paymentMethod: method, viewModel: viewModel)
+                }
+                Spacer()
+            }
+        }
+    }
+}
+
+struct PaymentMethodItemSwiftUIView: View {
+    var paymentMethod: PaymentMethodItem
+    
+    @ObservedObject var viewModel: CheckoutViewModel
+    
+    var body: some View {
+        ZStack {
+            VStack(alignment: .center, spacing: 10) {
+                
+                if paymentMethod.paymentMethod == .CreditCard {
+                    Image(paymentMethod.paymentMethod.image)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 33, height: 21)
+                    
+                    Text(paymentMethod.paymentMethod.title)
+                        .lineLimit(1)
+                        .font(.system(size: 12, weight: .medium, design: .default))
+                        .foregroundColor(SwiftUI.Color.black)
+                }else{
+                    Image(paymentMethod.paymentMethod.image)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60, height: 60)
+                }
+                
+            }.padding(5)
+        }
+        .frame(minWidth: 95, maxWidth: 95, minHeight: 95, maxHeight: 95, alignment: .center)
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(viewModel.selectedPaymentMethod?.id == paymentMethod.id ? SwiftUI.Color("AccentColor") : SwiftUI.Color.gray , lineWidth: viewModel.selectedPaymentMethod?.id == paymentMethod.id ? 3 : 1)
+        )
+        .cornerRadius(8)
+        .onTapGesture {
+            viewModel.selectedPaymentMethod = paymentMethod
+        }
+    }
+
 }

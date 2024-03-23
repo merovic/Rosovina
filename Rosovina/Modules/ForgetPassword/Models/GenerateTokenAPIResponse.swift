@@ -10,9 +10,11 @@ import Foundation
 // MARK: - DataClass
 struct GenerateTokenAPIResponse: Codable {
     let token: String
+    let code: Int
 
     enum CodingKeys: String, CodingKey {
         case token = "token"
+        case code = "code"
     }
 }
 

@@ -9,5 +9,11 @@ import Foundation
 
 // MARK: - PhoneAPIRequest
 struct PhoneAPIRequest: Codable {
-    let phone: String
+    let phone: String?
+    let email: String?
+    
+    init(phone: String? = nil, email: String? = nil) {
+        self.phone = phone
+        self.email = email
+    }
 }

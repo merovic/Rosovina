@@ -14,7 +14,7 @@ protocol ResetPasswordService {
     func otp_check(request: OTPCheckAPIRequest) -> AnyPublisher<BaseResponseAnother<[String]>, AFError>
     func otp_send(request: OTPSendAPIRequest) -> AnyPublisher<BaseResponseAnother<String>, AFError>
     func resetPassword(request: ResetPasswordAPIRequest, token: String) -> AnyPublisher<BaseResponseAnother<[String]>, AFError>
-    func generateToken(phone: String) -> AnyPublisher<BaseResponseAnother<GenerateTokenAPIResponse>, AFError>
+    func generateToken(request: PhoneAPIRequest) -> AnyPublisher<BaseResponseAnother<GenerateTokenAPIResponse>, AFError>
 }
 
 class AppResetPasswordService: ResetPasswordService {
@@ -22,8 +22,8 @@ class AppResetPasswordService: ResetPasswordService {
         return APIClient.performDecodableRequest(route: APIRouter.reset_password(request: request, token: token))
     }
     
-    func generateToken(phone: String) -> AnyPublisher<BaseResponseAnother<GenerateTokenAPIResponse>, AFError> {
-        return APIClient.performDecodableRequest(route: APIRouter.generate_token(request: PhoneAPIRequest(phone: phone)))
+    func generateToken(request: PhoneAPIRequest) -> AnyPublisher<BaseResponseAnother<GenerateTokenAPIResponse>, AFError> {
+        return APIClient.performDecodableRequest(route: APIRouter.generate_token(request: request))
     }
     
     func check_phone(request: PhoneAPIRequest) -> AnyPublisher<CheckPhoneAPIResponse, AFError> {

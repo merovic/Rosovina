@@ -26,15 +26,15 @@ class VerificationViewModel: ObservableObject {
     var passwordText:String = ""
     
     var isResetPassword:Bool = false
+    var isResetByEmail:Bool?
+    var tokenResponse: GenerateTokenAPIResponse?
         
     @Published var codeText = ""
     
     @Published var registrationStatus: PhoneStatus = .idle
     
     @Published var forgetPasswordStatus: PhoneStatus = .idle
-    
-    @Published var canVerify = false
-    
+        
     @Published var errorMessage =  ""
                 
     @Published var isAnimating = false
@@ -43,7 +43,7 @@ class VerificationViewModel: ObservableObject {
     
     let dataService: RegistrationService
     
-    init(phoneText:String, phoneCode:String, nameText:String? = nil, emailText:String? = nil, passwordText:String? = nil, isResetPassword:Bool = false, dataService: RegistrationService = AppRegistrationService()) {
+    init(phoneText:String, phoneCode:String, nameText:String? = nil, emailText:String? = nil, passwordText:String? = nil, isResetPassword:Bool = false, isResetByEmail:Bool? = nil, tokenResponse: GenerateTokenAPIResponse? = nil, dataService: RegistrationService = AppRegistrationService()) {
         self.phoneCode = phoneCode
         self.phoneText = phoneText
         self.nameText = nameText ?? ""
@@ -51,14 +51,9 @@ class VerificationViewModel: ObservableObject {
         self.passwordText = passwordText ?? ""
         
         self.isResetPassword = isResetPassword
+        self.isResetByEmail = isResetByEmail
+        self.tokenResponse = tokenResponse
         self.dataService = dataService
-        
-        $codeText
-            .map { code in
-                return !code.isEmpty
-            }
-            .assign(to: \.canVerify, on: self)
-            .store(in: &cancellables)
     }
     
     func checkForPhone(phone: String, code: String) -> String{
@@ -70,11 +65,20 @@ class VerificationViewModel: ObservableObject {
         }
     }
     
+    func emailOTPCheck() {
+        if String(tokenResponse!.code) == codeText {
+            self.forgetPasswordStatus = .success
+        }else{
+            self.errorMessage = "OTP Not Match"
+            self.forgetPasswordStatus = .failed
+        }
+    }
+    
     func otpCheck() {
              
         if !codeText.isEmpty {
             self.isAnimating = true
-            dataService.otp_check(request: OTPCheckAPIRequest(phone: phoneText, otp: codeText))
+            dataService.otp_check(request: OTPCheckAPIRequest(phone: checkForPhone(phone: phoneText, code: phoneCode), otp: codeText))
                 .receive(on: DispatchQueue.main)
                 .sink(
                     receiveCompletion: { (completion) in
@@ -111,8 +115,8 @@ class VerificationViewModel: ObservableObject {
         
     }
     
-    func sendOTP() {
-        dataService.otp_send(request: OTPSendAPIRequest(phone: self.phoneText))
+    func retriveToken() {
+        dataService.generateToken(request: PhoneAPIRequest(email: emailText))
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in
@@ -124,7 +128,26 @@ class VerificationViewModel: ObservableObject {
                     }
                 },
                 receiveValue: { response in
-                    
+                    self.isAnimating = false
+                }
+            )
+            .store(in: &cancellables)
+    }
+    
+    func sendOTP() {
+        dataService.otp_send(request: OTPSendAPIRequest(phone: checkForPhone(phone: phoneText, code: phoneCode)))
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { (completion) in
+                    switch completion {
+                    case .finished:
+                        print("Publisher stopped observing")
+                    case .failure(_):
+                        self.isAnimating = false
+                    }
+                },
+                receiveValue: { response in
+                    self.isAnimating = false
                 }
             )
             .store(in: &cancellables)
@@ -134,7 +157,7 @@ class VerificationViewModel: ObservableObject {
                 
         self.isAnimating = true
         
-        dataService.register(request: RegistrationAPIRequest(name: nameText, countryCode: phoneCode, phone: phoneText, password: passwordText, email: emailText, mobileToken: token))
+        dataService.register(request: RegistrationAPIRequest(name: nameText, countryCode: phoneCode, phone: checkForPhone(phone: phoneText, code: phoneCode), password: passwordText, email: emailText, mobileToken: token))
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in

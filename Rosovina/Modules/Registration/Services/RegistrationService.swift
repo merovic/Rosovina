@@ -14,6 +14,7 @@ protocol RegistrationService {
     func register(request: RegistrationAPIRequest) -> AnyPublisher<BaseResponseAnother<LoginAPIResponse>, AFError>
     func otp_check(request: OTPCheckAPIRequest) -> AnyPublisher<BaseResponseAnother<[String]>, AFError>
     func otp_send(request: OTPSendAPIRequest) -> AnyPublisher<BaseResponseAnother<String>, AFError>
+    func generateToken(request: PhoneAPIRequest) -> AnyPublisher<BaseResponseAnother<GenerateTokenAPIResponse>, AFError>
 }
 
 class AppRegistrationService: RegistrationService {
@@ -31,6 +32,10 @@ class AppRegistrationService: RegistrationService {
     
     func otp_send(request: OTPSendAPIRequest) -> AnyPublisher<BaseResponseAnother<String>, AFError> {
         return APIClient.performDecodableRequest(route: APIRouter.otp_send(request: request))
+    }
+    
+    func generateToken(request: PhoneAPIRequest) -> AnyPublisher<BaseResponseAnother<GenerateTokenAPIResponse>, AFError> {
+        return APIClient.performDecodableRequest(route: APIRouter.generate_token(request: request))
     }
 }
 

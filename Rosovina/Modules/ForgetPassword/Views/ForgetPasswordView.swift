@@ -27,7 +27,6 @@ class ForgetPasswordView: UIViewController {
     
     @IBOutlet weak var passwordTextField: UITextField!
     
-    
     @IBOutlet weak var passwordErrorMessage: UILabel!
     
     @IBOutlet weak var retypeView: UIView! {

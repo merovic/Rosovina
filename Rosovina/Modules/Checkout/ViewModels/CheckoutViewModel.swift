@@ -33,14 +33,16 @@ class CheckoutViewModel: ObservableObject {
     
     @Published var deliveryDateText = ""
     
+    @Published var paymentMethods: [PaymentMethodItem] = []
+    
+    @Published var selectedPaymentMethod: PaymentMethodItem?
+    
     @Published var availableSlots: [GetSlotsAPIResponseElement] = []
     
     @Published var selectedSlot: GetSlotsAPIResponseElement?
             
     @Published var invoiceValue = 0
-    
-    @Published var paymentMethodID: PaymentMethod = .visa
-            
+                
     @Published var cartResponse: GetCartAPIResponse
     
     @Published var selectedLocation: UserAddress?
@@ -69,6 +71,8 @@ class CheckoutViewModel: ObservableObject {
         self.cartService = cartService
         self.cartResponse = cartResponse
         self.invoiceValue = cartResponse.total
+        
+        getPaymentMethods()
     }
     
     func checkForPhone(phone: String, code: String) -> String{
@@ -78,6 +82,27 @@ class CheckoutViewModel: ObservableObject {
         }else{
             return fCode + phone.dropFirst()
         }
+    }
+    
+    func getPaymentMethods() {
+        dataService.getPaymentMethods()
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { (completion) in
+                    switch completion {
+                    case .finished:
+                        print("Publisher stopped observing")
+                    case .failure(_):
+                        self.isAnimating = false
+                    }
+                },
+                receiveValue: { response in
+                    self.isAnimating = false
+                    self.paymentMethods = response.data ?? []
+                    self.selectedPaymentMethod = self.paymentMethods[0]
+                }
+            )
+            .store(in: &cancellables)
     }
     
     func getSlots() {
@@ -134,7 +159,7 @@ class CheckoutViewModel: ObservableObject {
         
         self.isAnimating = true
 
-        dataService.confirmOrder(request: ConfirmOrderAPIRequest(deviceToken: token, orderID: orderID, paymentMethodID: paymentMethodID == .cash ? 2 : 1, paymentReference: paymentReference))
+        dataService.confirmOrder(request: ConfirmOrderAPIRequest(deviceToken: token, orderID: orderID, paymentMethodID: selectedPaymentMethod?.id ?? 1, paymentReference: paymentReference))
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in
@@ -181,12 +206,4 @@ class CheckoutViewModel: ObservableObject {
             .store(in: &cancellables)
     }
            
-}
-
-
-enum PaymentMethod: Identifiable {
-    case cash, visa, applePay, tamara
-    var id: Int {
-        self.hashValue
-    }
 }

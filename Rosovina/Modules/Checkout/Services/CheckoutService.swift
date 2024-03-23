@@ -14,9 +14,14 @@ protocol CheckoutService {
     func checkPromoCode(request: CheckPromoCodeAPIRequest) -> AnyPublisher<BaseResponseAnother<CheckPromoCodeAPIResponse>, AFError>
     func confirmOrder(request: ConfirmOrderAPIRequest) -> AnyPublisher<BaseResponseAnother<ConfirmOrderAPIResponse>, AFError>
     func getSlots(date: String) -> AnyPublisher<BaseResponseAnother<GetSlotsAPIResponse>, AFError>
+    func getPaymentMethods() -> AnyPublisher<BaseResponseAnother<PaymentMethodsAPIResponse>, AFError>
 }
 
 class AppCheckoutService: CheckoutService {
+    func getPaymentMethods() -> AnyPublisher<BaseResponseAnother<PaymentMethodsAPIResponse>, Alamofire.AFError> {
+        return APIClient.performDecodableRequest(route: APIRouter.getPaymentMethods)
+    }
+    
     func getSlots(date: String) -> AnyPublisher<BaseResponseAnother<GetSlotsAPIResponse>, Alamofire.AFError> {
         return APIClient.performDecodableRequest(route: APIRouter.getSlots(date: date))
     }

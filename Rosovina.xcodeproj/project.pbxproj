@@ -51,6 +51,7 @@
 		077CC6E52B893DA80014E5A0 /* GetUserWalletAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077CC6E42B893DA80014E5A0 /* GetUserWalletAPIResponse.swift */; };
 		077F4E272B9B760A00363CDF /* BrandsAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077F4E262B9B760A00363CDF /* BrandsAPIResponse.swift */; };
 		077F4E292BA7336400363CDF /* TamaraInitResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077F4E282BA7336400363CDF /* TamaraInitResponse.swift */; };
+		077F4E2B2BAE499B00363CDF /* PaymentMethodsAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077F4E2A2BAE499B00363CDF /* PaymentMethodsAPIResponse.swift */; };
 		07B3793B2B49ABE900F49DC3 /* MyOrdersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3793A2B49ABE900F49DC3 /* MyOrdersService.swift */; };
 		07B3793D2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3793C2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift */; };
 		07B3793F2B49ACB300F49DC3 /* MyOrdersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3793E2B49ACB300F49DC3 /* MyOrdersViewModel.swift */; };
@@ -288,6 +289,7 @@
 		077F4E1F2B9A73C800363CDF /* Rosovina.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Rosovina.entitlements; sourceTree = "<group>"; };
 		077F4E262B9B760A00363CDF /* BrandsAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandsAPIResponse.swift; sourceTree = "<group>"; };
 		077F4E282BA7336400363CDF /* TamaraInitResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TamaraInitResponse.swift; sourceTree = "<group>"; };
+		077F4E2A2BAE499B00363CDF /* PaymentMethodsAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodsAPIResponse.swift; sourceTree = "<group>"; };
 		07B3793A2B49ABE900F49DC3 /* MyOrdersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersService.swift; sourceTree = "<group>"; };
 		07B3793C2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersAPIResponse.swift; sourceTree = "<group>"; };
 		07B3793E2B49ACB300F49DC3 /* MyOrdersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersViewModel.swift; sourceTree = "<group>"; };
@@ -889,10 +891,10 @@
 		07BBA9632AFEDDD2006AE9F7 /* ForgetPassword */ = {
 			isa = PBXGroup;
 			children = (
-				0707575C2B375DF000A24CAE /* Services */,
-				0707575B2B375DEA00A24CAE /* ViewModels */,
-				0707575A2B375DDC00A24CAE /* Views */,
 				07C7F5792B3263B800A4168A /* Models */,
+				0707575A2B375DDC00A24CAE /* Views */,
+				0707575B2B375DEA00A24CAE /* ViewModels */,
+				0707575C2B375DF000A24CAE /* Services */,
 			);
 			path = ForgetPassword;
 			sourceTree = "<group>";
@@ -1203,6 +1205,7 @@
 				077CC6C02B6D812A0014E5A0 /* ConfirmOrderAPIResponse.swift */,
 				077CC6E02B841FA40014E5A0 /* GetSlotsAPIResponse.swift */,
 				077F4E282BA7336400363CDF /* TamaraInitResponse.swift */,
+				077F4E2A2BAE499B00363CDF /* PaymentMethodsAPIResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1695,6 +1698,7 @@
 				07B6F6F22AF6CA7A00BE5BA6 /* ImageSliderView.swift in Sources */,
 				07B6F6B52AF69D6E00BE5BA6 /* CardView.swift in Sources */,
 				07B6F6A72AF69D6100BE5BA6 /* DateEx.swift in Sources */,
+				077F4E2B2BAE499B00363CDF /* PaymentMethodsAPIResponse.swift in Sources */,
 				07C7F5742B3256EC00A4168A /* APIClient.swift in Sources */,
 				07C7F5872B32641E00A4168A /* OTPCheckAPIRequest.swift in Sources */,
 			);
@@ -1845,7 +1849,7 @@
 				CODE_SIGN_ENTITLEMENTS = Rosovina/Rosovina.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 55F3N2WBNQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Rosovina/Info.plist;
@@ -1862,7 +1866,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.6;
+				MARKETING_VERSION = 1.1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rosovina.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1881,7 +1885,7 @@
 				CODE_SIGN_ENTITLEMENTS = Rosovina/Rosovina.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 55F3N2WBNQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Rosovina/Info.plist;
@@ -1898,7 +1902,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.6;
+				MARKETING_VERSION = 1.1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rosovina.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -16,8 +16,9 @@ class CreatePasswordViewModel: ObservableObject {
     //---------------------
     
     var phoneText = ""
+    var emailText = ""
     
-    var token = ""
+    var token: String?
     
     @Published var passwordValidationState: ValidationState = .idle
     
@@ -41,17 +42,20 @@ class CreatePasswordViewModel: ObservableObject {
         
     let dataService: ResetPasswordService
     
-    init(phoneText:String, dataService: ResetPasswordService = AppResetPasswordService()) {
+    init(phoneText:String, emailText:String, token:String? = nil, dataService: ResetPasswordService = AppResetPasswordService()) {
         self.phoneText = phoneText
+        self.emailText = emailText
+        self.token = token
         self.dataService = dataService
         
-        retriveToken()
-    
+        if token == nil{
+            retriveToken()
+        }
     }
     
     func retriveToken() {
                 
-        dataService.generateToken(phone: phoneText)
+        dataService.generateToken(request: PhoneAPIRequest(phone: phoneText))
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in
@@ -78,7 +82,15 @@ class CreatePasswordViewModel: ObservableObject {
             
         self.isAnimating = true
         
-        dataService.resetPassword(request: ResetPasswordAPIRequest(phone: self.phoneText, newPassword: passwordText), token: token)
+        var request: ResetPasswordAPIRequest?
+        
+        if emailText != "" {
+            request = ResetPasswordAPIRequest(email: emailText, newPassword: passwordText)
+        }else{
+            request = ResetPasswordAPIRequest(phone: phoneText, newPassword: passwordText)
+        }
+        
+        dataService.resetPassword(request: request!, token: token ?? "")
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in
@@ -104,7 +116,7 @@ class CreatePasswordViewModel: ObservableObject {
     
     func login() {
     
-        AppLoginService().login(request: LoginAPIRequest(phone: phoneText, password: passwordText, mobileToken: token))
+        AppLoginService().login(request: LoginAPIRequest(phone: emailText != "" ? emailText : phoneText, password: passwordText, mobileToken: token ?? ""))
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: { (completion) in
