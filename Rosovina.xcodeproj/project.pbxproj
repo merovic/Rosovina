@@ -52,6 +52,10 @@
 		077F4E272B9B760A00363CDF /* BrandsAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077F4E262B9B760A00363CDF /* BrandsAPIResponse.swift */; };
 		077F4E292BA7336400363CDF /* TamaraInitResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077F4E282BA7336400363CDF /* TamaraInitResponse.swift */; };
 		077F4E2B2BAE499B00363CDF /* PaymentMethodsAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077F4E2A2BAE499B00363CDF /* PaymentMethodsAPIResponse.swift */; };
+		077F4E2E2BB1C8C200363CDF /* Tabby in Frameworks */ = {isa = PBXBuildFile; productRef = 077F4E2D2BB1C8C200363CDF /* Tabby */; };
+		077F4E312BB1CD1400363CDF /* TabbyCheckoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077F4E2F2BB1CD1400363CDF /* TabbyCheckoutView.swift */; };
+		077F4E322BB1CD1400363CDF /* TabbyCheckoutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 077F4E302BB1CD1400363CDF /* TabbyCheckoutView.xib */; };
+		077F4E342BB1D0B000363CDF /* TabbyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077F4E332BB1D0B000363CDF /* TabbyViewModel.swift */; };
 		07B3793B2B49ABE900F49DC3 /* MyOrdersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3793A2B49ABE900F49DC3 /* MyOrdersService.swift */; };
 		07B3793D2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3793C2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift */; };
 		07B3793F2B49ACB300F49DC3 /* MyOrdersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3793E2B49ACB300F49DC3 /* MyOrdersViewModel.swift */; };
@@ -290,6 +294,9 @@
 		077F4E262B9B760A00363CDF /* BrandsAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandsAPIResponse.swift; sourceTree = "<group>"; };
 		077F4E282BA7336400363CDF /* TamaraInitResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TamaraInitResponse.swift; sourceTree = "<group>"; };
 		077F4E2A2BAE499B00363CDF /* PaymentMethodsAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodsAPIResponse.swift; sourceTree = "<group>"; };
+		077F4E2F2BB1CD1400363CDF /* TabbyCheckoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbyCheckoutView.swift; sourceTree = "<group>"; };
+		077F4E302BB1CD1400363CDF /* TabbyCheckoutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TabbyCheckoutView.xib; sourceTree = "<group>"; };
+		077F4E332BB1D0B000363CDF /* TabbyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbyViewModel.swift; sourceTree = "<group>"; };
 		07B3793A2B49ABE900F49DC3 /* MyOrdersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersService.swift; sourceTree = "<group>"; };
 		07B3793C2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersAPIResponse.swift; sourceTree = "<group>"; };
 		07B3793E2B49ACB300F49DC3 /* MyOrdersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersViewModel.swift; sourceTree = "<group>"; };
@@ -489,6 +496,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				077F4E2E2BB1C8C200363CDF /* Tabby in Frameworks */,
 				3A692EF3042D428028024C02 /* Pods_Rosovina.framework in Frameworks */,
 				07B379422B55C39500F49DC3 /* SnapKit in Frameworks */,
 			);
@@ -1180,6 +1188,7 @@
 			children = (
 				07BEE1BD2B4898AD0065C559 /* CheckoutViewModel.swift */,
 				07BEE1C92B48B63B0065C559 /* SelectAddressViewModel.swift */,
+				077F4E332BB1D0B000363CDF /* TabbyViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1193,6 +1202,8 @@
 				07BEE1C62B48B2A80065C559 /* SelectAddressView.xib */,
 				07BBA9502AFECACB006AE9F7 /* CheckoutSucessView.swift */,
 				07BBA9512AFECACB006AE9F7 /* CheckoutSucessView.xib */,
+				077F4E2F2BB1CD1400363CDF /* TabbyCheckoutView.swift */,
+				077F4E302BB1CD1400363CDF /* TabbyCheckoutView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1354,6 +1365,7 @@
 			name = Rosovina;
 			packageProductDependencies = (
 				07B379412B55C39500F49DC3 /* SnapKit */,
+				077F4E2D2BB1C8C200363CDF /* Tabby */,
 			);
 			productName = Rosovina;
 			productReference = 07B6F6752AF68A3800BE5BA6 /* Rosovina.app */;
@@ -1385,6 +1397,7 @@
 			mainGroup = 07B6F66C2AF68A3800BE5BA6;
 			packageReferences = (
 				07B379402B55C39500F49DC3 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				077F4E2C2BB1C8C200363CDF /* XCRemoteSwiftPackageReference "tabby-ios-sdk" */,
 			);
 			productRefGroup = 07B6F6762AF68A3800BE5BA6 /* Products */;
 			projectDirPath = "";
@@ -1438,6 +1451,7 @@
 				07B6F6EF2AF6BDEE00BE5BA6 /* HomeViewController.xib in Resources */,
 				07B6F6DC2AF69DF300BE5BA6 /* Poppins-Italic.ttf in Resources */,
 				07B6F6D52AF69DF300BE5BA6 /* Poppins-Regular.ttf in Resources */,
+				077F4E322BB1CD1400363CDF /* TabbyCheckoutView.xib in Resources */,
 				076C2DE02B337219005ED1C7 /* VerificationViewController.xib in Resources */,
 				077CC6C52B74359A0014E5A0 /* ViewMoreView.xib in Resources */,
 				07B6F6D72AF69DF300BE5BA6 /* Poppins-ThinItalic.ttf in Resources */,
@@ -1576,6 +1590,7 @@
 				07B6F6FE2AF6EA8700BE5BA6 /* DesignersView.swift in Sources */,
 				07BBA9612AFED902006AE9F7 /* LoginView.swift in Sources */,
 				07BBA9A22B002B9A006AE9F7 /* ReportView.swift in Sources */,
+				077F4E342BB1D0B000363CDF /* TabbyViewModel.swift in Sources */,
 				076C2DC72B333B8B005ED1C7 /* LoginViewModel.swift in Sources */,
 				07BEE1CE2B499B660065C559 /* DashboardTabBarViewController.swift in Sources */,
 				076C2DD92B336E18005ED1C7 /* RegistrationViewModel.swift in Sources */,
@@ -1677,6 +1692,7 @@
 				07B6F6E62AF6A40900BE5BA6 /* OnboardingViewController.swift in Sources */,
 				07B6F6A32AF69D6100BE5BA6 /* FontEx.swift in Sources */,
 				07B6F67B2AF68A3800BE5BA6 /* SceneDelegate.swift in Sources */,
+				077F4E312BB1CD1400363CDF /* TabbyCheckoutView.swift in Sources */,
 				077CC6CA2B767B650014E5A0 /* SliderView.swift in Sources */,
 				07BEE1CA2B48B63B0065C559 /* SelectAddressViewModel.swift in Sources */,
 				07C77B142B684AB700FCA240 /* InputValidations.swift in Sources */,
@@ -1849,7 +1865,7 @@
 				CODE_SIGN_ENTITLEMENTS = Rosovina/Rosovina.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = 55F3N2WBNQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Rosovina/Info.plist;
@@ -1866,7 +1882,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.7;
+				MARKETING_VERSION = 1.1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rosovina.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1885,7 +1901,7 @@
 				CODE_SIGN_ENTITLEMENTS = Rosovina/Rosovina.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = 55F3N2WBNQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Rosovina/Info.plist;
@@ -1902,7 +1918,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.7;
+				MARKETING_VERSION = 1.1.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rosovina.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1936,6 +1952,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		077F4E2C2BB1C8C200363CDF /* XCRemoteSwiftPackageReference "tabby-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tabby-ai/tabby-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		07B379402B55C39500F49DC3 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -1947,6 +1971,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		077F4E2D2BB1C8C200363CDF /* Tabby */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 077F4E2C2BB1C8C200363CDF /* XCRemoteSwiftPackageReference "tabby-ios-sdk" */;
+			productName = Tabby;
+		};
 		07B379412B55C39500F49DC3 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 07B379402B55C39500F49DC3 /* XCRemoteSwiftPackageReference "SnapKit" */;

@@ -134,7 +134,7 @@ struct MyOrdersItemSwiftUIView: View {
     
     var body: some View {
         HStack(alignment: .top, spacing: 20) {
-            WebImage(url: URL(string: myOrder.items.count > 0 ? myOrder.items[0].imageURL : ""))
+            WebImage(url: URL(string: myOrder.items.count > 0 ? (myOrder.items[0].imageURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))! : ""))
                 .placeholder(Image("logo").resizable())
                 .resizable()
                 .indicator(.activity)

@@ -256,12 +256,13 @@ struct HomeSwiftUIView: View {
                         ProductsSwiftUIView(viewModel: viewModel, selectedProduct: $viewModel.selectedProduct, sectionName: section.title, products: section.data, viewMoreClicked: $viewModel.viewMoreProductsClicked, viewMoreItems: $viewModel.selectedViewMoreItems, selectedViewMoreType: $viewModel.selectedViewMoreType)
                     case .advertise:
                         // MARK: - Advertise
-                        WebImage(url: URL(string: section.data[0].imagePath?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))
-                            .placeholder(Image("Banner 1").resizable())
-                            .resizable()
-                            .indicator(.activity)
-                            .frame(height: 160)
-                            .padding(.horizontal)
+                        Spacer().frame(height: 0)
+//                        WebImage(url: URL(string: section.data[0].imagePath?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""))
+//                            .placeholder(Image("Banner 1").resizable())
+//                            .resizable()
+//                            .indicator(.activity)
+//                            .frame(height: 160)
+//                            .padding(.horizontal)
                         // MARK: - Popular products
                     case .popularProducts:
                         ProductsSwiftUIView(viewModel: viewModel, selectedProduct: $viewModel.selectedProduct, sectionName: section.title, products: section.data, viewMoreClicked: $viewModel.viewMoreProductsClicked, viewMoreItems: $viewModel.selectedViewMoreItems, selectedViewMoreType: $viewModel.selectedViewMoreType)

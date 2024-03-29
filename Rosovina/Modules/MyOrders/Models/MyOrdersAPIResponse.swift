@@ -23,7 +23,7 @@ struct MyOrder: Codable, Identifiable {
     let createdAt: String
     let items: [MyOrderItem]
     let activities: [Activity]
-    let shippingAddress: ShippingAddress
+    let shippingAddress: OrderShippingAddress
     
     var formattedDate: String? {
         let dateFormatter = DateFormatter()
@@ -145,7 +145,7 @@ struct MyOrderItem: Codable, Identifiable {
 extension MyOrderItem: Equatable {}
 
 // MARK: - ShippingAddress
-struct ShippingAddress: Codable {
+struct OrderShippingAddress: Codable {
     let customerAddressID: Int
     let address, customerName, phone, phoneCountryCode: String
     let email: String
@@ -178,4 +178,4 @@ struct ShippingAddress: Codable {
     }
 }
 
-extension ShippingAddress: Equatable {}
+extension OrderShippingAddress: Equatable {}

@@ -78,7 +78,7 @@ class ForceUpdateAppVersion {
                     return false
             }
             
-            let storeInfoURL: String = "http://itunes.apple.com/lookup?bundleId=\(identifier)&country=eg"
+            let storeInfoURL: String = "http://itunes.apple.com/lookup?bundleId=\(identifier)&country=sa"
             var upgradeAvailable = false
             // Get the main bundle of the app so that we can determine the app's version number
             let bundle = Bundle.main
@@ -90,6 +90,7 @@ class ForceUpdateAppVersion {
                     if let dict: NSDictionary = try? JSONSerialization.jsonObject(with: dataInJSON as Data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: AnyObject] as NSDictionary? {
                         if let results:NSArray = dict["results"] as? NSArray {
                             if let version = (results[0] as! [String:Any])["version"] as? String {
+                                print(results)
                                 // Get the version number of the current version installed on device
                                 if let currentVersion = infoDictionary["CFBundleShortVersionString"] as? String {
                                     

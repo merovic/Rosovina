@@ -13,6 +13,7 @@ import CombineCocoa
 import MFSDK
 import PassKit
 import TamaraSDK
+import Tabby
 
 class CheckoutView: UIViewController {
     
@@ -408,7 +409,8 @@ class CheckoutView: UIViewController {
                 case .ApplePay:
                     self.initiateApplePay()
                 case .Tamara:
-                    self.initiateTamaraSDK()
+                    //self.initiateTamaraSDK()
+                    self.initiateTabby()
                 default:
                     print("")
                 }
@@ -634,6 +636,73 @@ extension CheckoutView: PKPaymentAuthorizationViewControllerDelegate {
             self.viewModel!.confirmOrder(orderID: self.viewModel!.orderCreatedID, paymentReference: transactionID)
         }
         completion(PKPaymentAuthorizationResult(status: .success, errors: nil))
+    }
+}
+
+extension CheckoutView: TabbyCheckoutDelegate {
+    func initiateTabby(){
+        var tabbyOrderList: [OrderItem] = []
+        for item in self.viewModel!.cartResponse.items{
+            tabbyOrderList.append(OrderItem(quantity: Int(item.quantity) ?? 1, reference_id: item.id, title: item.productName, unit_price: String(item.unitPrice), category: "Flowers"))
+        }
+        let customerPayment = Payment(
+            amount: String(self.viewModel!.cartResponse.total),
+            currency: .SAR,
+            description: "Rosovina Order #" + String(self.viewModel!.orderCreatedID),
+            buyer: Buyer(
+                email: LoginDataService.shared.getEmail(),
+                phone: LoginDataService.shared.getMobileNumber(),
+                name: LoginDataService.shared.getFullName(),
+                dob: nil
+            ),
+            buyer_history: BuyerHistory(registered_since: "2019-08-24T14:15:22Z", loyalty_level: 0),
+            order: Order(
+                reference_id: "#" + String(self.viewModel!.orderCreatedID),
+                items: tabbyOrderList,
+                shipping_amount: "50",
+                tax_amount: "100"
+            ),
+            order_history: [],
+            shipping_address: ShippingAddress(
+                address: self.viewModel?.cartResponse.address?.areaName ?? "",
+                city: self.viewModel?.cartResponse.address?.cityName ?? "",
+                zip: "22230"
+            )
+        )
+
+        let myTestPayment = TabbyCheckoutPayload(merchant_code: "sa", lang: .en, payment: customerPayment)
+        
+        TabbySDK.shared.configure(forPayment: myTestPayment) { result in
+            switch result {
+            case .success(let s):
+                // 1. Do something with sessionId (this step is optional)
+                print("sessionId: \(s.sessionId)")
+                // 2. Do something with paymentId (this step is optional)
+                print("paymentId: \(s.paymentId)")
+                // 2. Grab avaibable products from session and enable proper
+                // payment method buttons in your UI (this step is required)
+                print("tabby available products: \(s.tabbyProductTypes)")
+                if (s.tabbyProductTypes.contains(.installments)) {
+                    let newViewController = TabbyCheckoutView()
+                    newViewController.viewModel = TabbyViewModel(myTestPayment: myTestPayment)
+                    newViewController.delegate = self
+                    self.navigationController?.pushViewController(newViewController, animated: true)
+                }
+            case .failure(let error):
+                // Do something when Tabby checkout session POST requiest failed
+                print(error)
+            }
+        }
+    }
+    
+    func didTabbyCheckoutSuccess(state: Bool) {
+        if state {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                //self.viewModel!.confirmOrder(orderID: self.viewModel!.orderCreatedID, paymentReference: "")
+            }
+        }else{
+            Alert.show("Order Failed", message: "Tabby Payment Error, Please try again", context: self)
+        }
     }
 }
 

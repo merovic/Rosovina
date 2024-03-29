@@ -126,11 +126,7 @@ class MyProfileView: UIViewController {
     
     // Handler for the custom notification
     @objc func handleDidUpdateValue(_ notification: Notification) {
-        if let updatedValue = notification.object as? UserAddress {
-            // Handle the updated value as needed
-            print("Updated value received in FirstViewController: \(updatedValue)")
-            self.viewModel.getAddresses()
-        }
+        self.viewModel.getAddresses()
     }
     
     func AttachViews() {
