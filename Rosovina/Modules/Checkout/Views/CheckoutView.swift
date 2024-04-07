@@ -321,30 +321,6 @@ class CheckoutView: UIViewController {
             }
             .store(in: &bindings)
         
-//        creditCardGest.tapPublisher
-//            .sink(receiveValue:{_ in
-//                self.viewModel?.paymentMethodID = .visa
-//            })
-//            .store(in: &bindings)
-//
-//        codGest.tapPublisher
-//            .sink(receiveValue:{_ in
-//                self.viewModel?.paymentMethodID = .cash
-//            })
-//            .store(in: &bindings)
-//
-//        applePayGest.tapPublisher
-//            .sink(receiveValue:{_ in
-//                self.viewModel?.paymentMethodID = .applePay
-//            })
-//            .store(in: &bindings)
-//
-//        tamaraGest.tapPublisher
-//            .sink(receiveValue:{_ in
-//                self.viewModel?.paymentMethodID = .tamara
-//            })
-//            .store(in: &bindings)
-        
         payButton.tapPublisher
             .sink { _ in
                 if self.customSwitch.isOn {
@@ -425,32 +401,6 @@ class CheckoutView: UIViewController {
                 self.navigationController?.pushViewController(newViewController, animated: true)
             }
         }.store(in: &bindings)
-        
-//        viewModel!.$paymentMethodID.sink { paymentMethod in
-//            switch paymentMethod {
-//            case .cash:
-//                self.codView.roundedLightGrayHareefView()
-//                self.creditCardView.backgroundColor = UIColor.init(named: "LightGray")
-//                self.applePayView.roundedLightGrayHareefView()
-//                self.tamaraView.rounded()
-//            case .visa:
-//                self.creditCardView.roundedBlackHareefView()
-//                self.codView.backgroundColor = UIColor.init(named: "LightGray")
-//                self.applePayView.roundedLightGrayHareefView()
-//                self.tamaraView.roundedLightGrayHareefView()
-//            case .applePay:
-//                self.creditCardView.roundedLightGrayHareefView()
-//                self.codView.backgroundColor = UIColor.init(named: "LightGray")
-//                self.applePayView.roundedBlackHareefView()
-//                self.tamaraView.roundedLightGrayHareefView()
-//            case .tamara:
-//                self.creditCardView.roundedLightGrayHareefView()
-//                self.codView.backgroundColor = UIColor.init(named: "LightGray")
-//                self.applePayView.roundedLightGrayHareefView()
-//                self.tamaraView.roundedBlackHareefView()
-//            }
-//
-//        }.store(in: &bindings)
         
     }
     
@@ -640,10 +590,10 @@ extension CheckoutView: PKPaymentAuthorizationViewControllerDelegate {
 }
 
 extension CheckoutView: TabbyCheckoutDelegate {
-    func initiateTabby(){
+    func sampleTabby(){
         var tabbyOrderList: [OrderItem] = []
         for item in self.viewModel!.cartResponse.items{
-            tabbyOrderList.append(OrderItem(quantity: Int(item.quantity) ?? 1, reference_id: item.id, title: item.productName, unit_price: String(item.unitPrice), category: "Flowers"))
+            tabbyOrderList.append(OrderItem(quantity: Int(item.quantity) ?? 1, reference_id: item.sku ?? "", title: item.productName, unit_price: String(item.unitPrice), category: "Flowers"))
         }
         let customerPayment = Payment(
             amount: String(self.viewModel!.cartResponse.total),
@@ -659,8 +609,8 @@ extension CheckoutView: TabbyCheckoutDelegate {
             order: Order(
                 reference_id: "#" + String(self.viewModel!.orderCreatedID),
                 items: tabbyOrderList,
-                shipping_amount: "50",
-                tax_amount: "100"
+                shipping_amount: "10",
+                tax_amount: "10"
             ),
             order_history: [],
             shipping_address: ShippingAddress(
@@ -670,7 +620,46 @@ extension CheckoutView: TabbyCheckoutDelegate {
             )
         )
 
-        let myTestPayment = TabbyCheckoutPayload(merchant_code: "sa", lang: .en, payment: customerPayment)
+        let myTestPayment = TabbyCheckoutPayload(merchant_code: "Rosovina AppPL", lang: .en, payment: customerPayment)
+        
+        
+        let newViewController = TabbyCheckoutView()
+        newViewController.viewModel = TabbyViewModel(myTestPayment: myTestPayment)
+        newViewController.delegate = self
+        self.navigationController?.pushViewController(newViewController, animated: true)
+    }
+    
+    func initiateTabby(){
+        var tabbyOrderList: [OrderItem] = []
+        for item in self.viewModel!.cartResponse.items{
+            tabbyOrderList.append(OrderItem(quantity: Int(item.quantity) ?? 1, reference_id: item.sku ?? "", title: item.productName, unit_price: String(item.unitPrice), category: "Flowers"))
+        }
+        let customerPayment = Payment(
+            amount: String(self.viewModel!.cartResponse.total),
+            currency: .SAR,
+            description: "Rosovina Order #" + String(self.viewModel!.orderCreatedID),
+            buyer: Buyer(
+                email: LoginDataService.shared.getEmail(),
+                phone: LoginDataService.shared.getMobileNumber(),
+                name: LoginDataService.shared.getFullName(),
+                dob: nil
+            ),
+            buyer_history: BuyerHistory(registered_since: "2019-08-24T14:15:22Z", loyalty_level: 0),
+            order: Order(
+                reference_id: "#" + String(self.viewModel!.orderCreatedID),
+                items: tabbyOrderList,
+                shipping_amount: "10",
+                tax_amount: "10"
+            ),
+            order_history: [],
+            shipping_address: ShippingAddress(
+                address: self.viewModel?.cartResponse.address?.areaName ?? "",
+                city: self.viewModel?.cartResponse.address?.cityName ?? "",
+                zip: "22230"
+            )
+        )
+
+        let myTestPayment = TabbyCheckoutPayload(merchant_code: "Rosovina AppPL", lang: .en, payment: customerPayment)
         
         TabbySDK.shared.configure(forPayment: myTestPayment) { result in
             switch result {

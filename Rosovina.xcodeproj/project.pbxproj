@@ -56,6 +56,7 @@
 		077F4E312BB1CD1400363CDF /* TabbyCheckoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077F4E2F2BB1CD1400363CDF /* TabbyCheckoutView.swift */; };
 		077F4E322BB1CD1400363CDF /* TabbyCheckoutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 077F4E302BB1CD1400363CDF /* TabbyCheckoutView.xib */; };
 		077F4E342BB1D0B000363CDF /* TabbyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077F4E332BB1D0B000363CDF /* TabbyViewModel.swift */; };
+		077F4E362BB9A5E500363CDF /* CheckoutExampleWithTabby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077F4E352BB9A5E500363CDF /* CheckoutExampleWithTabby.swift */; };
 		07B3793B2B49ABE900F49DC3 /* MyOrdersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3793A2B49ABE900F49DC3 /* MyOrdersService.swift */; };
 		07B3793D2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3793C2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift */; };
 		07B3793F2B49ACB300F49DC3 /* MyOrdersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B3793E2B49ACB300F49DC3 /* MyOrdersViewModel.swift */; };
@@ -297,6 +298,7 @@
 		077F4E2F2BB1CD1400363CDF /* TabbyCheckoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbyCheckoutView.swift; sourceTree = "<group>"; };
 		077F4E302BB1CD1400363CDF /* TabbyCheckoutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TabbyCheckoutView.xib; sourceTree = "<group>"; };
 		077F4E332BB1D0B000363CDF /* TabbyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbyViewModel.swift; sourceTree = "<group>"; };
+		077F4E352BB9A5E500363CDF /* CheckoutExampleWithTabby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutExampleWithTabby.swift; sourceTree = "<group>"; };
 		07B3793A2B49ABE900F49DC3 /* MyOrdersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersService.swift; sourceTree = "<group>"; };
 		07B3793C2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersAPIResponse.swift; sourceTree = "<group>"; };
 		07B3793E2B49ACB300F49DC3 /* MyOrdersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrdersViewModel.swift; sourceTree = "<group>"; };
@@ -1204,6 +1206,7 @@
 				07BBA9512AFECACB006AE9F7 /* CheckoutSucessView.xib */,
 				077F4E2F2BB1CD1400363CDF /* TabbyCheckoutView.swift */,
 				077F4E302BB1CD1400363CDF /* TabbyCheckoutView.xib */,
+				077F4E352BB9A5E500363CDF /* CheckoutExampleWithTabby.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1674,6 +1677,7 @@
 				07B3793D2B49AC1A00F49DC3 /* MyOrdersAPIResponse.swift in Sources */,
 				07C77B002B5C1F9F00FCA240 /* GetCategoriesAPIResponse.swift in Sources */,
 				07C77B062B5C432F00FCA240 /* AddReviewViewModel.swift in Sources */,
+				077F4E362BB9A5E500363CDF /* CheckoutExampleWithTabby.swift in Sources */,
 				07BEE1832B4223A30065C559 /* GetCartAPIResponse.swift in Sources */,
 				07BEE1BE2B4898AD0065C559 /* CheckoutViewModel.swift in Sources */,
 				076C2DCF2B336C22005ED1C7 /* RegistrationAPIResponse.swift in Sources */,

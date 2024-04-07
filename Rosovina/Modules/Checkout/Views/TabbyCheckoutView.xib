@@ -20,8 +20,42 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z9P-Vt-bdD">
-                    <rect key="frame" x="8" y="59" width="377" height="759"/>
+                    <rect key="frame" x="8" y="116" width="377" height="702"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jZO-aN-paw">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="116"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fXQ-aH-wwH">
+                            <rect key="frame" x="8" y="61.666666666666657" width="35" height="35"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="35" id="AYh-Al-1fl"/>
+                                <constraint firstAttribute="width" constant="35" id="YkS-pq-hAi"/>
+                            </constraints>
+                            <color key="tintColor" red="0.043137254899999998" green="0.66666666669999997" blue="0.6705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <state key="normal" image="arrow"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="invertedLoc" value="YES"/>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check out" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wrr-5A-wpV">
+                            <rect key="frame" x="96.666666666666686" y="67" width="200" height="24"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="200" id="7fe-3g-Z6y"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                            <color key="textColor" red="0.1764705882" green="0.19215686269999999" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="Wrr-5A-wpV" firstAttribute="centerX" secondItem="jZO-aN-paw" secondAttribute="centerX" id="1Xx-Pw-1P5"/>
+                        <constraint firstItem="fXQ-aH-wwH" firstAttribute="centerY" secondItem="Wrr-5A-wpV" secondAttribute="centerY" id="HEb-gv-192"/>
+                        <constraint firstItem="Wrr-5A-wpV" firstAttribute="top" secondItem="jZO-aN-paw" secondAttribute="top" constant="67" id="O6g-fn-B6F"/>
+                        <constraint firstAttribute="height" constant="116" id="Q80-N0-wwh"/>
+                        <constraint firstItem="fXQ-aH-wwH" firstAttribute="leading" secondItem="jZO-aN-paw" secondAttribute="leading" constant="8" id="R2C-sn-iXO"/>
+                    </constraints>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
@@ -29,13 +63,17 @@
             <constraints>
                 <constraint firstItem="Z9P-Vt-bdD" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="Kqe-0E-Gvk"/>
                 <constraint firstItem="Z9P-Vt-bdD" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="PyT-UT-CVG"/>
-                <constraint firstItem="Z9P-Vt-bdD" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="uRX-JB-Z9i"/>
+                <constraint firstItem="jZO-aN-paw" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="aiG-CI-VLd"/>
+                <constraint firstItem="Z9P-Vt-bdD" firstAttribute="top" secondItem="jZO-aN-paw" secondAttribute="bottom" id="b4F-Na-5Ge"/>
+                <constraint firstItem="jZO-aN-paw" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="kPO-c2-EtM"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Z9P-Vt-bdD" secondAttribute="trailing" constant="8" id="v7L-iK-nwx"/>
+                <constraint firstItem="jZO-aN-paw" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="zR6-mk-i6N"/>
             </constraints>
             <point key="canvasLocation" x="-5.343511450381679" y="19.718309859154932"/>
         </view>
     </objects>
     <resources>
+        <image name="arrow" width="24" height="21.666666030883789"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
