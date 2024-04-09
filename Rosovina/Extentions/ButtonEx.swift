@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MOLH
 import UIKit
 
 extension UIButton{
@@ -75,5 +76,16 @@ extension UIButton {
         let shape = CAShapeLayer()
         shape.path = maskPath.cgPath
         layer.mask = shape
+    }
+}
+
+extension UIButton {
+    @IBInspectable var invertedLoc: Bool{
+        get {return self.invertedLoc == false}
+        set {
+            if(newValue){if(MOLHLanguage.isRTLLanguage()){self.setImage(self.imageView?.image?.flipHorizontally(), for: .normal)
+                }
+            }
+        }
     }
 }

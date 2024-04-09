@@ -25,6 +25,8 @@ class LoginView: UIViewController {
         didSet {
             typeSegmentation.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
             typeSegmentation.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .normal)
+            typeSegmentation.setTitle("phone".localized, forSegmentAt: 0)
+            typeSegmentation.setTitle("email".localized, forSegmentAt: 1)
         }
     }
     
@@ -302,7 +304,7 @@ class LoginView: UIViewController {
             }else if v == .failed{
                 self.passwordIncorrectLabel.isHidden = false
             }else if v == .error{
-                Alert.show("Login Failed", message: "Check your Inputs First", context: self)
+                Alert.show("login_failed".localized, message: "check_your_inputs_first".localized, context: self)
             }
         }.store(in: &bindings)
         

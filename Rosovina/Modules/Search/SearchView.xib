@@ -61,6 +61,9 @@
                                     <rect key="frame" x="31" y="10.666666666666666" width="243" height="18.666666666666671"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="search"/>
+                                    </userDefinedRuntimeAttributes>
                                 </textField>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>

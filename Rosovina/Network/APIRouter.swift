@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import MOLH
 
 enum APIRouter: URLRequestConvertible {
     
@@ -289,6 +290,7 @@ enum APIRouter: URLRequestConvertible {
         // Header
         urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.acceptType.rawValue)
         urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
+        urlRequest.setValue(MOLHLanguage.isRTLLanguage() ? "ar" : "en", forHTTPHeaderField: HTTPHeaderField.language.rawValue)
         urlRequest.setValue("Bearer " + LoginDataService.shared.getAuthToken(), forHTTPHeaderField: HTTPHeaderField.authentication.rawValue)
         
         // Parameters

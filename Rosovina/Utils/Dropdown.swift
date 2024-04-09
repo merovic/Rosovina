@@ -68,3 +68,40 @@ struct Dropdown: View {
         //.frame(width: 300)
     }
 }
+
+
+struct LanguageDropdown: View {
+    
+    var placeholder: String
+    @ObservedObject var viewModel: SettingsViewModel
+    
+    var body: some View {
+        Menu {
+            ForEach(viewModel.languages) { item in
+                Button(item.name) {
+                    viewModel.selectedLanguage = item
+                }
+            }
+        } label: {
+            VStack(spacing: 5){
+                HStack{
+                    Text(viewModel.selectedLanguage.name)
+                        .foregroundColor(.black)
+                    Spacer()
+                    Image("Polygon 2")
+                        .resizable()
+                        .frame(width: 13, height: 10)
+//                    Image(systemName: "chevron.down")
+//                        .foregroundColor(Color.gray.opacity(0.33))
+//                        .font(Font.system(size: 20, weight: .semibold))
+                }
+                .padding(.horizontal)
+                
+//                Rectangle()
+//                    .fill(Color.gray.opacity(0.33))
+//                    .frame(height: 1)
+            }
+        }
+        //.frame(width: 300)
+    }
+}

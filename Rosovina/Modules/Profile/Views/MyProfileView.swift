@@ -162,7 +162,7 @@ class MyProfileView: UIViewController {
         
         deactivateGest.tapPublisher
             .sink(receiveValue:{_ in
-                let vc = SwiftBottomSheet(initialHeight: 300, text1Name: "Are you sure you want to deactivate your account ?", text2Name: "", mainIconName: "switch", button1Text: "Yes", button2Text: "Cancel")
+                let vc = SwiftBottomSheet(initialHeight: 300, text1Name: "deactivate_account".localized, text2Name: "", mainIconName: "switch", button1Text: "yes".localized, button2Text: "cancel".localized)
                 vc.delegate = self
                 self.presentBottomSheetInsideNavigationController(
                     viewController: vc,

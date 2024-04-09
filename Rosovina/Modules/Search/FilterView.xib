@@ -31,6 +31,9 @@
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                             <color key="textColor" red="0.28235294119999998" green="0.3921568627" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="filter"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="SwS-yt-3FH">
                             <rect key="frame" x="301.66666666666669" y="15" width="75.333333333333314" height="24"/>
@@ -40,6 +43,9 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="reset"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hS3-1R-j8c">
                                     <rect key="frame" x="51.333333333333314" y="0.0" width="24" height="24"/>
@@ -60,6 +66,9 @@
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                     <color key="textColor" red="0.1764705882" green="0.19215686269999999" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="price_range"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HSK-iu-igr" customClass="RangeSlider" customModule="WARangeSlider">
                                     <rect key="frame" x="0.0" y="27.333333333333343" width="345" height="36"/>
@@ -76,6 +85,9 @@
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                     <color key="textColor" name="AccentColor"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="betweenNo"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
                             <constraints>
@@ -100,6 +112,9 @@
                             <state key="normal" title="Apply filter">
                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="apply_filter"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="applyFilterClicked:" destination="-1" eventType="touchUpInside" id="vxC-tt-uy9"/>
                             </connections>

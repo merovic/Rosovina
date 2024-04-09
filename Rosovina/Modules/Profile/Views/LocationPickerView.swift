@@ -169,7 +169,7 @@ class LocationPickerView: UIViewController, GMSMapViewDelegate {
     
     
     @IBAction func confirmLocation(_ sender: Any) {
-        let place = GooglePlaceLocation(locationName: currentLocationName ?? "Giza Governotate", locationAddress: currentLocationAddress ?? "Giza Governotate", locationCoordinates: currrentLocationCoordinates!)
+        let place = GooglePlaceLocation(locationName: currentLocationName ?? "no_address_returned".localized, locationAddress: currentLocationAddress ?? "no_address_returned".localized, locationCoordinates: currrentLocationCoordinates!)
        
         let newViewController = AddAddressView()
         newViewController.viewModel = AddAddressViewModel(mapLocation: place)

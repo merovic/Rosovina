@@ -87,7 +87,7 @@ class ShoppingCartView: UIViewController {
         
         viewModel.$errorMessage.sink { response in
             if response != ""{
-                Alert.show("PromoCode Error", message: response, context: self)
+                Alert.show("promoCode_error".localized, message: response, context: self)
             }
         }.store(in: &bindings)
         
@@ -118,12 +118,12 @@ struct ShoppingCartSwiftUIView: View {
             }
             
             VStack(alignment: .leading){
-                Text("Add coupon")
+                Text("add_coupon".localized)
                     .font(.poppinsFont(size: 16, weight: .bold))
                     .foregroundColor(Color.black)
                 
                 HStack(spacing: 5){
-                    TextField("Enter voucher code", text: $viewModel.promocodeText)
+                    TextField("enter_voucher_code".localized, text: $viewModel.promocodeText)
                         .font(.poppinsFont(size: 12, weight: .regular))
                         .padding()
                         .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color("LightGray"), style: StrokeStyle(lineWidth: 1.0)))
@@ -133,7 +133,7 @@ struct ShoppingCartSwiftUIView: View {
                     Button {
                         self.viewModel.checkPromoCode()
                     } label: {
-                        Text("Apply")
+                        Text("apply".localized)
                             .font(.poppinsFont(size: 12, weight: .regular))
                             .frame(width: 65, height: 15)
                             .padding()
@@ -145,7 +145,7 @@ struct ShoppingCartSwiftUIView: View {
                 
                 VStack{
                     HStack{
-                        Text("Total items")
+                        Text("total_items".localized)
                             .font(.poppinsFont(size: 12, weight: .regular))
                             .foregroundColor(Color("DarkGray"))
                         Spacer()
@@ -155,21 +155,21 @@ struct ShoppingCartSwiftUIView: View {
                     }.padding()
                     
                     HStack{
-                        Text("Price")
+                        Text("price".localized)
                             .font(.poppinsFont(size: 12, weight: .regular))
                             .foregroundColor(Color("DarkGray"))
                         Spacer()
-                        Text(String(viewModel.cartResponse?.subTotal ?? 0) + " " + (viewModel.cartResponse?.currencyCode ?? "SAR"))
+                        Text(String(viewModel.cartResponse?.subTotal ?? 0) + " " + (viewModel.cartResponse?.currencyCode ?? "SAR".localized))
                             .font(.poppinsFont(size: 12, weight: .bold))
                             .foregroundColor(Color("AccentColor"))
                     }.padding(.horizontal)
                     
                     HStack{
-                        Text("Discount")
+                        Text("discount".localized)
                             .font(.poppinsFont(size: 12, weight: .regular))
                             .foregroundColor(Color("DarkGray"))
                         Spacer()
-                        Text(String(viewModel.cartResponse?.discountPercentage ?? 0) + " " + (viewModel.cartResponse?.currencyCode ?? "SAR"))
+                        Text(String(viewModel.cartResponse?.discountPercentage ?? 0) + " " + (viewModel.cartResponse?.currencyCode ?? "SAR".localized))
                             .font(.poppinsFont(size: 12, weight: .bold))
                             .foregroundColor(Color("AccentColor"))
                     }.padding()
@@ -177,7 +177,7 @@ struct ShoppingCartSwiftUIView: View {
                     Divider().frame(width: .infinity).padding(.horizontal)
                     
                     HStack{
-                        Text("Total price")
+                        Text("total_price".localized)
                             .font(.poppinsFont(size: 12, weight: .regular))
                             .foregroundColor(Color("DarkGray"))
                         Spacer()
@@ -225,7 +225,7 @@ struct ShoppingCartItemSwiftUIView: View {
                     
                     Spacer()
                     
-                    Text("Flowers")
+                    Text("flowers".localized)
                         .lineLimit(2)
                         .fixedSize(horizontal: false, vertical: true)
                         .multilineTextAlignment(.leading)
@@ -235,7 +235,7 @@ struct ShoppingCartItemSwiftUIView: View {
                         .padding(.horizontal)
                 }.padding(.top, 5)
                 
-                Text(String(cartItem.total) + " " + (cartItem.currencyCode ?? "SAR"))
+                Text(String(cartItem.total) + " " + (cartItem.currencyCode ?? "SAR".localized))
                     .lineLimit(2)
                     .fixedSize(horizontal: false, vertical: true)
                     .multilineTextAlignment(.leading)

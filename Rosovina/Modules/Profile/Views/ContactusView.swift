@@ -25,8 +25,8 @@ class ContactusView: UIViewController, MFMailComposeViewControllerDelegate {
         // Check if the device can send email
         guard MFMailComposeViewController.canSendMail() else {
             // Show an alert if the device cannot send email
-            let alert = UIAlertController(title: "Error", message: "Your device cannot send email", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            let alert = UIAlertController(title: "error".localized, message: "your_device_cannot_send_email".localized, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "ok".localized, style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
             return
         }

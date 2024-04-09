@@ -146,7 +146,7 @@ class OrderTrackingView: UIViewController {
                 }
                 
                 self.totalCount.text = String(order?.itemsCount ?? 1)
-                self.totalPrice.text = String(order?.total ?? 0) + " " + (order?.currencyCode ?? "SAR")
+                self.totalPrice.text = String(order?.total ?? 0) + " " + (order?.currencyCode ?? "SAR".localized)
                 self.paymentMethod.text = order?.paymentMethodName
                 self.containerHeight.constant = CGFloat((order?.itemsCount ?? 1) * 180)
             }
@@ -210,7 +210,7 @@ struct OrderTrackingItemSwiftUIView: View {
                         .padding(.horizontal, 20)
                 }.padding(.top, 5)
                 
-                Text(String(orderItem.total) + " " + (orderItem.currencyCode ?? "SAR"))
+                Text(String(orderItem.total) + " " + (orderItem.currencyCode ?? "SAR".localized))
                     .font(.poppinsFont(size: 12, weight: .medium))
                     .foregroundColor(Color.gray)
             }

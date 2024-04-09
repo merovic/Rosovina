@@ -56,11 +56,11 @@ class VerificationViewController: UIViewController {
             .store(in: &bindings)
         
         if viewModel.isResetByEmail ?? false {
-            pleaseText.text = "Please verify your email address"
-            phoneNumberText.text = "We texted you on " + viewModel.emailText
+            pleaseText.text = "please_verify_your_email".localized
+            phoneNumberText.text = "we_texted_you_on_s".localized + viewModel.emailText
         }else{
-            pleaseText.text = "Please verify your mobile number"
-            phoneNumberText.text = "We texted you on " + viewModel.phoneText
+            pleaseText.text = "please_verify_your_mobile_number".localized
+            phoneNumberText.text = "we_texted_you_on_s".localized + viewModel.phoneText
         }
         
         continueButton.tapPublisher
@@ -100,7 +100,7 @@ class VerificationViewController: UIViewController {
                 newViewController.viewModel = CreatePasswordViewModel(phoneText: self.viewModel.checkForPhone(phone: self.viewModel.phoneText, code: self.viewModel.phoneCode), emailText: self.viewModel.emailText, token: self.viewModel.tokenResponse?.token)
                 self.navigationController?.pushViewController(newViewController, animated: true)
             }else if v == .failed{
-                Alert.show("Forget Password Error", message: self.viewModel.errorMessage, context: self)
+                Alert.show("forget_password_error".localized, message: self.viewModel.errorMessage, context: self)
             }
         }.store(in: &bindings)
         
@@ -113,7 +113,7 @@ class VerificationViewController: UIViewController {
                 nav1.modalPresentationStyle = .fullScreen
                 self.present(nav1, animated: true)
             }else if v == .failed{
-                Alert.show("OTP Error", message: self.viewModel.errorMessage, context: self)
+                Alert.show("otp_error".localized, message: self.viewModel.errorMessage, context: self)
             }
         }.store(in: &bindings)
     }

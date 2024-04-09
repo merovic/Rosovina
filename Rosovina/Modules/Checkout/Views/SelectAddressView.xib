@@ -36,6 +36,9 @@
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                             <color key="textColor" red="0.21176470589999999" green="0.2156862745" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="select_address"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yh8-E0-xVz">
                             <rect key="frame" x="16" y="51.333333333333314" width="303" height="582.66666666666674"/>

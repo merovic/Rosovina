@@ -69,7 +69,7 @@ class VerificationViewModel: ObservableObject {
         if String(tokenResponse!.code) == codeText {
             self.forgetPasswordStatus = .success
         }else{
-            self.errorMessage = "OTP Not Match"
+            self.errorMessage = "otp_not_match".localized
             self.forgetPasswordStatus = .failed
         }
     }
@@ -109,7 +109,7 @@ class VerificationViewModel: ObservableObject {
                 )
                 .store(in: &cancellables)
         }else{
-            self.errorMessage = "Check Your Inputs First"
+            self.errorMessage = "check_your_inputs_first".localized
             self.registrationStatus = .failed
         }
         

@@ -180,7 +180,7 @@ class CheckoutView: UIViewController {
         // Add toolbar with "Done" button to dismiss date picker
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 44))
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismissPicker))
+        let doneButton = UIBarButtonItem(title: "done".localized, style: .done, target: self, action: #selector(dismissPicker))
         toolbar.setItems([flexibleSpace, doneButton], animated: false)
         deliveryDateTextField.inputAccessoryView = toolbar
     }
@@ -230,6 +230,7 @@ class CheckoutView: UIViewController {
             .sink { date in
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd"
+                dateFormatter.locale = Locale(identifier: "en")
                 self.deliveryDateTextField.text = dateFormatter.string(from: date)
                 self.viewModel?.deliveryDate = date
                 self.viewModel?.deliveryDateText = dateFormatter.string(from: date)
@@ -327,13 +328,13 @@ class CheckoutView: UIViewController {
                     if self.viewModel?.recipientNameText != "" && self.viewModel?.recipientPhoneText != ""{
                         self.viewModel?.createOrder()
                     }else{
-                        Alert.show("Cant Complete Order", message: "Fill the Recipient Name and Phone First", context: self)
+                        Alert.show("cant_complete_order".localized, message: "fill_the_recipient".localized, context: self)
                     }
                 }else{
                     if self.viewModel?.cartResponse.address != nil{
                         self.viewModel?.createOrder()
                     }else{
-                        Alert.show("Cant Complete Order", message: "Select a Delivery Address First", context: self)
+                        Alert.show("cant_complete_order".localized, message: "select_delivery".localized, context: self)
                     }
                 }
             }
@@ -359,7 +360,7 @@ class CheckoutView: UIViewController {
             self.serviceFeeLabel.text = String(response.discountPercentage) + " " + response.currencyCode
             self.totalAmountLabel.text = String(response.total) + " " + response.currencyCode
             
-            self.payButton.setTitle("Pay now " + String(response.total) + " " + response.currencyCode, for: . normal)
+            self.payButton.setTitle("pay_now".localized + " " + String(response.total) + " " + response.currencyCode, for: . normal)
             
         }.store(in: &bindings)
         
@@ -373,7 +374,7 @@ class CheckoutView: UIViewController {
         
         viewModel!.$errorMessage.sink { message in
             if message != "" {
-                Alert.show("Order Failed", message: message, context: self)
+                Alert.show("order_failed".localized, message: message, context: self)
             }
         }.store(in: &bindings)
         
@@ -438,7 +439,7 @@ extension CheckoutView{
             case .failure(let failError):
                 print(failError.localizedDescription)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    Alert.show("Payment Error", message: failError.localizedDescription, context: self!)
+                    Alert.show("payment_error".localized, message: failError.localizedDescription, context: self!)
                 }
             }
         }
@@ -461,7 +462,7 @@ extension CheckoutView{
             case .failure(let failError):
                 print(failError.localizedDescription)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    Alert.show("Payment Error", message: failError.localizedDescription, context: self!)
+                    Alert.show("payment_error".localized, message: failError.localizedDescription, context: self!)
                 }
                 
             }
@@ -491,7 +492,7 @@ extension CheckoutView: TamaraCheckoutDelegate {
         tamaraOrder.setCustomerInfo(firstName: userFirstName, lastName: userLastName, phoneNumber: LoginDataService.shared.getMobileNumber(), email: LoginDataService.shared.getEmail())
         
         for item in self.viewModel!.cartResponse.items {
-            tamaraOrder.addItem(name: item.productName, referenceId: item.id, sku: item.sku ?? "", type: "Rosovina Product", unitPrice: Double(item.unitPrice), tax: Double(item.taxAmount), discount: Double(item.discountAmount), quantity: Int(item.quantity) ?? 1)
+            tamaraOrder.addItem(name: item.productName, referenceId: item.id, sku: item.sku ?? "", type: "rosovina_product".localized, unitPrice: Double(item.unitPrice), tax: Double(item.taxAmount), discount: Double(item.discountAmount), quantity: Int(item.quantity) ?? 1)
         }
         
         tamaraOrder.setShippingAddress(firstName: userFirstName, lastName: userLastName, phoneNumber: LoginDataService.shared.getMobileNumber(), addressLine1: self.viewModel!.cartResponse.address?.name ?? "", addressLine2: self.viewModel!.cartResponse.address?.name ?? "", country: "SA", region: self.viewModel!.cartResponse.address?.areaName ?? "", city: LoginDataService.shared.getUserCity().name)
@@ -541,13 +542,13 @@ extension CheckoutView: TamaraCheckoutDelegate {
     
     func onFailured() {
         tamaraSDK.dismiss(animated: true) {
-            Alert.show("Order Failed", message: "Payment Error, Please try again", context: self)
+            Alert.show("order_failed".localized, message: "payment_error_please".localized, context: self)
         }
     }
     
     func onCancel() {
         tamaraSDK.dismiss(animated: true) {
-            Alert.show("Order Failed", message: "Order Cancelled", context: self)
+            Alert.show("order_failed".localized, message: "order_cancelled".localized, context: self)
         }
     }
 }
@@ -690,7 +691,7 @@ extension CheckoutView: TabbyCheckoutDelegate {
                 //self.viewModel!.confirmOrder(orderID: self.viewModel!.orderCreatedID, paymentReference: "")
             }
         }else{
-            Alert.show("Order Failed", message: "Tabby Payment Error, Please try again", context: self)
+            Alert.show("order_failed".localized, message: "payment_error_please".localized, context: self)
         }
     }
 }
@@ -773,12 +774,14 @@ struct SlotsItemSwiftUIView: View {
     func getFirstDate() -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MMM"
+        dateFormatter.locale = Locale(identifier: Locale.preferredLanguages.first ?? "ar")
         return dateFormatter.string(from: self.viewModel.deliveryDate)
     }
     
     func getSecondDate() -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE"
+        dateFormatter.locale = Locale(identifier: Locale.preferredLanguages.first ?? "ar")
         return dateFormatter.string(from: self.viewModel.deliveryDate)
     }
 }

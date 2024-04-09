@@ -26,7 +26,7 @@ class AddAddressView: UIViewController {
     @IBOutlet weak var titleLabel: UILabel! {
         didSet {
             if self.viewModel?.addressToUpdate != nil {
-                titleLabel.text = "Update Address"
+                titleLabel.text = "update_address".localized
             }
         }
     }
@@ -104,7 +104,7 @@ class AddAddressView: UIViewController {
             addNewButton.disable()
             addNewButton.prettyHareefButton(radius: 16)
             if self.viewModel?.addressToUpdate != nil {
-                addNewButton.setTitle("Update Address", for: .normal)
+                addNewButton.setTitle("update_address".localized, for: .normal)
             }
         }
     }
@@ -139,9 +139,9 @@ class AddAddressView: UIViewController {
     
     func AttachViews() {
         self.countryPickerView.EmbedSwiftUIView(view: CountryPicker(viewModel: countryPickerViewModel), parent: self)
-        self.countryView.EmbedSwiftUIView(view: Dropdown(selection: .countries, placeholder: "Select Country", viewModel: self.viewModel!), parent: self)
-        self.cityView.EmbedSwiftUIView(view: Dropdown(selection: .cities, placeholder: "Select City", viewModel: self.viewModel!), parent: self)
-        self.areaView.EmbedSwiftUIView(view: Dropdown(selection: .areas, placeholder: "Select Area", viewModel: self.viewModel!), parent: self)
+        self.countryView.EmbedSwiftUIView(view: Dropdown(selection: .countries, placeholder: "deliver_to_country".localized, viewModel: self.viewModel!), parent: self)
+        self.cityView.EmbedSwiftUIView(view: Dropdown(selection: .cities, placeholder: "select_city".localized, viewModel: self.viewModel!), parent: self)
+        self.areaView.EmbedSwiftUIView(view: Dropdown(selection: .areas, placeholder: "select_area".localized, viewModel: self.viewModel!), parent: self)
     }
     
     func BindViews(){
@@ -363,7 +363,7 @@ class AddAddressView: UIViewController {
         
         viewModel!.$errorMessage.sink { error in
             if error != ""{
-                Alert.show("Error Saving an Address", message: error, context: self)
+                Alert.show("error_saving_address".localized, message: error, context: self)
             }
         }.store(in: &bindings)
     }

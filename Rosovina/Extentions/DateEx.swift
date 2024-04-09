@@ -25,6 +25,7 @@ extension Date
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
+        dateFormatter.locale = Locale(identifier: Locale.preferredLanguages.first ?? "ar")
         dateFormatter.timeZone = TimeZone(abbreviation: "EG")
         
         let date = dateFormatter.date(from: time)
@@ -41,6 +42,7 @@ extension Date
         let dateFormatter = DateFormatter()
         
         dateFormatter.dateFormat = "YY/MM/dd"
+        dateFormatter.locale = Locale(identifier: Locale.preferredLanguages.first ?? "ar")
         
         let targetStart = dateFormatter.string(from: current) + " " + startTime
         let targetEnd = dateFormatter.string(from: current) + " " + endTime

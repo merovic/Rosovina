@@ -45,7 +45,7 @@ struct InitCountryViewSwiftUIView: View {
     
     var body: some View {
         VStack(alignment: .leading){
-            Text("Select country of delivery")
+            Text("deliver_to_country".localized)
                 .lineLimit(1)
                 .font(.system(size: 16, weight: .semibold, design: .default))
                 .foregroundColor(SwiftUI.Color.black)
@@ -57,7 +57,7 @@ struct InitCountryViewSwiftUIView: View {
                 Spacer()
             }
             
-            Text("Select city of delivery")
+            Text("deliver_to_city".localized)
                 .lineLimit(1)
                 .font(.system(size: 16, weight: .semibold, design: .default))
                 .foregroundColor(SwiftUI.Color.black)
@@ -72,7 +72,7 @@ struct InitCountryViewSwiftUIView: View {
             Spacer()
             
             if viewModel.selectedCity != nil {
-                MainAppButtonSwiftUI(buttonText: "Continue") {
+                MainAppButtonSwiftUI(buttonText: "continue1".localized) {
                     viewModel.continueClicked = true
                 }.padding(.horizontal, 16)
                     .padding(.top, 10)
@@ -97,7 +97,8 @@ struct CountryListItem: View {
                     .frame(width: 48, height: 48)
                 
                 Text(country.name)
-                    .lineLimit(1)
+                    .lineLimit(nil)
+                    .multilineTextAlignment(.center)
                     .font(.system(size: 12, weight: .semibold, design: .default))
                     .foregroundColor(SwiftUI.Color.black)
             }.padding()

@@ -89,6 +89,9 @@
                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                             <color key="textColor" name="AccentColor"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="deliver_to"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SAX" translatesAutoresizingMaskIntoConstraints="NO" id="oei-S4-K1s">
                             <rect key="frame" x="70.333333333333329" y="0.0" width="20" height="20"/>

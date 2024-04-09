@@ -49,6 +49,8 @@ class LoginDataService {
     private let userCountry = "userCountry"
     
     private let userCity = "userCity"
+    
+    private let appLanguage = "appLanguage"
         
     func setLogin(){
         UserDefaults.standard.set(true, forKey: self.isLoggedIn)
@@ -98,6 +100,29 @@ class LoginDataService {
             }
         }else{
             return GeoLocationAPIResponseElement(id: 1, name: "Saudi Arabia", image_path: "")
+        }
+    }
+    
+    func setAppLanguage(language: RosovinaLanguage){
+        let defaults = UserDefaults.standard
+        do {
+            let encodedData = try JSONEncoder().encode(language)
+            defaults.set(encodedData, forKey: self.appLanguage)
+        } catch {
+            print("Error encoding object: \(error)")
+        }
+    }
+    
+    func getAppLanguage() -> RosovinaLanguage{
+        if let savedData = UserDefaults.standard.data(forKey: self.appLanguage) {
+            do {
+                let decodedObject = try JSONDecoder().decode(RosovinaLanguage.self, from: savedData)
+                return decodedObject
+            } catch {
+                return RosovinaLanguage(name: "arabic".localized, code: "ar")
+            }
+        }else{
+            return RosovinaLanguage(name: "arabic".localized, code: "ar")
         }
     }
     

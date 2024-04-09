@@ -346,9 +346,9 @@ class RegistrationView: UIViewController {
 //                newViewController.viewModel = VerificationViewModel(phoneText: self.viewModel.checkForPhone(phone: self.viewModel.phoneText, code: self.viewModel.phoneCode), phoneCode: self.viewModel.phoneCode, nameText: self.viewModel.firstNameText + " " + self.viewModel.lastNameText, emailText: self.viewModel.emailText, passwordText: self.viewModel.passwordText)
 //                self.navigationController?.pushViewController(newViewController, animated: true)
             }else if v == .failed{
-                Alert.show("Registration Error", message: "Something Error Happined Please Try Again", context: self)
+                Alert.show("registration_error".localized, message: "something_error".localized, context: self)
             }else if v == .error{
-                Alert.show("Registration Error", message: "Phone has been taken", context: self)
+                Alert.show("registration_error".localized, message: "phone_has_been_taken".localized, context: self)
             }
         }.store(in: &bindings)
         

@@ -33,7 +33,7 @@ struct OccasionsSwiftUIView: View {
                     .font(.poppinsFont(size: 14, weight: .semibold))
                     .foregroundColor(Color.black)
                 Spacer()
-                Text("View More")
+                Text("view_more".localized)
                     .font(.poppinsFont(size: 10, weight: .semibold))
                     .foregroundColor(Color.black)
                     .onTapGesture {

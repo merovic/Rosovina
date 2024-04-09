@@ -63,7 +63,7 @@ struct NotificationsSwiftUIView: View {
                 }
             }else{
                 VStack{
-                    Text("Notifications List is Empty")
+                    Text("list_is_empty".localized)
                         .font(.poppinsFont(size: 25, weight: .medium))
                         .foregroundColor(Color.gray)
                     

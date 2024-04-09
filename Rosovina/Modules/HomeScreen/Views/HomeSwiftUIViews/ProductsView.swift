@@ -33,7 +33,7 @@ struct ProductsSwiftUIView: View {
                     .font(.poppinsFont(size: 14, weight: .semibold))
                     .foregroundColor(Color.black)
                 Spacer()
-                Text("View More")
+                Text("view_more".localized)
                     .font(.poppinsFont(size: 10, weight: .semibold))
                     .foregroundColor(Color.black)
                     .onTapGesture {
@@ -101,7 +101,7 @@ struct ProductItem: View {
                     .foregroundColor(Color.black)
                 HStack{
                     HStack{
-                        Text((product.currencyCode ?? "SAR") + " " + String(product.price?.rounded() ?? 0))
+                        Text((product.currencyCode ?? "SAR".localized) + " " + String(product.price?.rounded() ?? 0))
                             .font(.poppinsFont(size: 14, weight: .bold))
                             .foregroundColor(Color.black)
 //                        Text((product.currencyCode ?? "SAR") + " " + String(product.discountAmount ?? 0))

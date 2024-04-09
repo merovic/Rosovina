@@ -90,7 +90,7 @@ struct GetProductsSwiftUIView: View {
                 }
             }else{
                 VStack{
-                    Text("Category is Empty")
+                    Text("category_is_empty".localized)
                         .font(.poppinsFont(size: 25, weight: .medium))
                         .foregroundColor(Color.gray)
                     
@@ -130,7 +130,7 @@ struct CategoryProductItem: View {
                     .foregroundColor(Color.black)
                 HStack{
                     HStack{
-                        Text((product.currencyCode ?? "SAR") + " " + String(product.price.rounded()))
+                        Text((product.currencyCode ?? "SAR".localized) + " " + String(product.price.rounded()))
                             .font(.poppinsFont(size: 16, weight: .bold))
                             .foregroundColor(Color.black)
                         

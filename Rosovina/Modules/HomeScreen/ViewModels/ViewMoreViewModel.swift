@@ -34,13 +34,13 @@ class ViewMoreViewModel: ObservableObject {
         
         switch viewMoreType {
         case .category:
-            self.categoryName = "Categories"
+            self.categoryName = "categories".localized
         case .occation:
-            self.categoryName = "Occations"
+            self.categoryName = "occasions".localized
         case .product:
-            self.categoryName = "Products"
+            self.categoryName = "_5_products".localized
         case .brand:
-            self.categoryName = "Brands"
+            self.categoryName = "explore_brands".localized
         }
     }
             

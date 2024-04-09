@@ -114,7 +114,7 @@ class FilterView: UIViewController {
     @IBAction func valueChanged(_ sender: RangeSlider) {
         self.viewModel.minimumPriceRange = Int(rangleSlider.lowerValue)
         self.viewModel.maximumPriceRange = Int(rangleSlider.upperValue)
-        self.rangeText.text = "Between: " + String(Int(rangleSlider.lowerValue)) + " SAR - " + String(Int(rangleSlider.upperValue)) + " SAR"
+        self.rangeText.text = "between".localized + String(Int(rangleSlider.lowerValue)) + " " + "SAR".localized + " - " + String(Int(rangleSlider.upperValue)) + "SAR".localized
     }
 }
 
@@ -128,7 +128,7 @@ struct FilterSwiftUIView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16){
             VStack(alignment: .leading){
-                Text("Categories")
+                Text("categories".localized)
                     .font(.poppinsFont(size: 16, weight: .bold))
                     .foregroundColor(Color("AccentColor"))
                 
@@ -143,11 +143,11 @@ struct FilterSwiftUIView: View {
             }
             
             VStack(alignment: .leading){
-                Text("Brands")
+                Text("explore_brands".localized)
                     .font(.poppinsFont(size: 16, weight: .bold))
                     .foregroundColor(Color("AccentColor"))
 
-                TextField("Search", text: $searchText)
+                TextField("search".localized, text: $searchText)
                     .padding()
                     .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color("LightGray"), style: StrokeStyle(lineWidth: 1.0)))
                     .onChange(of: searchText) { newSearchText in
@@ -165,7 +165,7 @@ struct FilterSwiftUIView: View {
             }
             
             VStack(alignment: .leading){
-                Text("Rating")
+                Text("rating_s_5".localized)
                     .font(.poppinsFont(size: 16, weight: .bold))
                     .foregroundColor(Color("AccentColor"))
                 

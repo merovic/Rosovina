@@ -10,6 +10,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 import Combine
 import CombineCocoa
+import MOLH
 
 class OrderCustomizeView: UIViewController {
     
@@ -38,6 +39,7 @@ class OrderCustomizeView: UIViewController {
     @IBOutlet weak var messageTextView: UITextView! {
         didSet {
             messageTextView.delegate = self
+            messageTextView.text = "card_message".localized
         }
     }
     
@@ -53,7 +55,7 @@ class OrderCustomizeView: UIViewController {
     
     @IBOutlet weak var applyButton: UIButton! {
         didSet {
-            applyButton.roundCornersForSpecificCorners(corners: [.topRight, .bottomRight], radius: 10)
+            applyButton.roundCornersForSpecificCorners(corners: MOLHLanguage.isRTLLanguage() ? [.topLeft, .bottomLeft] : [.topRight, .bottomRight], radius: 10)
         }
     }
     
@@ -106,7 +108,7 @@ class OrderCustomizeView: UIViewController {
         
         viewModel!.$errorMessage.sink { response in
             if response != "" {
-                Alert.show("Customization Error", message: response, context: self)
+                Alert.show("customization_error".localized, message: response, context: self)
             }
         }.store(in: &bindings)
                 
@@ -137,7 +139,7 @@ class OrderCustomizeView: UIViewController {
 
 extension OrderCustomizeView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if textView.text == "card message" {
+        if textView.text == "card_message".localized {
             textView.text = ""
             textView.textColor = .black
         }
@@ -145,7 +147,7 @@ extension OrderCustomizeView: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == "card message" {
+        if textView.text == "card_message".localized {
             textView.text = ""
         }
         textView.textColor = .black
@@ -153,7 +155,7 @@ extension OrderCustomizeView: UITextViewDelegate {
 
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
-            textView.text = "card message"
+            textView.text = "card_message".localized
             textView.textColor = .lightGray
         }
     }
@@ -172,7 +174,7 @@ extension OrderCustomizeView: UITextViewDelegate {
         let maxCharacterCount = 191 // Change this to your desired maximum character count
 
         // Update the character count label
-        charsCounter.text = "\(text.count) / \(maxCharacterCount + 1)" + " Characters"
+        charsCounter.text = "\(text.count) / \(maxCharacterCount + 1)" + "s_characters_left".localized
         viewModel!.messageText = text
 
         // Optionally, limit the character count

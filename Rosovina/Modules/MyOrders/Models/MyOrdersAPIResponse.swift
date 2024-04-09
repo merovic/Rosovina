@@ -28,6 +28,7 @@ struct MyOrder: Codable, Identifiable {
     var formattedDate: String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-DD HH:mm:ss"
+        dateFormatter.locale = Locale(identifier: Locale.preferredLanguages.first ?? "ar")
         
         let date = dateFormatter.date(from: createdAt)!
         dateFormatter.dateFormat = "dd/MM/yyyy"
@@ -38,6 +39,7 @@ struct MyOrder: Codable, Identifiable {
     var formattedTime: String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-DD HH:mm:ss"
+        dateFormatter.locale = Locale(identifier: Locale.preferredLanguages.first ?? "ar")
         
         let date = dateFormatter.date(from: createdAt)!
         dateFormatter.dateFormat = "hh:mm a"
@@ -84,9 +86,11 @@ struct Activity: Codable {
     var formattedDate: String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.locale = Locale(identifier: Locale.preferredLanguages.first ?? "ar")
         
         let date = dateFormatter.date(from: createdAt)!
         dateFormatter.dateFormat = "dd/MM/yyyy"
+        dateFormatter.locale = Locale(identifier: Locale.preferredLanguages.first ?? "ar")
         let formattedDate = dateFormatter.string(from: date)
         return formattedDate
     }
@@ -94,9 +98,11 @@ struct Activity: Codable {
     var formattedTime: String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.locale = Locale(identifier: Locale.preferredLanguages.first ?? "ar")
         
         let date = dateFormatter.date(from: createdAt)!
         dateFormatter.dateFormat = "hh:mm a"
+        dateFormatter.locale = Locale(identifier: Locale.preferredLanguages.first ?? "ar")
         let formattedDate = dateFormatter.string(from: date)
         return formattedDate
     }

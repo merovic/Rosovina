@@ -133,7 +133,7 @@ class CartViewModel: ObservableObject {
                 )
                 .store(in: &cancellables)
         }else{
-            self.errorMessage = "Check your Promocode first"
+            self.errorMessage = "promoCode_error_2".localized
         }
         
     }

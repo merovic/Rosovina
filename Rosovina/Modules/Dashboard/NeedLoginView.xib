@@ -59,12 +59,18 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <color key="textColor" name="AccentColor"/>
                     <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="you_need_to_login_first"/>
+                    </userDefinedRuntimeAttributes>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="you can login to your account or join us with new account" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ufz-ac-M4i">
                     <rect key="frame" x="26" y="451" width="341" height="38.333333333333314"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <color key="textColor" name="AccentColor"/>
                     <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="new_account"/>
+                    </userDefinedRuntimeAttributes>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hEN-wU-C2F">
                     <rect key="frame" x="24" y="549.33333333333337" width="345" height="56"/>
@@ -76,6 +82,9 @@
                     <buttonConfiguration key="configuration" style="plain" title="Login or register your account">
                         <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </buttonConfiguration>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="login_or_register_your_account"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="loginClicked:" destination="-1" eventType="touchUpInside" id="gis-So-oHg"/>
                     </connections>
@@ -102,7 +111,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Group 61" width="192" height="188"/>
+        <image name="Group 61" width="188" height="188"/>
         <image name="arrow" width="24" height="21.666666030883789"/>
         <namedColor name="AccentColor">
             <color red="0.17599999904632568" green="0.19200000166893005" blue="0.25900000333786011" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -84,7 +84,7 @@ struct WishlistSwiftUIView: View {
                 }
             }else{
                 VStack{
-                    Text("Wishlist is Empty")
+                    Text("no_wish_list".localized)
                         .font(.poppinsFont(size: 25, weight: .medium))
                         .foregroundColor(Color.gray)
                     
@@ -135,7 +135,7 @@ struct WishlistProductItem: View {
                     .foregroundColor(Color.black)
                 HStack{
                     HStack{
-                        Text((product.currencyCode ?? "SAR") + " " + String(product.price.rounded()))
+                        Text((product.currencyCode ?? "SAR".localized) + " " + String(product.price.rounded()))
                             .font(.poppinsFont(size: 16, weight: .bold))
                             .foregroundColor(Color.black)
                         

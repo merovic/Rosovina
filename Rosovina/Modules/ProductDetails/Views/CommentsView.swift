@@ -45,7 +45,7 @@ struct CommentsSwiftUIView: View {
                 }
             }else{
                 VStack{
-                    Text("Comments List is Empty")
+                    Text("comments_list_is_empty".localized)
                         .font(.poppinsFont(size: 25, weight: .medium))
                         .foregroundColor(Color.gray)
                     

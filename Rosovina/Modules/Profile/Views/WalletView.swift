@@ -64,7 +64,7 @@ struct WalletViewSwiftUIView: View {
                 HStack{
                     Spacer().frame(width: 20)
                     
-                    Text("Operation")
+                    Text("operation".localized)
                         .frame(width: .infinity)
                         .font(.poppinsFont(size: 12, weight: .regular))
                         .multilineTextAlignment(.center)
@@ -72,7 +72,7 @@ struct WalletViewSwiftUIView: View {
                     
                     Spacer()
                     
-                    Text("Description")
+                    Text("description".localized)
                         .frame(width: .infinity)
                         .font(.poppinsFont(size: 12, weight: .regular))
                         .multilineTextAlignment(.center)
@@ -80,7 +80,7 @@ struct WalletViewSwiftUIView: View {
                     
                     Spacer()
                     
-                    Text("Amount")
+                    Text("amount".localized)
                         .frame(width: .infinity)
                         .font(.poppinsFont(size: 12, weight: .regular))
                         .multilineTextAlignment(.center)
@@ -107,7 +107,7 @@ struct TransactionItemViewSwiftUIView: View {
         HStack{
             Spacer().frame(width: 20)
             
-            Text(transaction.type == "payment" ? "Payment" : "Refund")
+            Text(transaction.type == "payment" ? "payment".localized : "refund".localized)
                 .font(.poppinsFont(size: 12, weight: .regular))
                 .padding(5)
                 .background(Color(transaction.type == "payment" ? "OnionColor" : "LightGray"))
@@ -120,13 +120,13 @@ struct TransactionItemViewSwiftUIView: View {
             
             Spacer()
             
-            Text(transaction.description == "" ? "Payment for new order" : transaction.description)
+            Text(transaction.description == "" ? "payment_for_new_order".localized : transaction.description)
                 .font(.poppinsFont(size: 12, weight: .regular))
                 .foregroundColor(Color.gray)
             
             Spacer()
             
-            Text(String(transaction.amount) + " SAR")
+            Text(String(transaction.amount) + " " + "SAR".localized)
                 .font(.poppinsFont(size: 12, weight: .regular))
                 .foregroundColor(Color.gray)
             

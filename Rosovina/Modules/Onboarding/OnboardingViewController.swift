@@ -7,12 +7,29 @@
 
 import UIKit
 import SwiftUI
+import Combine
 
 class OnboardingViewController: UIViewController {
+    
+    private var bindings = Set<AnyCancellable>()
 
     @IBOutlet weak var container: UIView!
     
     @IBOutlet weak var getStartedButton: UIButton! { didSet { getStartedButton.rounded()}}
+    
+    var getStartedGest: UITapGestureRecognizer = {
+        let gest = UITapGestureRecognizer()
+        gest.numberOfTapsRequired = 1
+        return gest
+    }()
+    
+    @IBOutlet weak var getStartedView: UIView! {
+        didSet {
+            getStartedView.rounded()
+            getStartedView.isUserInteractionEnabled = true
+            getStartedView.addGestureRecognizer(getStartedGest)
+        }
+    }
     
     @IBOutlet weak var skipButton: UIButton!
     
@@ -20,6 +37,17 @@ class OnboardingViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
         AttachViews()
+        
+        getStartedGest.tapPublisher
+            .sink(receiveValue:{_ in
+                let nav1 = UINavigationController()
+                let vc = InitCountryView()
+                nav1.isNavigationBarHidden = true
+                nav1.viewControllers = [vc]
+                nav1.modalPresentationStyle = .fullScreen
+                self.present(nav1, animated: true)
+            })
+            .store(in: &bindings)
     }
     
     func AttachViews() {

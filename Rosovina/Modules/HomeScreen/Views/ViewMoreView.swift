@@ -119,7 +119,7 @@ struct ViewMoreSwiftUIView: View {
                     }
                 }else{
                     VStack{
-                        Text("List is Empty")
+                        Text("list_is_empty".localized)
                             .font(.poppinsFont(size: 25, weight: .medium))
                             .foregroundColor(Color.gray)
                         
@@ -175,7 +175,7 @@ struct ViewMoreSwiftUIView: View {
                     }
                 }else{
                     VStack{
-                        Text("List is Empty")
+                        Text("list_is_empty".localized)
                             .font(.poppinsFont(size: 25, weight: .medium))
                             .foregroundColor(Color.gray)
                         

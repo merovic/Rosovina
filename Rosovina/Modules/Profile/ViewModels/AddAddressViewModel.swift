@@ -119,7 +119,7 @@ class AddAddressViewModel: ObservableObject {
                 )
                 .store(in: &cancellables)
         }else{
-            self.errorMessage = "Complete Your Address Data First"
+            self.errorMessage = "complete_your_address_data_first".localized
         }
         
     }

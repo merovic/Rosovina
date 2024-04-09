@@ -25,6 +25,8 @@ class PhoneNumberView: UIViewController {
         didSet {
             typeSegmentation.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
             typeSegmentation.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .normal)
+            typeSegmentation.setTitle("phone".localized, forSegmentAt: 0)
+            typeSegmentation.setTitle("email".localized, forSegmentAt: 1)
         }
     }
     
@@ -237,7 +239,7 @@ class PhoneNumberView: UIViewController {
                     tokenResponse: self.viewModel.tokenResponse)
                 self.navigationController?.pushViewController(newViewController, animated: true)
             }else if v == .failed{
-                Alert.show("Reset Failed", message: "Please Try Again", context: self)
+                Alert.show("reset_failed".localized, message: "please_try_again".localized, context: self)
             }
         }.store(in: &bindings)
         

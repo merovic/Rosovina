@@ -213,6 +213,10 @@
 		07BEE1CA2B48B63B0065C559 /* SelectAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BEE1C92B48B63B0065C559 /* SelectAddressViewModel.swift */; };
 		07BEE1CE2B499B660065C559 /* DashboardTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BEE1CC2B499B660065C559 /* DashboardTabBarViewController.swift */; };
 		07BEE1CF2B499B660065C559 /* DashboardTabBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07BEE1CD2B499B660065C559 /* DashboardTabBarViewController.xib */; };
+		07C05F432BC432DA00AE7AF6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07C05F452BC432DA00AE7AF6 /* Localizable.strings */; };
+		07C05F482BC433CD00AE7AF6 /* StringProtocolEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C05F472BC433CC00AE7AF6 /* StringProtocolEx.swift */; };
+		07C05F4A2BC59FA200AE7AF6 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C05F492BC59FA200AE7AF6 /* SettingsViewModel.swift */; };
+		07C05F4C2BC5AF7F00AE7AF6 /* RosovinaLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C05F4B2BC5AF7F00AE7AF6 /* RosovinaLanguage.swift */; };
 		07C77AFB2B5C044A00FCA240 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C77AF92B5C044A00FCA240 /* SearchView.swift */; };
 		07C77AFC2B5C044A00FCA240 /* SearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07C77AFA2B5C044A00FCA240 /* SearchView.xib */; };
 		07C77AFE2B5C071D00FCA240 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C77AFD2B5C071D00FCA240 /* SearchViewModel.swift */; };
@@ -456,6 +460,13 @@
 		07BEE1C92B48B63B0065C559 /* SelectAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAddressViewModel.swift; sourceTree = "<group>"; };
 		07BEE1CC2B499B660065C559 /* DashboardTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardTabBarViewController.swift; sourceTree = "<group>"; };
 		07BEE1CD2B499B660065C559 /* DashboardTabBarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DashboardTabBarViewController.xib; sourceTree = "<group>"; };
+		07C05F3F2BC432A800AE7AF6 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
+		07C05F402BC432A800AE7AF6 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		07C05F442BC432DA00AE7AF6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		07C05F462BC432DE00AE7AF6 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		07C05F472BC433CC00AE7AF6 /* StringProtocolEx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringProtocolEx.swift; sourceTree = "<group>"; };
+		07C05F492BC59FA200AE7AF6 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		07C05F4B2BC5AF7F00AE7AF6 /* RosovinaLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RosovinaLanguage.swift; sourceTree = "<group>"; };
 		07C77AF92B5C044A00FCA240 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		07C77AFA2B5C044A00FCA240 /* SearchView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchView.xib; sourceTree = "<group>"; };
 		07C77AFD2B5C071D00FCA240 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
@@ -700,6 +711,7 @@
 				07B6F6832AF68A3A00BE5BA6 /* LaunchScreen.storyboard */,
 				07BEE17C2B4211590065C559 /* GoogleService-Info.plist */,
 				07B6F6862AF68A3A00BE5BA6 /* Info.plist */,
+				07C05F452BC432DA00AE7AF6 /* Localizable.strings */,
 			);
 			path = Rosovina;
 			sourceTree = "<group>";
@@ -716,6 +728,7 @@
 				07B6F6912AF69D4B00BE5BA6 /* ImageEx.swift */,
 				07B6F69B2AF69D5C00BE5BA6 /* StackViewEx.swift */,
 				07B6F6952AF69D5300BE5BA6 /* StringEx.swift */,
+				07C05F472BC433CC00AE7AF6 /* StringProtocolEx.swift */,
 				07B6F69D2AF69D5F00BE5BA6 /* SwiftUIEx.swift */,
 				07B6F6962AF69D5600BE5BA6 /* TextFieldEx.swift */,
 				07B6F69F2AF69D6100BE5BA6 /* ViewEx.swift */,
@@ -1125,6 +1138,7 @@
 				07BEE1AA2B461D7E0065C559 /* AddressesViewModel.swift */,
 				07BEE1AC2B461E300065C559 /* AddAddressViewModel.swift */,
 				FB4D9C492B84E2EC007E8460 /* WalletViewModel.swift */,
+				07C05F492BC59FA200AE7AF6 /* SettingsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1162,6 +1176,7 @@
 				07B379682B5B292000F49DC3 /* UpdateAccountAPIResponse.swift */,
 				077CC6E22B893D850014E5A0 /* GetUserTransactionsAPIResponse.swift */,
 				077CC6E42B893DA80014E5A0 /* GetUserWalletAPIResponse.swift */,
+				07C05F4B2BC5AF7F00AE7AF6 /* RosovinaLanguage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1396,6 +1411,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ar,
 			);
 			mainGroup = 07B6F66C2AF68A3800BE5BA6;
 			packageReferences = (
@@ -1461,6 +1477,7 @@
 				07B6F6DE2AF69DF300BE5BA6 /* Poppins-ExtraBold.ttf in Resources */,
 				07BBA99F2B002B5D006AE9F7 /* WishlistView.xib in Resources */,
 				07C77B0D2B6052C100FCA240 /* SwiftCountryPicker.bundle in Resources */,
+				07C05F432BC432DA00AE7AF6 /* Localizable.strings in Resources */,
 				07BBA9952B002757006AE9F7 /* SettingsView.xib in Resources */,
 				07BBA97F2AFFFC7A006AE9F7 /* BlogDetailsView.xib in Resources */,
 				07BEE1CF2B499B660065C559 /* DashboardTabBarViewController.xib in Resources */,
@@ -1601,10 +1618,12 @@
 				077F4E272B9B760A00363CDF /* BrandsAPIResponse.swift in Sources */,
 				07BBA94E2AFEB0C8006AE9F7 /* ShoppingCartView.swift in Sources */,
 				07BEE19C2B4605800065C559 /* GetProductsView.swift in Sources */,
+				07C05F482BC433CD00AE7AF6 /* StringProtocolEx.swift in Sources */,
 				07B3795D2B59D53400F49DC3 /* GetGiftCardsAPIResponse.swift in Sources */,
 				076C2DCB2B333B98005ED1C7 /* LoginService.swift in Sources */,
 				07B6F6BD2AF69D6E00BE5BA6 /* SwiftBottomSheet.swift in Sources */,
 				07BBA9492AFE87B0006AE9F7 /* CommentsView.swift in Sources */,
+				07C05F4C2BC5AF7F00AE7AF6 /* RosovinaLanguage.swift in Sources */,
 				077CC6C72B7436920014E5A0 /* ViewMoreViewModel.swift in Sources */,
 				07BBA98B2B00217C006AE9F7 /* AddressListView.swift in Sources */,
 				07B3795B2B59D4B200F49DC3 /* OrderCustomizeViewModel.swift in Sources */,
@@ -1626,6 +1645,7 @@
 				07C7F5892B32641E00A4168A /* RegistrationAPIRequest.swift in Sources */,
 				07B6F6A92AF69D6100BE5BA6 /* StackViewEx.swift in Sources */,
 				07BEE1952B45F9F70065C559 /* GetProductsAPIResponse.swift in Sources */,
+				07C05F4A2BC59FA200AE7AF6 /* SettingsViewModel.swift in Sources */,
 				077CC6C12B6D812A0014E5A0 /* ConfirmOrderAPIResponse.swift in Sources */,
 				077CC6DE2B82C5190014E5A0 /* CitySelectorView.swift in Sources */,
 				07B379612B59E59A00F49DC3 /* CheckPromoCodeAPIResponse.swift in Sources */,
@@ -1731,6 +1751,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				07B6F67F2AF68A3800BE5BA6 /* Base */,
+				07C05F3F2BC432A800AE7AF6 /* ar */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1739,8 +1760,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				07B6F6842AF68A3A00BE5BA6 /* Base */,
+				07C05F402BC432A800AE7AF6 /* ar */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		07C05F452BC432DA00AE7AF6 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07C05F442BC432DA00AE7AF6 /* en */,
+				07C05F462BC432DE00AE7AF6 /* ar */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1750,6 +1781,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1810,6 +1842,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

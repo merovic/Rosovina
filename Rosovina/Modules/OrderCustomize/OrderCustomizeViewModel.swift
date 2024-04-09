@@ -87,7 +87,7 @@ class OrderCustomizeViewModel: ObservableObject {
                 )
                 .store(in: &cancellables)
         } else{
-            errorMessage = "Complete Your Inputs First"
+            errorMessage = "check_your_inputs_first".localized
         }
         
     }

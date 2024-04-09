@@ -197,7 +197,7 @@ class ForgetPasswordView: UIViewController {
             if v == .success{
                 self.viewModel.login()
             }else if v == .failed{
-                Alert.show("Forget Password Error", message: "Please Try Again", context: self)
+                Alert.show("forget_password_error".localized, message: "please_try_again".localized, context: self)
             }
         }.store(in: &bindings)
         
@@ -210,7 +210,7 @@ class ForgetPasswordView: UIViewController {
                 nav1.modalPresentationStyle = .fullScreen
                 self.present(nav1, animated: true)
             }else if v == .failed{
-                Alert.show("Forget Password Error", message: "Please Try Again", context: self)
+                Alert.show("forget_password_error".localized, message: "please_try_again".localized, context: self)
             }
         }.store(in: &bindings)
     }

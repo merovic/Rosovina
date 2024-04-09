@@ -65,7 +65,7 @@ struct AddressSwiftUIView: View {
                 }
             }else{
                 VStack{
-                    Text("Address List is Empty")
+                    Text("list_is_empty".localized)
                         .font(.poppinsFont(size: 25, weight: .medium))
                         .foregroundColor(Color.gray)
                     
@@ -90,7 +90,7 @@ struct AddressitemSwiftUIView: View {
                         .font(.poppinsFont(size: 16, weight: .bold))
                         .foregroundColor(Color.black)
                     if address.isDefault {
-                        Text(" (default)")
+                        Text("office_default".localized)
                             .font(.poppinsFont(size: 16, weight: .bold))
                             .foregroundColor(Color.gray)
                     }

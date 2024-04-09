@@ -20,8 +20,8 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="xp9-yl-HlK">
-                    <rect key="frame" x="36" y="182.66666666666663" width="321" height="487"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="xp9-yl-HlK">
+                    <rect key="frame" x="36" y="192.66666666666663" width="321" height="467"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Group 59" translatesAutoresizingMaskIntoConstraints="NO" id="sGf-uO-PXL">
                             <rect key="frame" x="64.666666666666686" y="0.0" width="192" height="188"/>
@@ -31,19 +31,25 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Success" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1F-7z-a4y">
-                            <rect key="frame" x="0.0" y="218.00000000000003" width="321" height="28.666666666666657"/>
+                            <rect key="frame" x="0.0" y="213.00000000000003" width="321" height="28.666666666666657"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                             <color key="textColor" red="0.28235294119999998" green="0.3921568627" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="success"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you. Your order has placed successfully." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eY7-kQ-flS">
-                            <rect key="frame" x="37.333333333333329" y="276.66666666666663" width="246.66666666666669" height="38.333333333333314"/>
+                            <rect key="frame" x="37.333333333333329" y="266.66666666666663" width="246.66666666666669" height="38.333333333333314"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" red="0.28235294119999998" green="0.3921568627" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="thank_you_your_order_has_placed_successfully"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8zw-A4-FYn">
-                            <rect key="frame" x="0.0" y="345" width="321" height="56"/>
+                            <rect key="frame" x="0.0" y="330" width="321" height="56"/>
                             <color key="backgroundColor" red="0.1764705882" green="0.19215686269999999" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="56" id="yQZ-Pb-br0"/>
@@ -52,12 +58,15 @@
                             <state key="normal" title="Continue">
                                 <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="continue_shopping"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="continueClicked:" destination="-1" eventType="touchUpInside" id="NSW-Ar-7lJ"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uXC-wR-MqM">
-                            <rect key="frame" x="0.0" y="431" width="321" height="56"/>
+                            <rect key="frame" x="0.0" y="411" width="321" height="56"/>
                             <color key="backgroundColor" red="0.97254901959999995" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="56" id="fnw-TC-rhA"/>
@@ -66,6 +75,9 @@
                             <state key="normal" title="Track your order">
                                 <color key="titleColor" red="0.21176470589999999" green="0.2156862745" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="track_your_order"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="trackClicked:" destination="-1" eventType="touchUpInside" id="BGz-pu-1Wu"/>
                             </connections>
@@ -93,7 +105,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Group 59" width="192" height="188"/>
+        <image name="Group 59" width="188" height="188"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

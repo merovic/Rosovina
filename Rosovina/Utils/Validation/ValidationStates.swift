@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import MOLH
 
 protocol Validatable {
     func validate(publisher: AnyPublisher<String, Never>) -> AnyPublisher<ValidationState, Never>
@@ -32,23 +33,23 @@ enum ValidationState: Equatable {
         var description: String {
             switch self {
             case .empty:
-                return "Field is empty."
+                return MOLHLanguage.isRTLLanguage() ? "الحقل فارغ." : "Field is empty."
             case .invalidEmail:
-                return "Invalid email."
+                return MOLHLanguage.isRTLLanguage() ? "بريد إلكتروني غير صالح." : "Invalid email."
             case .invalidPhone:
-                return "Invalid phone number."
+                return MOLHLanguage.isRTLLanguage() ? "رقم هاتف غير صالح." : "Invalid phone number."
             case .tooShortPassword:
-                return "Password is too short."
+                return MOLHLanguage.isRTLLanguage() ? "كلمة المرور قصيرة جدا." : "Password is too short."
             case .passwordNeedsNum:
-                return "Password doesn't contain any numbers."
+                return MOLHLanguage.isRTLLanguage() ? "كلمة المرور لا تحتوي على أي أرقام." : "Password doesn't contain any numbers."
             case .passwordNeedsLetters:
-                return "Password doesn't contain any letters."
+                return MOLHLanguage.isRTLLanguage() ? "كلمة المرور لا تحتوي على أي حروف." : "Password doesn't contain any letters."
             case .nameCantContainNumbers:
-                return "Name can't contain numbers."
+                return MOLHLanguage.isRTLLanguage() ? "لا يمكن أن يحتوي الاسم على أرقام." : "Name can't contain numbers."
             case .nameCantContainSpecialChars:
-                return "Name can't contain special characters."
+                return MOLHLanguage.isRTLLanguage() ? "لا يمكن أن يحتوي الاسم على أحرف خاصة." : "Name can't contain special characters."
             case .tooShortName:
-                return "Name can't be less than two characters."
+                return MOLHLanguage.isRTLLanguage() ? "الاسم لا يمكن أن يكون أقل من حرفين." : "Name can't be less than two characters."
             case .custom(let text):
                 return text
             }

@@ -77,7 +77,7 @@ struct SelectAddressSwiftUIView: View {
                 }
             }else{
                 VStack{
-                    Text("Address List is Empty")
+                    Text("list_is_empty".localized)
                         .font(.poppinsFont(size: 25, weight: .medium))
                         .foregroundColor(Color.gray)
                     

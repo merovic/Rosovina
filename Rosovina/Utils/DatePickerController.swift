@@ -26,6 +26,7 @@ class DatePickerController: UIViewController {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-M-dd"
+        dateFormatter.locale = Locale(identifier: Locale.preferredLanguages.first ?? "ar")
         let strDate = dateFormatter.string(from: datePicker.date)
         
         self.completion?(strDate)

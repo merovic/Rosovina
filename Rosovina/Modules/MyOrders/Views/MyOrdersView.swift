@@ -81,7 +81,7 @@ struct MyOrdersSwiftUIView: View {
                 ScrollView(.vertical, showsIndicators: false){
                     if self.viewModel.myCurrentOrders.count > 0{
                         VStack(alignment: .leading){
-                            Text("Processing")
+                            Text("processing".localized)
                                 .font(.poppinsFont(size: 18, weight: .bold))
                                 .foregroundColor(Color.accentColor)
                                 .padding(.top, 5)
@@ -94,7 +94,7 @@ struct MyOrdersSwiftUIView: View {
                     
                     if self.viewModel.myHistoryOrders.count > 0{
                         VStack(alignment: .leading){
-                            Text("History")
+                            Text("history".localized)
                                 .font(.poppinsFont(size: 18, weight: .bold))
                                 .foregroundColor(Color.accentColor)
                             
@@ -110,7 +110,7 @@ struct MyOrdersSwiftUIView: View {
                 }
             }else{
                 VStack{
-                    Text("Orders List is Empty")
+                    Text("list_is_empty".localized)
                         .font(.poppinsFont(size: 25, weight: .medium))
                         .foregroundColor(Color.gray)
                     
@@ -144,7 +144,7 @@ struct MyOrdersItemSwiftUIView: View {
             
             VStack(alignment: .leading, spacing: 10){
                 HStack{
-                    Text("Order ID: ")
+                    Text("order_id_s".localized)
                         .font(.poppinsFont(size: 16, weight: .bold))
                         .foregroundColor(Color.accentColor)
                     
@@ -154,7 +154,7 @@ struct MyOrdersItemSwiftUIView: View {
                 }
                 
                 HStack{
-                    Text(String(myOrder.items.count) + " Products")
+                    Text(String(myOrder.items.count) + "_5_products".localized)
                         .font(.poppinsFont(size: 16, weight: .regular))
                         .foregroundColor(Color.black)
                     
@@ -180,7 +180,7 @@ struct MyOrdersItemSwiftUIView: View {
                         Button {
                             self.viewModel.selectedOrderID = myOrder.id
                         } label: {
-                            Text("Track order")
+                            Text("track_order".localized)
                                 .frame(maxWidth: .infinity, maxHeight: 45)
                                 .font(.poppinsFont(size: 14, weight: .semibold))
                                 .foregroundColor(.white)
@@ -192,7 +192,7 @@ struct MyOrdersItemSwiftUIView: View {
                         
                         Button {
                         } label: {
-                            Text("Cancel order")
+                            Text("cancel_order".localized)
                                 .frame(maxWidth: .infinity, maxHeight: 45)
                                 .font(.poppinsFont(size: 14, weight: .semibold))
                                 .foregroundColor(.gray)

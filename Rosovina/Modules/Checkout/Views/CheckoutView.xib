@@ -72,6 +72,9 @@
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                             <color key="textColor" red="0.1764705882" green="0.19215686269999999" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="check_out"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -106,12 +109,18 @@
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                     <color key="textColor" red="0.1764705882" green="0.19215686269999999" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="ask_the_recipient_for_the_address"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We will collect the address from the recipient. Delivery time may be impacted if recipient is unreachable" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UuG-R7-0XX">
                                     <rect key="frame" x="0.0" y="23" width="266.5" height="24"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="we_will_collect_the_address_from_the_recipient_delivery_time_may_be_impacted_if_recipient_is_unreachable"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
                         </stackView>
@@ -132,38 +141,48 @@
                     <rect key="frame" x="0.0" y="216" width="393" height="1054"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="krH-AQ-7wZ">
-                            <rect key="frame" x="0.0" y="8" width="393" height="1074.5"/>
+                            <rect key="frame" x="0.0" y="8" width="393" height="1067.5"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="17d-Pe-bp7">
-                                    <rect key="frame" x="24" y="8" width="345" height="1058.5"/>
+                                    <rect key="frame" x="24" y="8" width="345" height="1051.5"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="pkU-2l-Dyg">
-                                            <rect key="frame" x="0.0" y="0.0" width="345" height="207"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="345" height="198"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YDC-lz-pJw">
-                                                    <rect key="frame" x="0.0" y="0.0" width="345" height="29"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="345" height="20"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saved Addresses" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O2a-Lp-gYF">
-                                                            <rect key="frame" x="0.0" y="0.0" width="255" height="29"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saved Addresses" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O2a-Lp-gYF">
+                                                            <rect key="frame" x="0.0" y="0.0" width="133.5" height="20"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                             <color key="textColor" red="0.21176470589999999" green="0.2156862745" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="saved_addresses"/>
+                                                            </userDefinedRuntimeAttributes>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iz2-bZ-GqD">
-                                                            <rect key="frame" x="255" y="0.0" width="90" height="29"/>
+                                                        <view contentMode="scaleToFill" horizontalCompressionResistancePriority="739" translatesAutoresizingMaskIntoConstraints="NO" id="cpG-N1-ctb">
+                                                            <rect key="frame" x="133.5" y="0.0" width="138.5" height="20"/>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="90" id="kxf-bd-hWR"/>
+                                                                <constraint firstAttribute="height" constant="20" id="Jcr-bL-hzn"/>
                                                             </constraints>
+                                                        </view>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iz2-bZ-GqD">
+                                                            <rect key="frame" x="272" y="0.0" width="73" height="20"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                             <state key="normal" title="+ Add new">
                                                                 <color key="titleColor" red="0.21176470589999999" green="0.2156862745" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             </state>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="add_new"/>
+                                                            </userDefinedRuntimeAttributes>
                                                         </button>
                                                     </subviews>
                                                 </stackView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t2p-5x-ghV">
-                                                    <rect key="frame" x="0.0" y="37" width="345" height="106"/>
+                                                    <rect key="frame" x="0.0" y="28" width="345" height="106"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="icA-Ey-B7G">
                                                             <rect key="frame" x="10" y="10" width="67" height="16"/>
@@ -190,6 +209,9 @@
                                                             <state key="normal" title="Change">
                                                                 <color key="titleColor" red="0.74901960784313726" green="0.26666666666666666" blue="0.38039215686274508" alpha="1" colorSpace="calibratedRGB"/>
                                                             </state>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="change"/>
+                                                            </userDefinedRuntimeAttributes>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+20 100 3319 530" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nts-XS-hg1">
                                                             <rect key="frame" x="31" y="34" width="134" height="19.5"/>
@@ -220,7 +242,7 @@
                                                     </constraints>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hn8-EI-WuD">
-                                                    <rect key="frame" x="0.0" y="151" width="345" height="56"/>
+                                                    <rect key="frame" x="0.0" y="142" width="345" height="56"/>
                                                     <color key="backgroundColor" red="0.1764705882" green="0.19215686269999999" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="56" id="Db1-hD-UVr"/>
@@ -229,6 +251,9 @@
                                                     <buttonConfiguration key="configuration" style="plain" title="Add Address">
                                                         <color key="baseForegroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </buttonConfiguration>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="add_new_address"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -241,7 +266,7 @@
                                             </constraints>
                                         </stackView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vXG-GG-yzG">
-                                            <rect key="frame" x="0.0" y="229" width="345" height="147.5"/>
+                                            <rect key="frame" x="0.0" y="220" width="345" height="147.5"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="96x-zM-Pje">
                                                     <rect key="frame" x="0.0" y="8" width="345" height="131.5"/>
@@ -254,6 +279,9 @@
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                             <color key="textColor" red="0.1764705882" green="0.19215686269999999" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="recipient_details"/>
+                                                            </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="0ne-PK-QOx">
                                                             <rect key="frame" x="0.0" y="27.5" width="345" height="48"/>
@@ -265,6 +293,9 @@
                                                                             <rect key="frame" x="16" y="14.5" width="313" height="18.5"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                             <textInputTraits key="textInputTraits"/>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="ask_the_recipient_for_the_address"/>
+                                                                            </userDefinedRuntimeAttributes>
                                                                         </textField>
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -297,6 +328,9 @@
                                                                             <rect key="frame" x="125" y="14.5" width="204" height="18.5"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                             <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="type_recipient_phone"/>
+                                                                            </userDefinedRuntimeAttributes>
                                                                         </textField>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yqJ-gU-qpr">
                                                                             <rect key="frame" x="8" y="8" width="100" height="32"/>
@@ -355,7 +389,7 @@
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7UL-1V-ZhK">
-                                            <rect key="frame" x="0.0" y="398.5" width="345" height="239"/>
+                                            <rect key="frame" x="0.0" y="389.5" width="345" height="239"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="43S-Ez-DG2">
                                                     <rect key="frame" x="0.0" y="8" width="345" height="223"/>
@@ -368,6 +402,9 @@
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                             <color key="textColor" red="0.1764705882" green="0.19215686269999999" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="delivery_time"/>
+                                                            </userDefinedRuntimeAttributes>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="GXl-aP-Wf6">
                                                             <rect key="frame" x="0.0" y="27" width="345" height="48"/>
@@ -379,6 +416,9 @@
                                                                             <rect key="frame" x="16" y="15" width="313" height="18.5"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                             <textInputTraits key="textInputTraits"/>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="select_delivery_date"/>
+                                                                            </userDefinedRuntimeAttributes>
                                                                         </textField>
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -426,13 +466,16 @@
                                             </constraints>
                                         </view>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="3p3-3v-SVn">
-                                            <rect key="frame" x="0.0" y="659.5" width="345" height="148.5"/>
+                                            <rect key="frame" x="0.0" y="650.5" width="345" height="148.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rDa-gF-ZlG">
                                                     <rect key="frame" x="0.0" y="0.0" width="68.5" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                     <color key="textColor" red="0.21176470589999999" green="0.2156862745" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="payment"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BeH-dE-SkV">
                                                     <rect key="frame" x="0.0" y="38.5" width="345" height="110"/>
@@ -559,31 +602,41 @@
                                             </constraints>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="bPe-Lc-cU2">
-                                            <rect key="frame" x="0.0" y="830" width="345" height="228.5"/>
+                                            <rect key="frame" x="0.0" y="821" width="345" height="230.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment summary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rmQ-8S-xR2">
                                                     <rect key="frame" x="0.0" y="0.0" width="145" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                     <color key="textColor" red="0.21176470589999999" green="0.2156862745" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="payment_summary"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="btK-yM-soC">
-                                                    <rect key="frame" x="0.0" y="32.5" width="345" height="98.5"/>
+                                                    <rect key="frame" x="0.0" y="32.5" width="345" height="100"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rzW-ie-6no">
-                                                            <rect key="frame" x="0.0" y="0.0" width="345" height="19.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="345" height="20"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtotal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIx-4t-HFj">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="19.5"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="width" constant="80" id="Pkp-Gq-Qt3"/>
-                                                                    </constraints>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="61" height="20"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <color key="textColor" red="0.21176470589999999" green="0.2156862745" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="subtotal"/>
+                                                                    </userDefinedRuntimeAttributes>
                                                                 </label>
+                                                                <view contentMode="scaleToFill" horizontalCompressionResistancePriority="739" translatesAutoresizingMaskIntoConstraints="NO" id="kN8-q9-a49">
+                                                                    <rect key="frame" x="61" y="0.0" width="247.5" height="20"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="20" id="6PD-AA-qcB"/>
+                                                                    </constraints>
+                                                                </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="112$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8LJ-Xw-hKl">
-                                                                    <rect key="frame" x="80" y="0.0" width="265" height="19.5"/>
+                                                                    <rect key="frame" x="308.5" y="0.0" width="36.5" height="20"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                                     <color key="textColor" red="0.21176470589999999" green="0.2156862745" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -591,39 +644,53 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aMN-CK-q7o">
-                                                            <rect key="frame" x="0.0" y="39.5" width="345" height="19.5"/>
+                                                            <rect key="frame" x="0.0" y="40" width="345" height="20"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delivery fee" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWO-8K-F3w">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="120" height="19.5"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="width" constant="120" id="U1o-8T-SzL"/>
-                                                                    </constraints>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="86" height="20"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <color key="textColor" red="0.21176470589999999" green="0.2156862745" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="delivery_fees"/>
+                                                                    </userDefinedRuntimeAttributes>
                                                                 </label>
+                                                                <view contentMode="scaleToFill" horizontalCompressionResistancePriority="739" translatesAutoresizingMaskIntoConstraints="NO" id="pe5-vC-cYv">
+                                                                    <rect key="frame" x="86" y="0.0" width="222.5" height="20"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="20" id="Zzp-Kp-sQR"/>
+                                                                    </constraints>
+                                                                </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="112$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mEJ-oe-8La">
-                                                                    <rect key="frame" x="120" y="0.0" width="225" height="19.5"/>
+                                                                    <rect key="frame" x="308.5" y="0.0" width="36.5" height="20"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                                     <color key="textColor" red="0.21176470589999999" green="0.2156862745" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="81" translatesAutoresizingMaskIntoConstraints="NO" id="Ygh-Gk-Ba3">
-                                                            <rect key="frame" x="0.0" y="79" width="345" height="19.5"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ygh-Gk-Ba3">
+                                                            <rect key="frame" x="0.0" y="80" width="345" height="20"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service fee" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jWL-v6-8gk">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="90" height="19.5"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="width" constant="90" id="MgR-I6-RGc"/>
-                                                                    </constraints>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="81.5" height="20"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <color key="textColor" red="0.21176470589999999" green="0.2156862745" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="service_fee"/>
+                                                                    </userDefinedRuntimeAttributes>
                                                                 </label>
+                                                                <view contentMode="scaleToFill" horizontalCompressionResistancePriority="739" translatesAutoresizingMaskIntoConstraints="NO" id="e8l-1N-ZzY">
+                                                                    <rect key="frame" x="81.5" y="0.0" width="227" height="20"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="20" id="jxI-Zw-EVd"/>
+                                                                    </constraints>
+                                                                </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="112$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sYZ-eL-yuq">
-                                                                    <rect key="frame" x="171" y="0.0" width="174" height="19.5"/>
+                                                                    <rect key="frame" x="308.5" y="0.0" width="36.5" height="20"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                                     <color key="textColor" red="0.21176470589999999" green="0.2156862745" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -641,26 +708,33 @@
                                                     </constraints>
                                                 </stackView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MGf-SY-cmb">
-                                                    <rect key="frame" x="0.0" y="144" width="345" height="0.5"/>
+                                                    <rect key="frame" x="0.0" y="145.5" width="345" height="0.5"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="0.5" id="4q0-2D-U8r"/>
                                                     </constraints>
                                                 </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sh8-pH-qWe">
-                                                    <rect key="frame" x="0.0" y="157.5" width="345" height="19.5"/>
+                                                    <rect key="frame" x="0.0" y="159" width="345" height="20"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cIg-pF-FXO">
-                                                            <rect key="frame" x="0.0" y="0.0" width="120" height="19.5"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="120" id="yUn-MX-iUP"/>
-                                                            </constraints>
+                                                            <rect key="frame" x="0.0" y="0.0" width="94.5" height="20"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                             <color key="textColor" red="0.21176470589999999" green="0.2156862745" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="total_amount"/>
+                                                            </userDefinedRuntimeAttributes>
                                                         </label>
+                                                        <view contentMode="scaleToFill" horizontalCompressionResistancePriority="739" translatesAutoresizingMaskIntoConstraints="NO" id="HBa-XM-IRB">
+                                                            <rect key="frame" x="94.5" y="0.0" width="214" height="20"/>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="20" id="7by-x8-kuE"/>
+                                                            </constraints>
+                                                        </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="112$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNt-fK-HkS">
-                                                            <rect key="frame" x="120" y="0.0" width="225" height="19.5"/>
+                                                            <rect key="frame" x="308.5" y="0.0" width="36.5" height="20"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                             <color key="textColor" red="0.21176470589999999" green="0.2156862745" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -668,12 +742,15 @@
                                                     </subviews>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pqa-VL-zms">
-                                                    <rect key="frame" x="0.0" y="190" width="317" height="38.5"/>
+                                                    <rect key="frame" x="0.0" y="192" width="317" height="38.5"/>
                                                     <string key="text">By placing this order you agree to the credit
 card payment terms &amp; conditions</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.21176470589999999" green="0.2156862745" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizeKey" value="by_placing"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -749,7 +826,7 @@ card payment terms &amp; conditions</string>
                 <constraint firstItem="zOV-Jx-Fqf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="xQx-tb-uKD"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="32.824427480916029" y="194.36619718309859"/>
+            <point key="canvasLocation" x="32.799999999999997" y="194.30284857571215"/>
         </view>
     </objects>
     <resources>

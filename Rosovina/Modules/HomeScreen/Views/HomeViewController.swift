@@ -69,16 +69,16 @@ class HomeViewController: UIViewController {
     
     func checkAppVersion(){
         if ForceUpdateAppVersion.isForceUpdateRequire(apiVersion: Int(Bundle.main.appBuild)!){
-            let alert = UIAlertController(title: "Your app is outdated", message: "Please download the latest version of our app first", preferredStyle: .alert)
+            let alert = UIAlertController(title: "your_app_is_outdated".localized, message: "Please_download".localized, preferredStyle: .alert)
             
-            let updateAction = UIAlertAction(title: "Update", style: UIAlertAction.Style.default) {
+            let updateAction = UIAlertAction(title: "update".localized, style: UIAlertAction.Style.default) {
                 UIAlertAction in
                 if let url = URL(string: "https://apps.apple.com/sa/app/rosovina/id6476466670") {
                     UIApplication.shared.open(url)
                 }
             }
             
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil)
                     
             alert.addAction(updateAction)
             alert.addAction(cancelAction)

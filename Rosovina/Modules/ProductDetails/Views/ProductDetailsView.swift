@@ -339,7 +339,7 @@ class ProductDetailsView: UIViewController {
                 }
                 
                 self.titleLabel.text = product!.title
-                self.priceLabel.text = (product!.currencyCode ?? "SAR") + " " + String(product!.price.rounded())
+                self.priceLabel.text = (product!.currencyCode ?? "SAR".localized) + " " + String(product!.price.rounded())
                 
                 self.informationTextView.text = product!.description.removeHTMLTags()
                 //heart
