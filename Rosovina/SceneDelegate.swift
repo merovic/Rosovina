@@ -90,7 +90,7 @@ class ForceUpdateAppVersion {
                     if let dict: NSDictionary = try? JSONSerialization.jsonObject(with: dataInJSON as Data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String: AnyObject] as NSDictionary? {
                         if let results:NSArray = dict["results"] as? NSArray {
                             if let version = (results[0] as! [String:Any])["version"] as? String {
-                                print(results)
+                                //print(results)
                                 // Get the version number of the current version installed on device
                                 if let currentVersion = infoDictionary["CFBundleShortVersionString"] as? String {
                                     

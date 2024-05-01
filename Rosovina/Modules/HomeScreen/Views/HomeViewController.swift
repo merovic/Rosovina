@@ -240,8 +240,10 @@ struct HomeSwiftUIView: View {
                     switch section.code{
                     case .slider, .sliderAds:
                         // MARK: - Slider
-                        ImageCarouselView(data: section.data, selectedSliderImage: $viewModel.selectedSliderImage)
-                            .frame(height: 200)
+                        if !section.data.isEmpty{
+                            ImageCarouselView(data: section.data, selectedSliderImage: $viewModel.selectedSliderImage)
+                                .frame(height: 200)
+                        }
                     case .occasionCategories:
                         // MARK: - Occasions
                         OccasionsSwiftUIView(title: section.title, occasions: section.data, selectedCategory: $viewModel.selectedCategory, viewMoreClicked: $viewModel.viewMoreCategoriesClicked, viewMoreItems: $viewModel.selectedViewMoreItems, selectedViewMoreType: $viewModel.selectedViewMoreType)

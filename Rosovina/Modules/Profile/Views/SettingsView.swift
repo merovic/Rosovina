@@ -71,7 +71,7 @@ class SettingsView: UIViewController {
     }
     
     func AttachViews(){
-        self.container.EmbedSwiftUIView(view: LanguageDropdown(placeholder: "", viewModel: viewModel), parent: self)
+        self.container.EmbedSwiftUIView(view: LanguageDropdown(viewModel: viewModel), parent: self)
     }
 
     func BindViews(){

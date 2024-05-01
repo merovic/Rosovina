@@ -386,7 +386,8 @@ class CheckoutView: UIViewController {
                 case .ApplePay:
                     self.initiateApplePay()
                 case .Tamara:
-                    //self.initiateTamaraSDK()
+                    self.initiateTamaraSDK()
+                case .Tabby:
                     self.initiateTabby()
                 default:
                     print("")

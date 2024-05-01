@@ -72,7 +72,6 @@ struct Dropdown: View {
 
 struct LanguageDropdown: View {
     
-    var placeholder: String
     @ObservedObject var viewModel: SettingsViewModel
     
     var body: some View {
